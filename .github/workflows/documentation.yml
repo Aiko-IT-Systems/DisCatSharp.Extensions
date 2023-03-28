@@ -12,43 +12,41 @@ jobs:
     runs-on: ubuntu-latest
     name: Build documentation
     steps:
-    - name: Checkout repository
+    - name: Checkout current project
       uses: actions/checkout@v3
       with:
-        token:  ${{ secrets.NYUW_TOKEN_GH }}
+        token:  ${{ secrets.GITHUB_TOKEN }}
+        path: DisCatSharp.Extensions
+    - name: Checkout dcs repository
+      uses: actions/checkout@v3
+      with:
+        repository: Aiko-IT-Systems/DisCatSharp
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: DisCatSharp
     - name: Setup .NET
       uses: actions/setup-dotnet@v3.0.3
       with:
         dotnet-version: 6.x
     - name: Git fetch unshallow
       run: git fetch --unshallow
+      working-directory: DisCatSharp.Extensions
     - name: Restore packages
       run: dotnet restore
+      working-directory: DisCatSharp.Extensions
     - name: Build library
       run: dotnet build -c Release
+      working-directory: DisCatSharp.Extensions
       continue-on-error: true
     - name: Build Docs
       shell: pwsh
-      run: ./rebuild-docs.ps1 -DocsPath "./DisCatSharp.Docs" -Output "." -PackageName "dcs-docs"
+      run: ./rebuild-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -Output ".." -PackageName "dcs-ext-docs"
+      working-directory: DisCatSharp.Extensions
     - name: Upload packed docs
       uses: actions/upload-artifact@v3
       with:
-        name: dcs-docs.zip
-        path: dcs-docs.zip
+        name: dcs-ext-docs.zip
+        path: dcs-ext-docs.zip
         retention-days: 30
-    - name: Force add build files
-      run: git add DisCatSharp.Docs/obj/.cache/build/* -f
-    - name: Commit and push changes
-      uses: EndBug/add-and-commit@main
-      with:
-        default_author: user_info
-        author_name: NyuwBot
-        author_email: nyuw@aitsys.dev
-        committer_name: NyuwBot
-        committer_email: nyuw@aitsys.dev
-        commit: --signoff
-        message: '[ci skip] Sync docs changes'
-        tag_push: '--force'
   documentation:
     runs-on: ubuntu-latest
     name: Upload documentation
@@ -57,23 +55,23 @@ jobs:
     - name: Checkout docs repository
       uses: actions/checkout@v3
       with:
-        repository: Aiko-IT-Systems/DisCatSharp.Docs
-        token: ${{ secrets.NYUW_TOKEN_GH }}
+        repository: Aiko-IT-Systems/DisCatSharp.Extensions.Docs
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Purge old docs
       shell: pwsh
       run: Get-ChildItem -Exclude .git* | Remove-Item -Recurse -Force
     - name: Download packed docs
       uses: actions/download-artifact@v3
       with:
-        name: dcs-docs.zip
+        name: dcs-ext-docs.zip
     - name: Extract new docs
-      run: unzip dcs-docs.zip -d .
+      run: unzip dcs-ext-docs.zip -d .
     - name: Deleze zip
-      run: rm dcs-docs.zip
+      run: rm dcs-ext-docs.zip
     - name: Delete packed docs
       uses: geekyeggo/delete-artifact@v2
       with:
-        name: dcs-docs.zip
+        name: dcs-ext-docs.zip
     - name: Add .htaccess
       run: rm -f .htaccess && wget https://gist.githubusercontent.com/Lulalaby/8a032d0ddebb9125691094edc67b6593/raw/8ba47fc2b8959aa43d66da95b5e56e0802a22dd6/.htaccess
     - name: Set access rights
@@ -99,16 +97,4 @@ jobs:
         ssh-private-key: ${{ secrets.AITSYS_SSH }}
     - name: Publish on server
       continue-on-error: true
-      run: ssh -o StrictHostKeyChecking=no -T root@80.152.135.241 -f 'cd /var/www/dcs.aitsys.dev/docs && git pull -f && service apache2 restart'
-  publish-backup:
-    runs-on: ubuntu-latest
-    name: Publish documentation on backup server
-    needs: documentation
-    steps:
-    - name: Get SSH Agent
-      uses: webfactory/ssh-agent@v0.8.0
-      with:
-        ssh-private-key: ${{ secrets.AITSYS_SSH }}
-    - name: Publish on server
-      continue-on-error: true
-      run: ssh -o StrictHostKeyChecking=no -T root@207.180.240.241 -f 'cd /var/www/dcsdocs && git pull -f && service apache2 restart'
+      run: ssh -o StrictHostKeyChecking=no -T root@80.152.135.241 -f 'cd /var/www/dcs-ext.aitsys.dev/docs && git pull -f && service apache2 restart'
