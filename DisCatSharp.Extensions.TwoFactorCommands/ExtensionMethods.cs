@@ -46,11 +46,12 @@ public static class ExtensionMethods
 		if (client.GetExtension<TwoFactorExtension>() != null)
 			throw new InvalidOperationException("TwoFactor is already enabled for that client.");
 
+		cfg ??= new TwoFactorConfiguration();
 		cfg.ServiceProvider ??= client.ServiceProvider ?? new ServiceCollection().BuildServiceProvider(true);
 
-		var cnext = new TwoFactorExtension(cfg);
-		client.AddExtension(cnext);
-		return cnext;
+		var tfe = new TwoFactorExtension(cfg);
+		client.AddExtension(tfe);
+		return tfe;
 	}
 
 	/// <summary>
@@ -66,10 +67,10 @@ public static class ExtensionMethods
 
 		foreach (var shard in client.ShardClients.Select(xkvp => xkvp.Value))
 		{
-			var cnext = shard.GetExtension<TwoFactorExtension>();
-			cnext ??= shard.UseTwoFactor(cfg);
+			var tfe = shard.GetExtension<TwoFactorExtension>();
+			tfe ??= shard.UseTwoFactor(cfg);
 
-			modules[shard.ShardId] = cnext;
+			modules[shard.ShardId] = tfe;
 		}
 
 		return new ReadOnlyDictionary<int, TwoFactorExtension>(modules);
