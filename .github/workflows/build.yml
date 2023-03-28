@@ -19,28 +19,13 @@ jobs:
     steps:
     - name: Checkout current project
       uses: actions/checkout@v3
-      with:
-        token:  ${{ secrets.GITHUB_TOKEN }}
-        path: DisCatSharp.Extensions
-    - name: Checkout dcs repository
-      uses: actions/checkout@v3
-      with:
-        repository: Aiko-IT-Systems/DisCatSharp
-        token: ${{ secrets.GITHUB_TOKEN }}
-        path: DisCatSharp
     - name: Setup .NET
       uses: actions/setup-dotnet@v3.0.3
       with:
         dotnet-version: ${{ matrix.dotnet }}
-    - name: Remove additional projects
-      run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
-      working-directory: DisCatSharp.Extensions
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: DisCatSharp.Extensions
     - name: Build library
       run: dotnet build -c Release
-      working-directory: DisCatSharp.Extensions
     - name: Test library
       run: dotnet test --verbosity normal -c Release
-      working-directory: DisCatSharp.Extensions

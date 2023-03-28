@@ -1,4 +1,4 @@
-name: "Release DisCatSharp"
+name: "Release DisCatSharp Extensions"
 
 on:
   workflow_dispatch:
@@ -23,8 +23,6 @@ jobs:
         uses: actions/setup-dotnet@v3.0.3
         with:
           dotnet-version: 6.x
-      - name: Remove additional projects
-        run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
       - name: Restore dependencies
         run: dotnet restore
       - name: Build library as full release
@@ -45,5 +43,5 @@ jobs:
         working-directory: ../dcs-artifacts
       - name: Publish to GitHub Packages
         shell: pwsh
-        run: dotnet nuget push --source https://nuget.pkg.github.com/Aiko-IT-Systems/index.json -k ${{secrets.NYUW_TOKEN_GH}} *
+        run: dotnet nuget push --source https://nuget.pkg.github.com/Aiko-IT-Systems/index.json -k ${{secrets.GITHUB_TOKEN}} *
         working-directory: ../dcs-artifacts
