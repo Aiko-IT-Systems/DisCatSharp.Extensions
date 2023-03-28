@@ -47,10 +47,10 @@ public static class ExtensionMethods
 	/// <param name="client">Client to enable TwoFactor for.</param>
 	/// <param name="cfg">TwoFactor configuration to use.</param>
 	/// <returns>Created <see cref="TwoFactorExtension"/>.</returns>
-	public static TwoFactorExtension UseTwoFactor(this DiscordClient client, TwoFactorConfiguration cfg)
+	public static TwoFactorExtension UseTwoFactor(this DiscordClient client, TwoFactorConfiguration cfg = null)
 	{
 		if (client.GetExtension<TwoFactorExtension>() != null)
-			throw new InvalidOperationException("CommandsNext is already enabled for that client.");
+			throw new InvalidOperationException("TwoFactor is already enabled for that client.");
 
 		cfg.ServiceProvider ??= client.ServiceProvider ?? new ServiceCollection().BuildServiceProvider(true);
 
@@ -65,7 +65,7 @@ public static class ExtensionMethods
 	/// <param name="client">Client to enable TwoFactor for.</param>
 	/// <param name="cfg">TwoFactor configuration to use.</param>
 	/// <returns>A dictionary of created <see cref="TwoFactorExtension"/>, indexed by shard id.</returns>
-	public static async Task<IReadOnlyDictionary<int, TwoFactorExtension>> UseTwoFactorAsync(this DiscordShardedClient client, TwoFactorConfiguration cfg)
+	public static async Task<IReadOnlyDictionary<int, TwoFactorExtension>> UseTwoFactorAsync(this DiscordShardedClient client, TwoFactorConfiguration cfg = null)
 	{
 		var modules = new Dictionary<int, TwoFactorExtension>();
 		await client.InitializeShardsAsync().ConfigureAwait(false);

@@ -24,6 +24,8 @@ using System;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using TwoFactorAuthNet;
+
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
 /// <summary>
@@ -39,9 +41,34 @@ public sealed class TwoFactorConfiguration
 	public IServiceProvider ServiceProvider { internal get; set; }
 
 	/// <summary>
+	/// Gets the length of digits for the 2fa code. Defaults to 6.
+	/// </summary>
+	public int Digits { internal get; set; } = 6;
+
+	/// <summary>
+	/// Gets the period in seconds how long a code is valid. Defaults to 30.
+	/// </summary>
+	public int Period { internal get; set; } = 30;
+
+	/// <summary>
+	/// Gets the algorithm. Defaults to <see cref="Algorithm.SHA1"/>.
+	/// </summary>
+	public Algorithm Algorithm { internal get; set; } = Algorithm.SHA1;
+
+	/// <summary>
+	/// <para>Gets the issuer.</para>
+	/// <para>Defaults to aitsys.dev to show the DisCatSharp logo.</para>
+	/// </summary>
+	public string Issuer { internal get; set; } = "aitsys.dev";
+
+	/// <summary>
 	/// Creates a new instance of <see cref="TwoFactorConfiguration"/>.
 	/// </summary>
-	public TwoFactorConfiguration() { }
+	[ActivatorUtilitiesConstructor]
+	public TwoFactorConfiguration()
+	{
+
+	}
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorConfiguration"/> class.
@@ -59,6 +86,9 @@ public sealed class TwoFactorConfiguration
 	/// <param name="other">Configuration the properties of which are to be copied.</param>
 	public TwoFactorConfiguration(TwoFactorConfiguration other)
 	{
-
+		this.Digits = other.Digits;
+		this.Period = other.Period;
+		this.Algorithm = other.Algorithm;
+		this.Issuer = other.Issuer;
 	}
 }

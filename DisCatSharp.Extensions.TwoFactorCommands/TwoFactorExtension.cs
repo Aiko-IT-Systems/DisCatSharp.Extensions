@@ -22,11 +22,18 @@
 
 using System;
 
+using TwoFactorAuthNet;
+
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
 public sealed class TwoFactorExtension : BaseExtension
 {
+	/// <summary>
+	/// Gets the two factor configuration.
+	/// </summary>
 	private readonly TwoFactorConfiguration _config;
+
+	internal TwoFactorAuth TwoFactorClient { get; private set; }
 
 	/// <summary>
 	/// Gets the service provider this TwoFactor module was configured with.
@@ -37,10 +44,12 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
 	/// </summary>
-	/// <param name="cfg">The cfg.</param>
-	internal TwoFactorExtension(TwoFactorConfiguration cfg)
+	/// <param name="configuration">The config.</param>
+	internal TwoFactorExtension(TwoFactorConfiguration configuration = null)
 	{
-		this._config = new TwoFactorConfiguration(cfg);
+		configuration ??= new TwoFactorConfiguration();
+		this._config = configuration;
+		this.TwoFactorClient = new(configuration.Issuer, configuration.Digits, configuration.Period, configuration.Algorithm);
 	}
 
 	/// <summary>
