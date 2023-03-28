@@ -39,6 +39,7 @@ Extension allowing to require two factor authentication for commands.
     <ProjectReference Include="..\..\DisCatSharp\DisCatSharp\DisCatSharp.csproj" />
     <ProjectReference Include="..\..\DisCatSharp\DisCatSharp.ApplicationCommands\DisCatSharp.ApplicationCommands.csproj" />
     <ProjectReference Include="..\..\DisCatSharp\DisCatSharp.CommandsNext\DisCatSharp.CommandsNext.csproj" />
+	<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.Interactivity\DisCatSharp.Interactivity.csproj" />
   </ItemGroup>
 
 </Project>
