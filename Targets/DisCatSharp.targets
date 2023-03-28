@@ -4,10 +4,10 @@
     <Authors>AITSYS, DisCatSharp, DisCatSharp Contributors</Authors>
     <Company>AITSYS</Company>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/Aiko-IT-Systems/DisCatSharp</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Aiko-IT-Systems/DisCatSharp</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageIcon>logobig.png</PackageIcon>
+    <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseExpression />
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
