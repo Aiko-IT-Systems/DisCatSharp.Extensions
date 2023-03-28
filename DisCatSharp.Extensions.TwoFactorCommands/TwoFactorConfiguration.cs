@@ -24,14 +24,15 @@ using System;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using TwoFactorAuthNet;
+
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
 /// <summary>
-/// Represents a configuration for <see cref="TwoFactorConfiguration"/>.
+/// Represents a configuration for <see cref="TwoFactorExtension"/>.
 /// </summary>
 public sealed class TwoFactorConfiguration
 {
-
 	/// <summary>
 	/// <para>Sets the service provider for this TwoFactor instance.</para>
 	/// <para>Objects in this provider are used when instantiating command modules. This allows passing data around without resorting to static members.</para>
@@ -40,9 +41,47 @@ public sealed class TwoFactorConfiguration
 	public IServiceProvider ServiceProvider { internal get; set; }
 
 	/// <summary>
+	/// Sets the length of digits for the 2fa code. Defaults to <c>6</c>.
+	/// </summary>
+	public int Digits { internal get; set; } = 6;
+
+	/// <summary>
+	/// Sets the period in seconds how long a code is valid. Defaults to <c>30</c> seconds..
+	/// </summary>
+	public int Period { internal get; set; } = 30;
+
+	/// <summary>
+	/// Sets the algorithm. Defaults to <see cref="Algorithm.SHA1"/>.
+	/// </summary>
+	public Algorithm Algorithm { internal get; set; } = Algorithm.SHA1;
+
+	/// <summary>
+	/// <para>Sets the issuer.</para>
+	/// <para>Defaults to <c>aitsys.dev</c> to show the DisCatSharp logo.</para>
+	/// </summary>
+	public string Issuer { internal get; set; } = "aitsys.dev";
+
+	/// <summary>
+	/// Sets the database path. Defaults to <c>./twofactor.sqlite</c>.
+	/// </summary>
+	public string DatabasePath { internal get; set; } = "./twofactor.sqlite";
+
+	/// <summary>
+	/// Sets how long user have to enter the 2fa code. Defaults to <c>30</c> seconds.
+	/// </summary>
+	public int TwoFactorTimeout { internal get; set; } = 30;
+
+	/// <summary>
+	/// Sets overrides for default messages facing the user.
+	/// </summary>
+	public TwoFactorResponseConfiguration ResponseConfiguration { internal get; set; } = new();
+
+	/// <summary>
 	/// Creates a new instance of <see cref="TwoFactorConfiguration"/>.
 	/// </summary>
-	public TwoFactorConfiguration() { }
+	[ActivatorUtilitiesConstructor]
+	public TwoFactorConfiguration()
+	{ }
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorConfiguration"/> class.
@@ -60,6 +99,47 @@ public sealed class TwoFactorConfiguration
 	/// <param name="other">Configuration the properties of which are to be copied.</param>
 	public TwoFactorConfiguration(TwoFactorConfiguration other)
 	{
-
+		this.Digits = other.Digits;
+		this.Period = other.Period;
+		this.Algorithm = other.Algorithm;
+		this.Issuer = other.Issuer;
+		this.ResponseConfiguration = other.ResponseConfiguration;
 	}
+}
+
+/// <summary>
+/// Represents a message configuration for <see cref="TwoFactorExtension"/>.
+/// </summary>
+public sealed class TwoFactorResponseConfiguration
+{
+	/// <summary>
+	/// <para>Sets the message when an correct two factor auth code was entered.</para>
+	/// <para>Defaults to: Code valid!</para>
+	/// </summary>
+	public string AuthenticationSuccessMessage { internal get; set; } = "Code valid!";
+
+	/// <summary>
+	/// <para>Sets the message when an incorrect two factor auth code was entered.</para>
+	/// <para>Defaults to: Code invalid..</para>
+	/// </summary>
+	public string AuthenticationFailureMessage { internal get; set; } = "Code invalid..";
+
+	/// <summary>
+	/// <para>Sets the modal title for two factor auth requests.</para>
+	/// <para>Defaults to: Enter 2FA Code</para>
+	/// </summary>
+	public string AuthenticationModalRequestTitle { get; internal set; } = "Enter 2FA Code";
+
+	/// <summary>
+	/// <para>Sets the account prefix used within the authenticator upon registration.</para>
+	/// <para>Defaults to: DisCatSharp Auth</para>
+	/// </summary>
+	public string AuthenticatorAccountPrefix { get; internal set; } = "DisCatSharp Auth";
+
+	/// <summary>
+	/// Creates a new instance of <see cref="TwoFactorResponseConfiguration"/>.
+	/// </summary>
+	[ActivatorUtilitiesConstructor]
+	public TwoFactorResponseConfiguration()
+	{ }
 }
