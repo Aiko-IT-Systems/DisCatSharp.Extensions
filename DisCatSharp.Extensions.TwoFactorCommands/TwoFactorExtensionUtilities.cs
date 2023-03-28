@@ -60,7 +60,7 @@ public static class TwoFactorExtensionUtilities
 		var ext = client.GetTwoFactor();
 		var secret = ext.TwoFactorClient.CreateSecret(160, CryptoSecureRequirement.RequireSecure);
 		ext.EnrollUser(user.Id, secret);
-		var label = $"DisCatSharp Auth: {HttpUtility.UrlEncode(user.UsernameWithDiscriminator)}";
+		var label = $"{ext.Configuration.ResponseConfiguration.AuthenticatorAccountPrefix}: {HttpUtility.UrlEncode(user.UsernameWithDiscriminator)}";
 		var text = $"otpauth://totp/{label}?secret={secret}&issuer={ext.TwoFactorClient.Issuer}";
 		var image = ext.TwoFactorClient.QrCodeProvider.GetQrCodeImage(text, 512);
 		MemoryStream ms = new(image)

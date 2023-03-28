@@ -52,7 +52,7 @@ public static class TwoFactorApplicationCommandExtension
 		}
 		*/
 
-		DiscordInteractionModalBuilder builder = new("Enter 2FA Code");
+		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
 		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await ctx.CreateModalResponseAsync(builder);
 
@@ -64,11 +64,11 @@ public static class TwoFactorApplicationCommandExtension
 		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components.First().Value);
 		if (res)
 		{
-			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent("Code valid!"));
+			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage));
 			return TwoFactorResponse.ValidCode;
 		}
 
-		await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent("Code invalid.."));
+		await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage));
 		return TwoFactorResponse.InvalidCode;
 	}
 }

@@ -95,9 +95,7 @@ public static class ExtensionMethods
 		var extensions = new Dictionary<int, TwoFactorExtension>();
 
 		foreach (var shard in client.ShardClients.Select(xkvp => xkvp.Value))
-		{
 			extensions.Add(shard.ShardId, shard.GetExtension<TwoFactorExtension>());
-		}
 
 		return new ReadOnlyDictionary<int, TwoFactorExtension>(extensions);
 	}
