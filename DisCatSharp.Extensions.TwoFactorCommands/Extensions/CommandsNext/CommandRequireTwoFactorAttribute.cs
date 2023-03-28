@@ -23,11 +23,9 @@
 using System;
 using System.Threading.Tasks;
 
-using DisCatSharp.CommandsNext;
-using DisCatSharp.CommandsNext.Attributes;
 using DisCatSharp.Extensions.TwoFactorCommands;
 
-namespace DisCatSharp.ApplicationCommands.Attributes;
+namespace DisCatSharp.CommandsNext.Attributes;
 
 /// <summary>
 /// Defines that this command can only be executed if the user is enrolled in two factor auth.
