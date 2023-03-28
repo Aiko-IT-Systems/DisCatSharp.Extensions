@@ -25,7 +25,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Remove additional projects
-      run: dotnet sln remove ..\Nyaw\Nyaw\Nyaw.csproj
+      run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:

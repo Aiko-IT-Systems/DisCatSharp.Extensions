@@ -24,7 +24,7 @@ jobs:
         with:
           dotnet-version: 6.x
       - name: Remove additional projects
-        run: dotnet sln remove ..\Nyaw\Nyaw\Nyaw.csproj
+        run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
       - name: Restore dependencies
         run: dotnet restore
       - name: Build library as full release

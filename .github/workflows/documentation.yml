@@ -31,7 +31,7 @@ jobs:
       run: git fetch --unshallow
       working-directory: DisCatSharp.Extensions
     - name: Remove additional projects
-      run: dotnet sln remove ..\Nyaw\Nyaw\Nyaw.csproj
+      run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
       working-directory: DisCatSharp.Extensions
     - name: Restore packages
       run: dotnet restore

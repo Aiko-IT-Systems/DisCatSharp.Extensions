@@ -31,7 +31,7 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet }}
     - name: Remove additional projects
-      run: dotnet sln remove ..\Nyaw\Nyaw\Nyaw.csproj
+      run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
       working-directory: DisCatSharp.Extensions
     - name: Restore dependencies
       run: dotnet restore
