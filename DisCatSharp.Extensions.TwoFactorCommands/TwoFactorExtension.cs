@@ -24,7 +24,7 @@ using System;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
-public class TwoFactorExtension : BaseExtension
+public sealed class TwoFactorExtension : BaseExtension
 {
 	private readonly TwoFactorConfiguration _config;
 
