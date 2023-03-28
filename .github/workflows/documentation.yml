@@ -100,4 +100,4 @@ jobs:
         ssh-private-key: ${{ secrets.AITSYS_SSH }}
     - name: Publish on server
       continue-on-error: true
-      run: ssh -o StrictHostKeyChecking=no -T root@80.152.135.241 -f 'cd /var/www/dcs-ext.aitsys.dev/docs && git pull -f && service apache2 restart'
+      run: ssh -o StrictHostKeyChecking=no -T root@80.152.135.241 -f 'cd /var/www/dcs.aitsys.dev/ext-docs && git pull -f && service apache2 restart'
