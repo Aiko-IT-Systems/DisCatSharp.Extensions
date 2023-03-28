@@ -41,12 +41,12 @@ public sealed class TwoFactorConfiguration
 	public IServiceProvider ServiceProvider { internal get; set; }
 
 	/// <summary>
-	/// Gets the length of digits for the 2fa code. Defaults to 6.
+	/// Gets the length of digits for the 2fa code. Defaults to <c>6</c>.
 	/// </summary>
 	public int Digits { internal get; set; } = 6;
 
 	/// <summary>
-	/// Gets the period in seconds how long a code is valid. Defaults to 30.
+	/// Gets the period in seconds how long a code is valid. Defaults to <c>30</c> seconds..
 	/// </summary>
 	public int Period { internal get; set; } = 30;
 
@@ -57,9 +57,19 @@ public sealed class TwoFactorConfiguration
 
 	/// <summary>
 	/// <para>Gets the issuer.</para>
-	/// <para>Defaults to aitsys.dev to show the DisCatSharp logo.</para>
+	/// <para>Defaults to <c>aitsys.dev</c> to show the DisCatSharp logo.</para>
 	/// </summary>
 	public string Issuer { internal get; set; } = "aitsys.dev";
+
+	/// <summary>
+	/// Gets the database path. Defaults to <c>./twofactor.sqlite</c>.
+	/// </summary>
+	public string DatabasePath { get; internal set; } = "./twofactor.sqlite";
+
+	/// <summary>
+	/// Gets how long user have to enter the 2fa code. Defaults to <c>30</c> seconds.
+	/// </summary>
+	public int TwoFactorTimeout { get; internal set; } = 30;
 
 	/// <summary>
 	/// Creates a new instance of <see cref="TwoFactorConfiguration"/>.
