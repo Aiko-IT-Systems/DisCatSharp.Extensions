@@ -1,0 +1,106 @@
+{
+	"metadata":[
+		{
+			"src":[
+				{
+					"src":"../DisCatSharp.Extensions.TwoFactorCommands/",
+					"files":[
+						"**.csproj"
+					],
+					"exclude":[
+						"**/obj/**",
+						"**/bin/**"
+					]
+				}
+			],
+			"dest":"api/DisCatSharp.Extensions.TwoFactorCommands",
+			"filter":"filter_config.yml",
+			"disableDefaultFilter":false
+		}
+	],
+	"build":{
+		"xrefService":[
+			"https://xref.docs.microsoft.com/query?uid={uid}"
+		],
+		"content":[
+			{
+				"files":[
+					"api/**/**.yml",
+					"api/**/**.md",
+					"api/**.yml",
+					"api/**.md"
+				]
+			},
+			{
+				"files":[
+					"**.md",
+					"toc.yml",
+					"articles/**.yml",
+					"articles/**.md"
+				],
+				"exclude":[
+					"**/bin/**",
+					"**/obj/**",
+					"_site/**",
+					"dcs/**"
+				]
+			}
+		],
+		"resource":[
+			{
+				"files":[
+					"images/**",
+					"natives/**.zip",
+					"./.htaccess"
+				],
+				"exclude":[
+					"**/bin/**",
+					"**/obj/**",
+					"_site/**",
+					"images/_**"
+				]
+			}
+		],
+		"overwrite":[],
+		"dest":"_site",
+		"globalMetadata":{
+			"_appTitle": "DisCatSharp Extensions Docs",
+			"_appName": "DisCatSharp Extensions",
+			"_appFooter": "<strong>Made with ♥ by AITSYS</strong>",
+			"_copyrightFooter": "© Aiko IT Systems. All rights reserved.",
+			"_appLogoPath": "logo.png",
+			"_enableSearch":false,
+			"_disableSideFilter": false,
+			"_enableNewTab":true,
+			"_disableContribution": false,
+			"_disableBreadcrumb": false,
+			"_gitUrlPattern":"git",
+			"_gitContribute":{
+				"repo":"https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions",
+				"branch":"main"
+			}
+		},
+		"disableGitFeatures":false,
+		"exportRawModel":false,
+		"exportViewModel": false,
+		"globalMetadataFiles":[],
+		"fileMetadataFiles":[],
+		"template":[
+			"default",
+			"dcs"
+		],
+		"postProcessors":[
+			"ExtractSearchIndex",
+			"CustomMemberIndexer",
+			"DescriptionPostProcessor"
+		],
+		"noLangKeyword":false,
+		"keepFileLink":false,
+		"cleanupCacheHistory":false,
+		"sitemap":{
+			"baseUrl":"https://docs-ext.discatsharp.tech/",
+			"changefreq":"daily",
+			"priority":1.0
+		}
+	}
+}

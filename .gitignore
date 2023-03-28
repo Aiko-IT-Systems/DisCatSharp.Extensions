@@ -304,6 +304,7 @@ CodeMap1.dgml
 dcs-docs-preview.tar.xz
 dcs-docs.tar.xz
 dcs-docs.zip
+dcs-ext-docs.zip
 dcs-docs-preview.zip
 docfx.zip
 DisCatSharp.Docs/_site/
@@ -311,12 +312,14 @@ _site
 
 #Ignore thumbnails created by Windows
 Thumbs.db
-!DisCatSharp.Docs/obj/.cache/build/
-!DisCatSharp.Docs/obj/.cache/build/*
-!DisCatSharp.Docs/obj/.cache/build/*.*
-!DisCatSharp.Docs/obj/.cache/build/**
-!DisCatSharp.Docs/obj/.cache/build/**/*.*
-!DisCatSharp.Docs/obj/.cache/build/**/**
+!DisCatSharp.Extensions.Docs/obj/.cache/build/
+!DisCatSharp.Extensions.Docs/obj/.cache/build/*
+!DisCatSharp.Extensions.Docs/obj/.cache/build/*.*
+!DisCatSharp.Extensions.Docs/obj/.cache/build/**
+!DisCatSharp.Extensions.Docs/obj/.cache/build/**/*.*
+!DisCatSharp.Extensions.Docs/obj/.cache/build/**/**
+!DisCatSharp.Extensions.Docs/obj/
+!DisCatSharp.Extensions.Docs/obj/.cache/
 !**/obj/.cache/build/
 !**/obj/.cache/build/*
 !**/obj/.cache/build/*.*

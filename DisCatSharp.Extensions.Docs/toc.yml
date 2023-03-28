@@ -1,0 +1,8 @@
+- name: Home
+  href: index.md
+- name: Articles
+  href: articles/preamble.md
+- name: API Documentation
+  href: api/index.md
+- name: DisCatSharp Docs
+  href: https://docs.discatsharp.tech
