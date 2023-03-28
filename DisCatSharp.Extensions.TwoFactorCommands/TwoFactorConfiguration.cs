@@ -31,7 +31,6 @@ namespace DisCatSharp.Extensions.TwoFactorCommands;
 /// </summary>
 public sealed class TwoFactorConfiguration
 {
-
 	/// <summary>
 	/// <para>Sets the service provider for this TwoFactor instance.</para>
 	/// <para>Objects in this provider are used when instantiating command modules. This allows passing data around without resorting to static members.</para>
