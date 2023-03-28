@@ -21,53 +21,29 @@
 // SOFTWARE.
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
-using DisCatSharp.ApplicationCommands.Context;
 using DisCatSharp.CommandsNext;
 using DisCatSharp.CommandsNext.Attributes;
+using DisCatSharp.Extensions.TwoFactorCommands;
 
 namespace DisCatSharp.ApplicationCommands.Attributes;
 
 /// <summary>
-/// Defines that this application command is restricted to the owner of the bot.
+/// Defines that this command can only be executed if the user is enrolled in two factor auth.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false)]
-public sealed class ApplicationCommandRequireTwoFactorAuthAttribute : ApplicationCommandCheckBaseAttribute
+public sealed class CommandRequireTwoFactorAttribute : CheckBaseAttribute
 {
 	/// <summary>
-	/// Defines that this application command is restricted to the owner of the bot.
+	/// Defines that this command can only be executed if the user is enrolled in two factor auth.
 	/// </summary>
-	public ApplicationCommandRequireTwoFactorAuthAttribute()
-	{ }
-
-	/// <summary>
-	/// Runs checks.
-	/// </summary>
-	public override Task<bool> ExecuteChecksAsync(BaseContext ctx)
-	{
-		return Task.FromResult(false);
-	}
-}
-
-/// <summary>
-/// Defines that this command next command is restricted to the owner of the bot.
-/// </summary>
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false)]
-public sealed class CommandRequireTwoFactorAuthAttribute : CheckBaseAttribute
-{
-	/// <summary>
-	/// Defines that this application command is restricted to the owner of the bot.
-	/// </summary>
-	public CommandRequireTwoFactorAuthAttribute()
+	public CommandRequireTwoFactorAttribute()
 	{ }
 
 	/// <summary>
 	/// Runs checks.
 	/// </summary>
 	public override Task<bool> ExecuteCheckAsync(CommandContext ctx, bool help)
-	{
-		return Task.FromResult(false);
-	}
+		=> Task.FromResult(ctx.Client.GetTwoFactor().IsEnrolled(ctx.User.Id));
 }

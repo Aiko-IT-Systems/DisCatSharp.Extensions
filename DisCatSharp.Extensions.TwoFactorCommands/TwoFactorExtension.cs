@@ -22,19 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 using DatabaseWrapper.Core;
 using DatabaseWrapper.Sqlite;
-
-using DisCatSharp.ApplicationCommands.Context;
-using DisCatSharp.CommandsNext;
-using DisCatSharp.Entities;
-using DisCatSharp.Enums;
-using DisCatSharp.Interactivity.Extensions;
 
 using ExpressionTree;
 
@@ -47,7 +37,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// <summary>
 	/// Gets the two factor configuration.
 	/// </summary>
-	private readonly TwoFactorConfiguration _config;
+	internal TwoFactorConfiguration Configuration { get; private set; }
 
 	/// <summary>
 	/// Gets the database client.
@@ -78,7 +68,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// Gets the service provider this TwoFactor module was configured with.
 	/// </summary>
 	public IServiceProvider Services
-		=> this._config.ServiceProvider;
+		=> this.Configuration.ServiceProvider;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
@@ -87,7 +77,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	internal TwoFactorExtension(TwoFactorConfiguration configuration = null)
 	{
 		configuration ??= new TwoFactorConfiguration();
-		this._config = configuration;
+		this.Configuration = configuration;
 		this.TwoFactorClient = new(configuration.Issuer, configuration.Digits, configuration.Period, configuration.Algorithm);
 	}
 
@@ -103,7 +93,7 @@ public sealed class TwoFactorExtension : BaseExtension
 
 		this.Client = client;
 
-		this.DatabaseClient = new(this._config.DatabasePath);
+		this.DatabaseClient = new(this.Configuration.DatabasePath);
 		if (!this.DatabaseClient.TableExists(this._tableName))
 		{
 			var columns = new List<Column>
@@ -131,45 +121,18 @@ public sealed class TwoFactorExtension : BaseExtension
 		this.DatabaseClient.Insert(this._tableName, data);
 	}
 
+	private void RemoveSecret(ulong user)
+		=> this.DatabaseClient.Delete(this._tableName, new Expr(this._userField, OperatorEnum.Equals, user.ToString()));
+
 	internal bool IsValidCode(ulong user, string code)
 		=> this.HasData(user) && this.TwoFactorClient.VerifyCode(this.GetSecretFor(user), code);
 
-	public (string, Stream) RegisterTwoFactor(DiscordUser user)
-	{
-		var secret = this.TwoFactorClient.CreateSecret(160, CryptoSecureRequirement.RequireSecure);
-		var label = $"DisCatSharp Auth: {HttpUtility.UrlEncode(user.UsernameWithDiscriminator)}";
-		var text = $"otpauth://totp/{label}?secret={secret}&issuer={this.TwoFactorClient.Issuer}";
-		var image = this.TwoFactorClient.QrCodeProvider.GetQrCodeImage(text, 512);
-		MemoryStream ms = new(image)
-		{
-			Position = 0
-		};
-		return (secret, ms);
-	}
+	internal bool IsEnrolled(ulong user)
+		=> this.HasData(user);
 
-	public async Task<bool> AskForTwoFactorAsync(BaseContext ctx)
-	{
-		DiscordInteractionModalBuilder builder = new("Enter 2FA Code");
-		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", this._config.Digits, this._config.Digits));
-		await ctx.CreateModalResponseAsync(builder);
+	internal void EnrollUser(ulong user, string secret)
+		=> this.AddSecretFor(user, secret);
 
-		var inter = await ctx.Client.GetInteractivity().WaitForModalAsync(builder.CustomId, TimeSpan.FromSeconds(this._config.TwoFactorTimeout));
-		if (inter.TimedOut)
-			return false;
-
-		await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = this.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components.First().Value);
-		if (res)
-		{
-			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent("Code valid!"));
-			return true;
-		}
-
-		await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent("Code invalid.."));
-		return false;
-	}
-
-	// TODO: Implement
-	internal static async Task<bool> AskForTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(false);
+	internal void UnenrollUser(ulong user)
+		=> this.RemoveSecret(user);
 }
