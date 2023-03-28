@@ -32,6 +32,7 @@ Extension allowing to require two factor authentication for commands.
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 </ItemGroup>
 
   <ItemGroup>

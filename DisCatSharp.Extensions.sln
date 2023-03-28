@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{057DAA4D-8381-4286-BBA0-8D1345AD1E55}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreFiles", "CoreFiles", "{057DAA4D-8381-4286-BBA0-8D1345AD1E55}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		Directory.Build.props = Directory.Build.props
 		LICENSE.md = LICENSE.md
 		logo.png = logo.png
+		rebuild-docs.ps1 = rebuild-docs.ps1
 		rebuild-lib.ps1 = rebuild-lib.ps1
 		renovate.json = renovate.json
 	EndProjectSection
@@ -47,7 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisCatSharp.Common", "..\Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisCatSharp.Interactivity", "..\DisCatSharp\DisCatSharp.Interactivity\DisCatSharp.Interactivity.csproj", "{7A6B82B4-43E8-48B7-96A0-216126DBCE0B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DisCatSharp Source", "DisCatSharp Source", "{2C817130-7B8F-4643-A0A3-0AF3FBC5C948}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DisCatSharp", "DisCatSharp", "{2C817130-7B8F-4643-A0A3-0AF3FBC5C948}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AITSYS-Internal", "AITSYS-Internal", "{CA025005-A3F9-4C21-9C51-7C397F375C3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nyaw", "..\Nyaw\Nyaw\Nyaw.csproj", "{4E0497E9-B26E-4C7A-86D8-CE464AF215F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +84,9 @@ Global
 		{7A6B82B4-43E8-48B7-96A0-216126DBCE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A6B82B4-43E8-48B7-96A0-216126DBCE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A6B82B4-43E8-48B7-96A0-216126DBCE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0497E9-B26E-4C7A-86D8-CE464AF215F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0497E9-B26E-4C7A-86D8-CE464AF215F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0497E9-B26E-4C7A-86D8-CE464AF215F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +98,7 @@ Global
 		{57B9B650-EB7F-40FD-9386-7B9B0323E62B} = {2C817130-7B8F-4643-A0A3-0AF3FBC5C948}
 		{59129720-D215-4673-9273-EF93BD9DD8FF} = {2C817130-7B8F-4643-A0A3-0AF3FBC5C948}
 		{7A6B82B4-43E8-48B7-96A0-216126DBCE0B} = {2C817130-7B8F-4643-A0A3-0AF3FBC5C948}
+		{4E0497E9-B26E-4C7A-86D8-CE464AF215F9} = {CA025005-A3F9-4C21-9C51-7C397F375C3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {591E31AD-F8B3-47D0-8621-C9E2022A2723}
