@@ -25,16 +25,16 @@ Extension allowing to require two factor authentication for commands.
 <ItemGroup>
     <PackageReference Include="DatabaseWrapper" Version="5.0.2" />
     <PackageReference Include="DatabaseWrapper.Sqlite" Version="5.0.2" />
-  <PackageReference Include="DisCatSharp" Version="10.3.3-nightly-030" />
+  <PackageReference Include="DisCatSharp" Version="10.3.3-nightly-031" />
   <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.2.0">
 	<PrivateAssets>all</PrivateAssets>
 	<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
-  <PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.3.3-nightly-030" />
+  <PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.3.3-nightly-031" />
   <PackageReference Include="DisCatSharp.Attributes" Version="10.3.1-fixed-001" />
-  <PackageReference Include="DisCatSharp.CommandsNext" Version="10.3.3-nightly-030" />
-  <PackageReference Include="DisCatSharp.Common" Version="10.3.3-nightly-030" />
-  <PackageReference Include="DisCatSharp.Interactivity" Version="10.3.3-nightly-030" />
+  <PackageReference Include="DisCatSharp.CommandsNext" Version="10.3.3-nightly-031" />
+  <PackageReference Include="DisCatSharp.Common" Version="10.3.3-nightly-031" />
+  <PackageReference Include="DisCatSharp.Interactivity" Version="10.3.3-nightly-031" />
     <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
