@@ -45,5 +45,10 @@ public enum TwoFactorResponse : int
 	/// <summary>
 	/// Two factor input timed out.
 	/// </summary>
-	TimedOut = 4
+	TimedOut = 4,
+
+	/// <summary>
+	/// This function is not implemented.
+	/// </summary>
+	NotImplemented = 99999
 }

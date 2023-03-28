@@ -34,6 +34,13 @@ namespace DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
 
 public static class TwoFactorApplicationCommandExtension
 {
+	/// <summary>
+	/// <para>Asks the user via modal input for the two factor code.</para>
+	/// <para>This uses DisCatSharp.Interactivity.</para>
+	/// <para>To be used as first action for application commands.</para>
+	/// </summary>
+	/// <param name="ctx">The base context.</param>
+	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	public static async Task<TwoFactorResponse> AskForTwoFactorAsync(this BaseContext ctx)
 	{
 		var ext = ctx.Client.GetTwoFactor();

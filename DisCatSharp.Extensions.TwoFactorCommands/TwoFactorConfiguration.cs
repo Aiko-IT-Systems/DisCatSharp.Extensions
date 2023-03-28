@@ -76,9 +76,7 @@ public sealed class TwoFactorConfiguration
 	/// </summary>
 	[ActivatorUtilitiesConstructor]
 	public TwoFactorConfiguration()
-	{
-
-	}
+	{ }
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorConfiguration"/> class.

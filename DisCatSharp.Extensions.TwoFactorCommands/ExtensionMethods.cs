@@ -24,15 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
-using DisCatSharp.CommandsNext.Builders;
-using DisCatSharp.CommandsNext.Converters;
-using DisCatSharp.Enums;
-
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 

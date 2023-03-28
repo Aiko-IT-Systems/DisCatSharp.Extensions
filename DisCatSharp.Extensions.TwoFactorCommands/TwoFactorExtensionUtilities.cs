@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.IO;
 using System.Web;
 
@@ -53,7 +54,7 @@ public static class TwoFactorExtensionUtilities
 	/// </summary>
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user to check.</param>
-	/// <returns></returns>
+	/// <returns>A <see cref="Tuple{T1, T2}"/> where T1 is the secret itself and T2 a <see cref="Stream"/> with the qr code image.</returns>
 	public static (string Secret, Stream QrCode) EnrollTwoFactor(this DiscordClient client, DiscordUser user)
 	{
 		var ext = client.GetTwoFactor();

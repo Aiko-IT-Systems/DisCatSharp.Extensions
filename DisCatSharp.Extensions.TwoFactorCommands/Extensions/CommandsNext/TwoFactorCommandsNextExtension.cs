@@ -23,12 +23,20 @@
 using System.Threading.Tasks;
 
 using DisCatSharp.CommandsNext;
+using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.CommandsNext;
 
-public static class TwoFactorCommandsNext
+public static class TwoFactorCommandsNextExtension
 {
 	// TODO: Implement
-	public static async Task<bool> AskForTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(false);
+	/// <summary>
+	/// <para>Asks the user via private for the two factor code.</para>
+	/// <para>This uses DisCatSharp.Interactivity.</para>
+	/// <para>To be used for commands next.</para>
+	/// </summary>
+	/// <param name="ctx">The command context.</param>
+	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
+	public static async Task<TwoFactorResponse> AskForTwoFactorAsync(CommandContext ctx)
+		=> await Task.FromResult(TwoFactorResponse.NotImplemented);
 }
