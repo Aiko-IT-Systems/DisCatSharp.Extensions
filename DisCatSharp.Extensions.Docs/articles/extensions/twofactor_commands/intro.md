@@ -99,3 +99,7 @@ if (tfa_result == TwoFactorResponse.ValidCode)
 	// Do your stuff
 }
 ```
+
+The user will be asked to submit their two factor code like this:
+
+![Example](/images/two_factor_request_example.png)
