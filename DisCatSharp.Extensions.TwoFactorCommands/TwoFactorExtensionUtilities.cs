@@ -38,7 +38,7 @@ public static class TwoFactorExtensionUtilities
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user id to check.</param>
 	/// <returns>Whether the user is enrolled.</returns>
-	public static bool CheckTwoFactorEnrollment(this DiscordClient client, ulong user)
+	public static bool CheckTwoFactorEnrollmentFor(this DiscordClient client, ulong user)
 		=> client.GetTwoFactor().IsEnrolled(user);
 
 	/// <summary>
@@ -46,8 +46,8 @@ public static class TwoFactorExtensionUtilities
 	/// </summary>
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user id to check.</param>
-	public static void RemoveTwoFactorEnrollment(this DiscordClient client, ulong user)
-		=> client.GetTwoFactor().UnenrollUser(user);
+	public static void DisenrollTwoFactor(this DiscordClient client, ulong user)
+		=> client.GetTwoFactor().DisenrollUser(user);
 
 	/// <summary>
 	/// Registers two factor for the given user.

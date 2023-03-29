@@ -35,10 +35,11 @@ public static class TwoFactorCommandsNextExtension
 	/// <para>Asks the user via private for the two factor code.</para>
 	/// <para>This uses DisCatSharp.Interactivity.</para>
 	/// <para>To be used for commands next.</para>
+	/// <para><note type="caution">Not implemented yet. Returns <see cref="TwoFactorResponse.NotImplemented"/>.</note></para>
 	/// </summary>
 	/// <param name="ctx">The command context.</param>
 	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	[Experimental("No support for this yet. Not implemented")]
-	public static async Task<TwoFactorResponse> AskForTwoFactorAsync(CommandContext ctx)
+	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(CommandContext ctx)
 		=> await Task.FromResult(TwoFactorResponse.NotImplemented);
 }

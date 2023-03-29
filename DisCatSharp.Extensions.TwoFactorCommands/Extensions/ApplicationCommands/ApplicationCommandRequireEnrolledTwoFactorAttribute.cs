@@ -23,26 +23,26 @@
 using System;
 using System.Threading.Tasks;
 
-using DisCatSharp.Attributes;
+using DisCatSharp.ApplicationCommands.Context;
 using DisCatSharp.Extensions.TwoFactorCommands;
 
-namespace DisCatSharp.CommandsNext.Attributes;
+namespace DisCatSharp.ApplicationCommands.Attributes;
 
 /// <summary>
-/// Defines that this command can only be executed if the user is enrolled in two factor auth.
+/// Defines that this application command can only be executed if the user is enrolled in two factor auth.
 /// </summary>
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false), Experimental("No support for this yet")]
-public sealed class CommandRequireTwoFactorAttribute : CheckBaseAttribute
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false)]
+public sealed class ApplicationCommandRequireEnrolledTwoFactorAttribute : ApplicationCommandCheckBaseAttribute
 {
 	/// <summary>
-	/// Defines that this command can only be executed if the user is enrolled in two factor auth.
+	/// Defines that this application command can only be executed if the user is enrolled in two factor auth.
 	/// </summary>
-	public CommandRequireTwoFactorAttribute()
+	public ApplicationCommandRequireEnrolledTwoFactorAttribute()
 	{ }
 
 	/// <summary>
 	/// Runs checks.
 	/// </summary>
-	public override Task<bool> ExecuteCheckAsync(CommandContext ctx, bool help)
+	public override Task<bool> ExecuteChecksAsync(BaseContext ctx)
 		=> Task.FromResult(ctx.Client.GetTwoFactor().IsEnrolled(ctx.User.Id));
 }

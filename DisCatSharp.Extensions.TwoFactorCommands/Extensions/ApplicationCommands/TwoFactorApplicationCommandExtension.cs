@@ -41,7 +41,7 @@ public static class TwoFactorApplicationCommandExtension
 	/// </summary>
 	/// <param name="ctx">The base context.</param>
 	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
-	public static async Task<TwoFactorResponse> AskForTwoFactorAsync(this BaseContext ctx)
+	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this BaseContext ctx)
 	{
 		var ext = ctx.Client.GetTwoFactor();
 		/*

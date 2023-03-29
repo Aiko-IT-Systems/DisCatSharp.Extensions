@@ -171,6 +171,6 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// Unenrolls given user id from two factor auth.
 	/// </summary>
 	/// <param name="user">User id to unenroll.</param>
-	internal void UnenrollUser(ulong user)
+	internal void DisenrollUser(ulong user)
 		=> this.RemoveSecret(user);
 }
