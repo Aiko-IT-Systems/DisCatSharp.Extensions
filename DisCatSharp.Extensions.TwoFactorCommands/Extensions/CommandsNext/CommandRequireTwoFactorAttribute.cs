@@ -23,6 +23,7 @@
 using System;
 using System.Threading.Tasks;
 
+using DisCatSharp.Attributes;
 using DisCatSharp.Extensions.TwoFactorCommands;
 
 namespace DisCatSharp.CommandsNext.Attributes;
@@ -30,7 +31,7 @@ namespace DisCatSharp.CommandsNext.Attributes;
 /// <summary>
 /// Defines that this command can only be executed if the user is enrolled in two factor auth.
 /// </summary>
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false), Experimental("No support for this yet")]
 public sealed class CommandRequireTwoFactorAttribute : CheckBaseAttribute
 {
 	/// <summary>

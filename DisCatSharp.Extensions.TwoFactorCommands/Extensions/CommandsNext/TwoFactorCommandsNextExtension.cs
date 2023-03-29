@@ -22,6 +22,7 @@
 
 using System.Threading.Tasks;
 
+using DisCatSharp.Attributes;
 using DisCatSharp.CommandsNext;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
@@ -37,6 +38,7 @@ public static class TwoFactorCommandsNextExtension
 	/// </summary>
 	/// <param name="ctx">The command context.</param>
 	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
+	[Experimental("No support for this yet. Not implemented")]
 	public static async Task<TwoFactorResponse> AskForTwoFactorAsync(CommandContext ctx)
 		=> await Task.FromResult(TwoFactorResponse.NotImplemented);
 }
