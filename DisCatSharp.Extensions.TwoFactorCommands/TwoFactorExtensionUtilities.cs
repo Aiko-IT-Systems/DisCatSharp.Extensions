@@ -54,8 +54,8 @@ public static class TwoFactorExtensionUtilities
 	/// </summary>
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user to check.</param>
-	/// <returns>A <see cref="Tuple{T1, T2}"/> where T1 is the secret itself and T2 a <see cref="Stream"/> with the qr code image.</returns>
-	public static (string Secret, Stream QrCode) EnrollTwoFactor(this DiscordClient client, DiscordUser user)
+	/// <returns>A <see cref="Tuple{String, MemoryStream}"/> where <see cref="Tuple{String, MemoryStream}.Item1"/> is a <see langword="string"/> with the secret itself and <see cref="Tuple{String, MemoryStream}.Item2"/> a <see cref="MemoryStream"/> with the qr code image.</returns>
+	public static (string Secret, MemoryStream QrCode) EnrollTwoFactor(this DiscordClient client, DiscordUser user)
 	{
 		var ext = client.GetTwoFactor();
 		var secret = ext.TwoFactorClient.CreateSecret(160, CryptoSecureRequirement.RequireSecure);
