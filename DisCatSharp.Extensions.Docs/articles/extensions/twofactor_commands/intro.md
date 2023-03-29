@@ -26,7 +26,7 @@ client.UseTwoFactor();
 
 #### Enrolling a user in two factor
 
-To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities#DisCatSharp_Extensions_TwoFactorCommands_TwoFactorExtensionUtilities_EnrollTwoFactor_DiscordClient_DiscordUser_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities#DisCatSharp_Extensions_TwoFactorCommands_TwoFactorExtensionUtilities_EnrollTwoFactor_DiscordClient_DiscordUser_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands;
@@ -44,11 +44,12 @@ public static async Task EnrollTwoFactor(InteractionContext ctx)
 ```
 
 Example way to ask a user to register their two factor:
+
 ![Example](/images/two_factor_enrollment_message_example.png)
 
 #### Disenrolling a user in two factor
 
-To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities#DisCatSharp_Extensions_TwoFactorCommands_TwoFactorExtensionUtilities_DisenrollTwoFactor_DiscordClient_System_UInt64_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities#DisCatSharp_Extensions_TwoFactorCommands_TwoFactorExtensionUtilities_DisenrollTwoFactor_DiscordClient_System_UInt64_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands;
@@ -64,7 +65,7 @@ public static async Task DisenrollTwoFactor(InteractionContext ctx)
 
 #### Check if a user is enrolled in two factor
 
-To check the enrollment of a user, use the function [CheckTwoFactorEnrollmentFor(DiscordUser.Id)](DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities#DisCatSharp_Extensions_TwoFactorCommands_TwoFactorExtensionUtilities_CheckTwoFactorEnrollmentFor_DiscordClient_System_UInt64_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To check the enrollment of a user, use the function [CheckTwoFactorEnrollmentFor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities#DisCatSharp_Extensions_TwoFactorCommands_TwoFactorExtensionUtilities_CheckTwoFactorEnrollmentFor_DiscordClient_System_UInt64_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
 
 
 ```cs
