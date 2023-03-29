@@ -12,7 +12,7 @@ title: TwoFactor Commands Introduction
 
 Install the NuGet package `DisCatSharp.Extensions.TwoFactorCommands` into your project. Currently only available as prerelease.
 
-Enable the extension by calling [UseTwoFactor](xref:DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods#DisCatSharp_Extensions_TwoFactorCommands_ExtensionMethods_UseTwoFactor_DiscordClient_DisCatSharp_Extensions_TwoFactorCommands_TwoFactorConfiguration_) on your `DiscordClient` instance:
+Enable the extension by calling [UseTwoFactor](xref:DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods#DisCatSharp_Extensions_TwoFactorCommands_ExtensionMethods_UseTwoFactor_DiscordClient_DisCatSharp_Extensions_TwoFactorCommands_TwoFactorConfiguration_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands;
