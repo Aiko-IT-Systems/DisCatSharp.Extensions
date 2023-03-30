@@ -128,13 +128,13 @@ public sealed class TwoFactorResponseConfiguration
 	/// <para>Sets the modal title for two factor auth requests.</para>
 	/// <para>Defaults to: Enter 2FA Code</para>
 	/// </summary>
-	public string AuthenticationModalRequestTitle { get; internal set; } = "Enter 2FA Code";
+	public string AuthenticationModalRequestTitle { internal get; set; } = "Enter 2FA Code";
 
 	/// <summary>
 	/// <para>Sets the account prefix used within the authenticator upon registration.</para>
 	/// <para>Defaults to: DisCatSharp Auth</para>
 	/// </summary>
-	public string AuthenticatorAccountPrefix { get; internal set; } = "DisCatSharp Auth";
+	public string AuthenticatorAccountPrefix { internal get; set; } = "DisCatSharp Auth";
 
 	/// <summary>
 	/// Creates a new instance of <see cref="TwoFactorResponseConfiguration"/>.
