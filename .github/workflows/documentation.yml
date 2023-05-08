@@ -6,6 +6,7 @@ env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: true
 
 jobs:
   build:
@@ -17,17 +18,23 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3.0.3
       with:
-        dotnet-version: 6.x
+        dotnet-version: 7.0.203
     - name: Git fetch unshallow
       run: git fetch --unshallow
+    - name: Install DocFX
+      run: dotnet tool update -g docfx --prerelease
     - name: Restore packages
       run: dotnet restore
     - name: Build library
-      run: dotnet build -c Release
+      run: dotnet build -c Release --no-restore -v minimal
       continue-on-error: true
+    - name: Add Custom Plugins
+      run: cp -R DisCatSharp.Extensions.Docs/dcs/plugins/* /home/runner/.dotnet/tools/.store/docfx/2.67.0/docfx/2.67.0/tools/net7.0/any/
     - name: Build Docs
+      run: docfx DisCatSharp.Extensions.Docs/docfx.json
+    - name: Pack Docs
       shell: pwsh
-      run: ./rebuild-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -Output "." -PackageName "dcs-ext-docs"
+      run: ./pack-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -OutputPath "./" -PackageName "dcs-ext-docs"
     - name: Upload packed docs
       uses: actions/upload-artifact@v3
       with:

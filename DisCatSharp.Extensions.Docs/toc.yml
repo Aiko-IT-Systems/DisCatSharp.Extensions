@@ -1,8 +1,8 @@
 - name: Home
   href: index.md
+- name: API
+  href: api/index.md
 - name: Articles
   href: articles/preamble.md
-- name: API Documentation
-  href: api/index.md
 - name: DisCatSharp Docs
-  href: https://docs.discatsharp.tech
+  href: https://docs.dcs.aitsys.dev

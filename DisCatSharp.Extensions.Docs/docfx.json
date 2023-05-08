@@ -69,39 +69,53 @@
 		"globalMetadata":{
 			"_appTitle": "DisCatSharp Extensions Docs",
 			"_appName": "DisCatSharp Extensions",
-			"_appFooter": "<strong>Made with ♥ by AITSYS</strong>",
-			"_copyrightFooter": "© Aiko IT Systems. All rights reserved.",
+			"_appFooter": "<strong>Made with ❤️ by AITSYS</strong>",
 			"_appLogoPath": "logo.png",
-			"_enableSearch":false,
+			"_enableSearch": true,
+			"_disableNextArticle": false,
 			"_disableSideFilter": false,
-			"_enableNewTab":true,
+			"_disableTocFilter": false,
+			"_disableNewTab": false,
 			"_disableContribution": false,
 			"_disableBreadcrumb": false,
 			"_gitUrlPattern":"git",
 			"_gitContribute":{
 				"repo":"https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions",
 				"branch":"main"
-			}
+			},
+			"_googleTagId": "G-8JHG7YVNKK",
+			"_lang": "en-US",
+			"_ogType": "website",
+			"_ogImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
+			"_fbPageId": "112155734832129",
+			"_twitterSite": "@DisCatSharp",
+			"_twitterImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
+			"_layout": "conceptual"
 		},
 		"disableGitFeatures":false,
 		"exportRawModel":false,
 		"exportViewModel": false,
 		"globalMetadataFiles":[],
 		"fileMetadataFiles":[],
+		"fileMetadata": {
+			"_ogType": {
+				"articles/**/*.md": "article",
+				"changelogs/**/*.md": "article"
+			}
+		},
 		"template":[
 			"default",
+			"modern",
 			"dcs"
 		],
 		"postProcessors":[
-			"ExtractSearchIndex",
-			"CustomMemberIndexer",
-			"DescriptionPostProcessor"
+			"ExtractSearchIndex"
 		],
 		"noLangKeyword":false,
 		"keepFileLink":false,
 		"cleanupCacheHistory":false,
 		"sitemap":{
-			"baseUrl":"https://docs-ext.discatsharp.tech/",
+			"baseUrl":"https://ext-docs.dcs.aitsys.dev/",
 			"changefreq":"daily",
 			"priority":1.0
 		}
