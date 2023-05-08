@@ -26,12 +26,12 @@ Extension allowing to require two factor authentication for commands.
     <PackageReference Include="DatabaseWrapper" Version="5.0.2" />
     <PackageReference Include="DatabaseWrapper.Sqlite" Version="5.0.2" />
   <PackageReference Include="DisCatSharp" Version="10.3.3-nightly-031" />
-  <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.2.0">
+  <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.4.0">
 	<PrivateAssets>all</PrivateAssets>
 	<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
   <PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.3.3-nightly-031" />
-  <PackageReference Include="DisCatSharp.Attributes" Version="10.3.1-fixed-001" />
+  <PackageReference Include="DisCatSharp.Attributes" Version="10.4.0" />
   <PackageReference Include="DisCatSharp.CommandsNext" Version="10.3.3-nightly-031" />
   <PackageReference Include="DisCatSharp.Common" Version="10.3.3-nightly-031" />
   <PackageReference Include="DisCatSharp.Interactivity" Version="10.3.3-nightly-031" />
