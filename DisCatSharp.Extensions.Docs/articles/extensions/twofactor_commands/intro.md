@@ -95,7 +95,7 @@ It returns a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.P
 ```cs
 var tfa_result = ctx.RequestTwoFactorAsync();
 
-if (tfa_result != TwoFactorResponse.Result.ValidCode)
+if (tfa_result.Result != TwoFactorResult.ValidCode)
 {
 	// Handle incorrect code
     return;
@@ -117,7 +117,7 @@ async Task SomeButtonInteraction(DiscordClient sender, ComponentInteractionCreat
 {
     var tfa_result = await e.RequestTwoFactorAsync(sender);
 
-    if (tfa_result != TwoFactorResponse.Result.ValidCode)
+    if (tfa_result.Result != TwoFactorResult.ValidCode)
     {
         // Handle incorrect code
         return;
