@@ -40,7 +40,7 @@ public class TwoFactorResponse
 	/// <summary>
 	/// The modal response <see cref="ComponentInteractionCreateEventArgs"/>. Null if <see cref="Result"/> is <see cref="TwoFactorResult.NotEnrolled"/> or <see cref="TwoFactorResult.TimedOut"/>.
 	/// </summary>
-	public ComponentInteractionCreateEventArgs Interaction { get; internal set; } = null;
+	public ComponentInteractionCreateEventArgs ComponentInteraction { get; internal set; } = null;
 
 	/// <summary>
 	/// The <see cref="DiscordClient"/> this interaction took place with.

@@ -70,7 +70,7 @@ public static class TwoFactorApplicationCommandExtension
 			return response;
 		}
 
-		response.Interaction = inter.Result;
+		response.ComponentInteraction = inter.Result;
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
@@ -127,7 +127,7 @@ public static class TwoFactorApplicationCommandExtension
 			return response;
 		}
 
-		response.Interaction = inter.Result;
+		response.ComponentInteraction = inter.Result;
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
