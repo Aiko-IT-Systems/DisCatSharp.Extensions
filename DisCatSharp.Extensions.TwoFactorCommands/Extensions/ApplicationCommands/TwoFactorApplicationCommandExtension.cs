@@ -71,7 +71,7 @@ public static class TwoFactorApplicationCommandExtension
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components.First().Value);
+		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components[0].Value);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
@@ -117,7 +117,7 @@ public static class TwoFactorApplicationCommandExtension
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components.First().Value);
+		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components[0].Value);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
