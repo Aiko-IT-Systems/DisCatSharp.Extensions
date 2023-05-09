@@ -113,6 +113,12 @@ public sealed class TwoFactorConfiguration
 public sealed class TwoFactorResponseConfiguration
 {
 	/// <summary>
+	/// <para>Whether to show a response after entering a two factor code.</para>
+	/// <para>Defaults to: true</para>
+	/// </summary>
+	public bool ShowResponse { internal get; set; } = true;
+
+	/// <summary>
 	/// <para>Sets the message when an correct two factor auth code was entered.</para>
 	/// <para>Defaults to: Code valid!</para>
 	/// </summary>

@@ -20,26 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-using DisCatSharp.Attributes;
-using DisCatSharp.CommandsNext;
+using DisCatSharp.Entities;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
-namespace DisCatSharp.Extensions.TwoFactorCommands.CommandsNext;
-
-public static class TwoFactorCommandsNextExtension
+namespace DisCatSharp.Extensions.TwoFactorCommands.Properties;
+public class TwoFactorResponse
 {
-	// TODO: Implement
 	/// <summary>
-	/// <para>Asks the user via private for the two factor code.</para>
-	/// <para>This uses DisCatSharp.Interactivity.</para>
-	/// <para>To be used for commands next.</para>
-	/// <para><note type="caution">Not implemented yet. Returns <see cref="TwoFactorResult.NotImplemented"/>.</note></para>
+	/// The modal response Interaction. Null if Result is TimedOut or NotEnrolled.
 	/// </summary>
-	/// <param name="ctx">The command context.</param>
-	/// <returns>A <see cref="TwoFactorResult"/>.</returns>
-	[Experimental("No support for this yet. Not implemented")]
-	public static async Task<TwoFactorResult> RequestTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(TwoFactorResult.NotImplemented);
+	public DiscordInteraction Interaction { get; internal set; } = null;
+
+	/// <summary>
+	/// The result of the two factor authentication.
+	/// </summary>
+	public TwoFactorResult Result { get; internal set; } = TwoFactorResult.TimedOut;
 }

@@ -25,7 +25,7 @@ namespace DisCatSharp.Extensions.TwoFactorCommands.Enums;
 /// <summary>
 /// Represents two factor responses.
 /// </summary>
-public enum TwoFactorResponse : int
+public enum TwoFactorResult : int
 {
 	/// <summary>
 	/// Code is invalid.
