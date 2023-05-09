@@ -99,13 +99,6 @@ public static class TwoFactorApplicationCommandExtension
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs ctx, DiscordClient client)
 	{
 		var ext = client.GetTwoFactor();
-		/*
-		if (!ext.IsEnrolled(ctx.User.Id))
-		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("You are not enrolled in two factor."));
-			return TwoFactorResponse.NotEnrolled;
-		}
-		*/
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
 		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));

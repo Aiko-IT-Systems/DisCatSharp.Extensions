@@ -113,7 +113,7 @@ public sealed class TwoFactorConfiguration
 public sealed class TwoFactorResponseConfiguration
 {
 	/// <summary>
-	/// <para>Whether to show a response after entering a two factor code.</para>
+	/// <para>Whether to show a response after entering a two factor code. If set to false, you'll need to respond to the modal interaction yourself.</para>
 	/// <para>Defaults to: true</para>
 	/// </summary>
 	public bool ShowResponse { internal get; set; } = true;
