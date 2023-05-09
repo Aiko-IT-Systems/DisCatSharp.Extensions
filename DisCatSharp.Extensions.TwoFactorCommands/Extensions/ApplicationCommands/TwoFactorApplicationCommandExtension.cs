@@ -97,24 +97,24 @@ public static class TwoFactorApplicationCommandExtension
 	/// <para>This uses DisCatSharp.Interactivity.</para>
 	/// <para>To be used as first action for button.</para>
 	/// </summary>
-	/// <param name="ctx">The interaction context.</param>
+	/// <param name="evt">The interaction context.</param>
 	/// <param name="client">The discord client.</param>
 	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
-	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs ctx, DiscordClient client)
+	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs evt, DiscordClient client)
 	{
 		var ext = client.GetTwoFactor();
 
-		if (!ext.IsEnrolled(ctx.User.Id))
+		if (!ext.IsEnrolled(evt.User.Id))
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
-				await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
+				await evt.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
 
 			return new TwoFactorResponse() { Client = client, Result = TwoFactorResult.NotEnrolled };
 		}
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
 		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
-		await ctx.Interaction.CreateInteractionModalResponseAsync(builder);
+		await evt.Interaction.CreateInteractionModalResponseAsync(builder);
 
 		var response = new TwoFactorResponse()
 		{
@@ -132,7 +132,7 @@ public static class TwoFactorApplicationCommandExtension
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components[0].Value);
+		var res = ext.IsValidCode(evt.User.Id, inter.Result.Interaction.Data.Components[0].Value);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
