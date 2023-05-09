@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using DisCatSharp.Entities;
+using DisCatSharp.EventArgs;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.Properties;
@@ -37,17 +38,17 @@ namespace DisCatSharp.Extensions.TwoFactorCommands.Properties;
 public class TwoFactorResponse
 {
 	/// <summary>
-	/// The modal response Interaction. Null if Result is TimedOut or NotEnrolled.
+	/// The modal response <see cref="ComponentInteractionCreateEventArgs"/>. Null if <see cref="Result"/> is <see cref="TwoFactorResult.NotEnrolled"/> or <see cref="TwoFactorResult.TimedOut"/>.
 	/// </summary>
-	public DiscordInteraction Interaction { get; internal set; } = null;
+	public ComponentInteractionCreateEventArgs Interaction { get; internal set; } = null;
 
 	/// <summary>
-	/// The discord client this interaction took place with.
+	/// The <see cref="DiscordClient"/> this interaction took place with.
 	/// </summary>
 	public DiscordClient Client { get; internal set; } = null;
 
 	/// <summary>
-	/// The result of the two factor authentication.
+	/// The <see cref="TwoFactorResult"/> of the two factor authentication.
 	/// </summary>
 	public TwoFactorResult Result { get; internal set; } = TwoFactorResult.TimedOut;
 

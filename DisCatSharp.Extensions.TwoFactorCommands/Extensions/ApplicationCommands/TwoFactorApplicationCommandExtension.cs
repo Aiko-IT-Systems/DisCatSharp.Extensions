@@ -71,7 +71,7 @@ public static class TwoFactorApplicationCommandExtension
 			return response;
 		}
 
-		response.Interaction = inter.Result.Interaction;
+		response.Interaction = inter.Result;
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
@@ -98,7 +98,7 @@ public static class TwoFactorApplicationCommandExtension
 	/// <para>To be used as first action for button.</para>
 	/// </summary>
 	/// <param name="evt">The interaction context.</param>
-	/// <param name="client">The discord client.</param>
+	/// <param name="client">The discord client to use.</param>
 	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs evt, DiscordClient client)
 	{
@@ -128,7 +128,7 @@ public static class TwoFactorApplicationCommandExtension
 			return response;
 		}
 
-		response.Interaction = inter.Result.Interaction;
+		response.Interaction = inter.Result;
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
