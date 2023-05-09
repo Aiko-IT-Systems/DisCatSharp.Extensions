@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using DisCatSharp.Attributes;
 using DisCatSharp.CommandsNext;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
+using DisCatSharp.Extensions.TwoFactorCommands.Properties;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.CommandsNext;
 
@@ -40,6 +41,6 @@ public static class TwoFactorCommandsNextExtension
 	/// <param name="ctx">The command context.</param>
 	/// <returns>A <see cref="TwoFactorResult"/>.</returns>
 	[Experimental("No support for this yet. Not implemented")]
-	public static async Task<TwoFactorResult> RequestTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(TwoFactorResult.NotImplemented);
+	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(CommandContext ctx)
+		=> await Task.FromResult(new TwoFactorResponse() { Result = TwoFactorResult.NotImplemented });
 }
