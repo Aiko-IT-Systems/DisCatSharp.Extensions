@@ -93,7 +93,7 @@ To ask a user to submit their two factor code, use the function [RequestTwoFacto
 It returns a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Properties.TwoFactorResponse).
 
 ```cs
-var tfa_result = ctx.RequestTwoFactorAsync();
+var tfa_result = await ctx.RequestTwoFactorAsync();
 
 if (tfa_result.Result != TwoFactorResult.ValidCode)
 {
