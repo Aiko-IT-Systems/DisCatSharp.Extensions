@@ -115,7 +115,7 @@ Same deal as for slash commands, it'll return a [TwoFactorResponse](xref:DisCatS
 ```cs
 async Task SomeButtonInteraction(DiscordClient sender, ComponentInteractionCreateEventArgs e)
 {
-    var tfa_result = e.RequestTwoFactorAsync(sender);
+    var tfa_result = await e.RequestTwoFactorAsync(sender);
 
     if (tfa_result != TwoFactorResponse.Result.ValidCode)
     {
