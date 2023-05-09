@@ -42,7 +42,7 @@ public static class TwoFactorApplicationCommandExtension
 	/// <para>To be used as first action for application commands.</para>
 	/// </summary>
 	/// <param name="ctx">The base context.</param>
-	/// <returns>A <see cref="TwoFactorResult"/>.</returns>
+	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this BaseContext ctx)
 	{
 		var ext = ctx.Client.GetTwoFactor();
@@ -95,7 +95,7 @@ public static class TwoFactorApplicationCommandExtension
 	/// </summary>
 	/// <param name="ctx">The interaction context.</param>
 	/// <param name="client">The discord client.</param>
-	/// <returns>A <see cref="TwoFactorResult"/>.</returns>
+	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs ctx, DiscordClient client)
 	{
 		var ext = client.GetTwoFactor();

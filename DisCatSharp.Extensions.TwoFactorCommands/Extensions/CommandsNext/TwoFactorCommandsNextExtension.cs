@@ -39,7 +39,7 @@ public static class TwoFactorCommandsNextExtension
 	/// <para><note type="caution">Not implemented yet. Returns <see cref="TwoFactorResult.NotImplemented"/>.</note></para>
 	/// </summary>
 	/// <param name="ctx">The command context.</param>
-	/// <returns>A <see cref="TwoFactorResult"/>.</returns>
+	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	[Experimental("No support for this yet. Not implemented")]
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(CommandContext ctx)
 		=> await Task.FromResult(new TwoFactorResponse() { Result = TwoFactorResult.NotImplemented });

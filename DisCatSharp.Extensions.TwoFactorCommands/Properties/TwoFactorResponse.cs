@@ -30,6 +30,10 @@ using DisCatSharp.Entities;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.Properties;
+
+/// <summary>
+/// The response given upon attempted two factor authentication.
+/// </summary>
 public class TwoFactorResponse
 {
 	/// <summary>
@@ -41,4 +45,6 @@ public class TwoFactorResponse
 	/// The result of the two factor authentication.
 	/// </summary>
 	public TwoFactorResult Result { get; internal set; } = TwoFactorResult.TimedOut;
+
+	internal TwoFactorResponse() { }
 }
