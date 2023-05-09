@@ -50,5 +50,5 @@ public enum TwoFactorResult : int
 	/// <summary>
 	/// This function is not implemented.
 	/// </summary>
-	NotImplemented = 99999
+	NotImplemented = int.MaxValue
 }

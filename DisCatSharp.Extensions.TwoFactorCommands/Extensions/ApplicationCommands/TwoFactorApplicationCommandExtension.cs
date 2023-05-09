@@ -67,6 +67,7 @@ public static class TwoFactorApplicationCommandExtension
 		if (inter.TimedOut)
 		{
 			response.Result = TwoFactorResult.TimedOut;
+
 			return response;
 		}
 
@@ -81,6 +82,7 @@ public static class TwoFactorApplicationCommandExtension
 				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage));
 
 			response.Result = TwoFactorResult.ValidCode;
+
 			return response;
 		}
 
@@ -88,6 +90,7 @@ public static class TwoFactorApplicationCommandExtension
 			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage));
 
 		response.Result = TwoFactorResult.InvalidCode;
+
 		return response;
 	}
 
@@ -124,6 +127,7 @@ public static class TwoFactorApplicationCommandExtension
 		if (inter.TimedOut)
 		{
 			response.Result = TwoFactorResult.TimedOut;
+
 			return response;
 		}
 
@@ -138,6 +142,7 @@ public static class TwoFactorApplicationCommandExtension
 				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage));
 
 			response.Result = TwoFactorResult.ValidCode;
+
 			return response;
 		}
 
@@ -145,6 +150,7 @@ public static class TwoFactorApplicationCommandExtension
 			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage));
 
 		response.Result = TwoFactorResult.InvalidCode;
+
 		return response;
 	}
 }
