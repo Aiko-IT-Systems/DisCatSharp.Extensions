@@ -12,6 +12,8 @@ title: TwoFactor Commands Introduction
 
 Install the NuGet package `DisCatSharp.Extensions.TwoFactorCommands` into your project. Currently only available as prerelease.
 
+You'll also need `DiscordSharp.Interactivity`.
+
 Enable the extension by calling [UseTwoFactor](xref:DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods#DisCatSharp_Extensions_TwoFactorCommands_ExtensionMethods_UseTwoFactor_DiscordClient_DisCatSharp_Extensions_TwoFactorCommands_TwoFactorConfiguration_) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
 
 ```cs
@@ -88,15 +90,40 @@ To force a command to require two factor, use the [ApplicationCommandRequireEnro
 
 To ask a user to submit their two factor code, use the function [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension#DisCatSharp_Extensions_TwoFactorCommands_ApplicationCommands_TwoFactorApplicationCommandExtension_RequestTwoFactorAsync_BaseContext_) on your [BaseContext](xref:DisCatSharp.ApplicationCommands.Context.BaseContext).
 
-It returns a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Enums.TwoFactorResponse).
-Make sure to annotate your command with the [ApplicationCommandRequireEnrolledTwoFactorAttribute](xref:DisCatSharp.ApplicationCommands.Attributes.ApplicationCommandRequireEnrolledTwoFactorAttribute) attribute.
+It'll return a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Properties.TwoFactorResponse).
 
 ```cs
 var tfa_result = ctx.RequestTwoFactorAsync();
 
-if (tfa_result == TwoFactorResponse.ValidCode)
+if (tfa_result != TwoFactorResponse.Result.ValidCode)
 {
-	// Do your stuff
+	// Handle incorrect code
+    return;
+}
+
+// Do your stuff
+```
+
+### Using TwoFactor with Buttons
+
+Using two factor authentication on buttons is pretty similar to slash commands but it'll need a DiscordClient to attach to.
+
+Run [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension#DisCatSharp_Extensions_TwoFactorCommands_ApplicationCommands_TwoFactorApplicationCommandExtension_RequestTwoFactorAsync_BaseContext_) on your [ComponentInteractionCreateEventArgs](xref:DisCatSharp.EventArgs.ComponentInteractionCreateEventArgs) to ask the user for the two factor auth code.
+
+Same deal as for slash commands, it'll return a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Properties.TwoFactorResponse).
+
+```cs
+async Task SomeButtonInteraction(DiscordClient sender, ComponentInteractionCreateEventArgs e)
+{
+    var tfa_result = e.RequestTwoFactorAsync(sender);
+
+    if (tfa_result != TwoFactorResponse.Result.ValidCode)
+    {
+        // Handle incorrect code
+        return;
+    }
+
+    // Do your stuff
 }
 ```
 
