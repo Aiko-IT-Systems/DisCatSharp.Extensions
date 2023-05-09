@@ -20,35 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace DisCatSharp.Extensions.TwoFactorCommands.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using DisCatSharp.Entities;
+using DisCatSharp.EventArgs;
+using DisCatSharp.Extensions.TwoFactorCommands.Enums;
+
+namespace DisCatSharp.Extensions.TwoFactorCommands.Entities;
 
 /// <summary>
-/// Represents two factor responses.
+/// The response given upon attempted two factor authentication.
 /// </summary>
-public enum TwoFactorResponse : int
+public class TwoFactorResponse
 {
 	/// <summary>
-	/// Code is invalid.
+	/// The modal response <see cref="ComponentInteractionCreateEventArgs"/>. Null if <see cref="Result"/> is <see cref="TwoFactorResult.NotEnrolled"/> or <see cref="TwoFactorResult.TimedOut"/>.
 	/// </summary>
-	InvalidCode = 1,
+	public ComponentInteractionCreateEventArgs ComponentInteraction { get; internal set; } = null;
 
 	/// <summary>
-	/// Code is valid.
+	/// The <see cref="DiscordClient"/> this interaction took place with.
 	/// </summary>
-	ValidCode = 2,
+	public DiscordClient Client { get; internal set; } = null;
 
 	/// <summary>
-	/// User is not enrolled.
+	/// The <see cref="TwoFactorResult"/> of the two factor authentication.
 	/// </summary>
-	NotEnrolled = 3,
+	public TwoFactorResult Result { get; internal set; } = TwoFactorResult.TimedOut;
 
-	/// <summary>
-	/// Two factor input timed out.
-	/// </summary>
-	TimedOut = 4,
-
-	/// <summary>
-	/// This function is not implemented.
-	/// </summary>
-	NotImplemented = 99999
+	internal TwoFactorResponse() { }
 }

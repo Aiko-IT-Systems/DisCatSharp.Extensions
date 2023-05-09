@@ -20,27 +20,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Threading.Tasks;
+namespace DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
-using DisCatSharp.Attributes;
-using DisCatSharp.CommandsNext;
-using DisCatSharp.Extensions.TwoFactorCommands.Enums;
-using DisCatSharp.Extensions.TwoFactorCommands.Entities;
-
-namespace DisCatSharp.Extensions.TwoFactorCommands.CommandsNext;
-
-public static class TwoFactorCommandsNextExtension
+/// <summary>
+/// Represents two factor responses.
+/// </summary>
+public enum TwoFactorResult : int
 {
-	// TODO: Implement
 	/// <summary>
-	/// <para>Asks the user via private for the two factor code.</para>
-	/// <para>This uses DisCatSharp.Interactivity.</para>
-	/// <para>To be used for commands next.</para>
-	/// <para><note type="caution">Not implemented yet. Returns <see cref="TwoFactorResult.NotImplemented"/>.</note></para>
+	/// Code is invalid.
 	/// </summary>
-	/// <param name="ctx">The command context.</param>
-	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
-	[Experimental("No support for this yet. Not implemented")]
-	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(new TwoFactorResponse() { Result = TwoFactorResult.NotImplemented });
+	InvalidCode = 1,
+
+	/// <summary>
+	/// Code is valid.
+	/// </summary>
+	ValidCode = 2,
+
+	/// <summary>
+	/// User is not enrolled.
+	/// </summary>
+	NotEnrolled = 3,
+
+	/// <summary>
+	/// Two factor input timed out.
+	/// </summary>
+	TimedOut = 4,
+
+	/// <summary>
+	/// This function is not implemented.
+	/// </summary>
+	NotImplemented = int.MaxValue
 }

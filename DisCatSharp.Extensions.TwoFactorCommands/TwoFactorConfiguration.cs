@@ -113,6 +113,12 @@ public sealed class TwoFactorConfiguration
 public sealed class TwoFactorResponseConfiguration
 {
 	/// <summary>
+	/// <para>Whether to show a response after entering a two factor code. If set to false, you'll need to respond to the modal interaction yourself.</para>
+	/// <para>Defaults to: true</para>
+	/// </summary>
+	public bool ShowResponse { internal get; set; } = true;
+
+	/// <summary>
 	/// <para>Sets the message when an correct two factor auth code was entered.</para>
 	/// <para>Defaults to: Code valid!</para>
 	/// </summary>
@@ -123,6 +129,12 @@ public sealed class TwoFactorResponseConfiguration
 	/// <para>Defaults to: Code invalid..</para>
 	/// </summary>
 	public string AuthenticationFailureMessage { internal get; set; } = "Code invalid..";
+
+	/// <summary>
+	/// <para>Sets the message when an user is not yet enrolled into two factor auth.</para>
+	/// <para>Defaults to: You are not enrolled in two factor.</para>
+	/// </summary>
+	public string AuthenticationNotEnrolledMessage { internal get; set; } = "You are not enrolled in two factor.";
 
 	/// <summary>
 	/// <para>Sets the modal title for two factor auth requests.</para>
