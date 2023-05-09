@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 using DisCatSharp.Attributes;
 using DisCatSharp.CommandsNext;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
-using DisCatSharp.Extensions.TwoFactorCommands.Properties;
+using DisCatSharp.Extensions.TwoFactorCommands.Entities;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.CommandsNext;
 

@@ -30,7 +30,7 @@ using DisCatSharp.Entities;
 using DisCatSharp.EventArgs;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
-namespace DisCatSharp.Extensions.TwoFactorCommands.Properties;
+namespace DisCatSharp.Extensions.TwoFactorCommands.Entities;
 
 /// <summary>
 /// The response given upon attempted two factor authentication.

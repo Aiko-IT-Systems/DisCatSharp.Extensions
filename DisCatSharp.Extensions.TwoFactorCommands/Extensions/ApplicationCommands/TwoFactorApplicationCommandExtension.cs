@@ -28,7 +28,7 @@ using DisCatSharp.Entities;
 using DisCatSharp.Enums;
 using DisCatSharp.EventArgs;
 using DisCatSharp.Extensions.TwoFactorCommands.Enums;
-using DisCatSharp.Extensions.TwoFactorCommands.Properties;
+using DisCatSharp.Extensions.TwoFactorCommands.Entities;
 using DisCatSharp.Interactivity.Extensions;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
