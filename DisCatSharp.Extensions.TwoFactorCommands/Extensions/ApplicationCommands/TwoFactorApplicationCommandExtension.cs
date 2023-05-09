@@ -46,19 +46,23 @@ public static class TwoFactorApplicationCommandExtension
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this BaseContext ctx)
 	{
 		var ext = ctx.Client.GetTwoFactor();
-		/*
+		
 		if (!ext.IsEnrolled(ctx.User.Id))
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("You are not enrolled in two factor."));
-			return TwoFactorResponse.NotEnrolled;
+			if (ext.Configuration.ResponseConfiguration.ShowResponse)
+				await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
+
+			return new TwoFactorResponse() { Client = ctx.Client, Result = TwoFactorResult.NotEnrolled };
 		}
-		*/
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
 		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await ctx.CreateModalResponseAsync(builder);
 
-		var response = new TwoFactorResponse();
+		var response = new TwoFactorResponse()
+		{
+			Client = ctx.Client
+		};
 
 		var inter = await ctx.Client.GetInteractivity().WaitForModalAsync(builder.CustomId, TimeSpan.FromSeconds(ext.Configuration.TwoFactorTimeout));
 		if (inter.TimedOut)
@@ -100,11 +104,22 @@ public static class TwoFactorApplicationCommandExtension
 	{
 		var ext = client.GetTwoFactor();
 
+		if (!ext.IsEnrolled(ctx.User.Id))
+		{
+			if (ext.Configuration.ResponseConfiguration.ShowResponse)
+				await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
+
+			return new TwoFactorResponse() { Client = client, Result = TwoFactorResult.NotEnrolled };
+		}
+
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
 		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await ctx.Interaction.CreateInteractionModalResponseAsync(builder);
 
-		var response = new TwoFactorResponse();
+		var response = new TwoFactorResponse()
+		{
+			Client = client
+		};
 
 		var inter = await client.GetInteractivity().WaitForModalAsync(builder.CustomId, TimeSpan.FromSeconds(ext.Configuration.TwoFactorTimeout));
 		if (inter.TimedOut)

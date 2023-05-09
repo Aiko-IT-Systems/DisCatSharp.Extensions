@@ -131,6 +131,12 @@ public sealed class TwoFactorResponseConfiguration
 	public string AuthenticationFailureMessage { internal get; set; } = "Code invalid..";
 
 	/// <summary>
+	/// <para>Sets the message when an user is not yet enrolled into two factor auth.</para>
+	/// <para>Defaults to: You are not enrolled in two factor.</para>
+	/// </summary>
+	public string AuthenticationNotEnrolledMessage { internal get; set; } = "You are not enrolled in two factor.";
+
+	/// <summary>
 	/// <para>Sets the modal title for two factor auth requests.</para>
 	/// <para>Defaults to: Enter 2FA Code</para>
 	/// </summary>

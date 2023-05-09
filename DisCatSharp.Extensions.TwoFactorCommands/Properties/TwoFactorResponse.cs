@@ -42,6 +42,11 @@ public class TwoFactorResponse
 	public DiscordInteraction Interaction { get; internal set; } = null;
 
 	/// <summary>
+	/// The discord client this interaction took place with.
+	/// </summary>
+	public DiscordClient Client { get; internal set; } = null;
+
+	/// <summary>
 	/// The result of the two factor authentication.
 	/// </summary>
 	public TwoFactorResult Result { get; internal set; } = TwoFactorResult.TimedOut;
