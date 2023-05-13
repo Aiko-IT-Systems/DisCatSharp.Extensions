@@ -19,11 +19,8 @@
 		}
 	],
 	"build":{
-		"xrefService":[
-			"https://xref.docs.microsoft.com/query?uid={uid}"
-		],
 		"xref": [
-			"https://docs.discatsharp.tech/xrefmap.yml"
+			"https://docs.dcs.aitsys.dev/xrefmap.yml"
 		],
 		"content":[
 			{
