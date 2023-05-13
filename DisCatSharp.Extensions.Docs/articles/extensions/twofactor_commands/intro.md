@@ -90,7 +90,7 @@ To force a command to require two factor, use the [ApplicationCommandRequireEnro
 
 To ask a user to submit their two factor code, use the function [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension#DisCatSharp_Extensions_TwoFactorCommands_ApplicationCommands_TwoFactorApplicationCommandExtension_RequestTwoFactorAsync_DisCatSharp_ApplicationCommands_Context_BaseContext_) on your [BaseContext](xref:DisCatSharp.ApplicationCommands.Context.BaseContext).
 
-It returns a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Properties.TwoFactorResponse).
+It returns a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Entities.TwoFactorResponse).
 
 ```cs
 var tfa_result = await ctx.RequestTwoFactorAsync();

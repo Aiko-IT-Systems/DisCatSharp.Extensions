@@ -20,7 +20,7 @@
 	],
 	"build":{
 		"xref": [
-			"https://docs.dcs.aitsys.dev/xrefmap.yml"
+			"https://backup-docs.dcs.aitsys.dev/xrefmap.yml"
 		],
 		"content":[
 			{
