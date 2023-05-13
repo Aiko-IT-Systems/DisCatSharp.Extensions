@@ -78,10 +78,10 @@
 			"_disableNewTab": false,
 			"_disableContribution": false,
 			"_disableBreadcrumb": false,
-			"_gitUrlPattern":"git",
-			"_gitContribute":{
-				"repo":"https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions",
-				"branch":"main"
+			"_gitUrlPattern": "git",
+			"_gitContribute": {
+				"repo": "https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions",
+				"branch": "main"
 			},
 			"_googleTagId": "G-8JHG7YVNKK",
 			"_lang": "en-US",
@@ -92,23 +92,23 @@
 			"_twitterImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
 			"_layout": "conceptual"
 		},
-		"disableGitFeatures":false,
-		"exportRawModel":false,
+		"disableGitFeatures": false,
+		"exportRawModel": false,
 		"exportViewModel": false,
-		"globalMetadataFiles":[],
-		"fileMetadataFiles":[],
+		"globalMetadataFiles": [],
+		"fileMetadataFiles": [],
 		"fileMetadata": {
 			"_ogType": {
 				"articles/**/*.md": "article",
 				"changelogs/**/*.md": "article"
 			}
 		},
-		"template":[
+		"template": [
 			"default",
 			"modern",
 			"dcs"
 		],
-		"postProcessors":[
+		"postProcessors": [
 			"ExtractSearchIndex"
 		],
 		"noLangKeyword":false,

@@ -5,7 +5,7 @@ export default {
   iconLinks: [
     {
       icon: 'github',
-      href: 'https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions',
+      href: 'https://github.com/Aiko-IT-Systems/DisCatSharp',
       title: 'GitHub'
     },
     {
