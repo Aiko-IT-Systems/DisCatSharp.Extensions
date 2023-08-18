@@ -1,9 +1,10 @@
 ---
 uid: api_index
-title: DisCatSharp Global API
+title: DisCatSharp Extensions Global API
 ---
 # API Reference
 
 Welcome to the DisCatSharp Extensions Global API reference.
 
 - [DisCatSharp.Extensions.TwoFactorCommands](xref:api_discatsharp_extensions_twofactorcommands_index)
+- [DisCatSharp.Extensions.OAuth2Web](xref:api_discatsharp_extensions_oauth2web_index)
