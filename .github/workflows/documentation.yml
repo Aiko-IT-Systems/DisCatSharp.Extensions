@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.203
+        dotnet-version: 7.0.306
     - name: Git fetch unshallow
       run: git fetch --unshallow
     - name: Install DocFX
@@ -28,8 +28,6 @@ jobs:
     - name: Build library
       run: dotnet build -c Release --no-restore -v minimal
       continue-on-error: true
-    - name: Add Custom Plugins
-      run: cp -R DisCatSharp.Extensions.Docs/dcs/plugins/* /home/runner/.dotnet/tools/.store/docfx/2.67.0/docfx/2.67.0/tools/net7.0/any/
     - name: Build Docs
       run: docfx DisCatSharp.Extensions.Docs/docfx.json
     - name: Pack Docs

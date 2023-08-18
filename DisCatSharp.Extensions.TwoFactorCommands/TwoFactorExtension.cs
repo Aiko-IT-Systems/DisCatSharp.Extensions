@@ -32,6 +32,9 @@ using TwoFactorAuthNet;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
+/// <summary>
+/// Represents a <see cref="TwoFactorExtension"/>.
+/// </summary>
 public sealed class TwoFactorExtension : BaseExtension
 {
 	/// <summary>
