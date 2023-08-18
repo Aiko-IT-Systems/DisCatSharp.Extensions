@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -135,7 +136,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	/// Gets all access tokens mapped to user id.
 	/// </summary>
-	public ConcurrentDictionary<ulong, DiscordAccessToken> UserIdAccessTokenMapper { get; } = new();
+	internal ConcurrentDictionary<ulong, DiscordAccessToken> UserIdAccessTokenMapper { get; } = new();
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="OAuth2WebExtension"/> class.
@@ -176,13 +177,75 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
+	/// Gets an access token for <paramref name="user"/>.
+	/// </summary>
+	/// <param name="user">The user to get the token from.</param>
+	/// <param name="token">The found access token.</param>
+	/// <returns>Whether an access token was found.</returns>
+	public bool TryGetAccessToken(DiscordUser user, out DiscordAccessToken? token)
+		=> this.TryGetAccessToken(user.Id, out token);
+
+	/// <summary>
+	/// Gets an access token for <paramref name="userId"/>.
+	/// </summary>
+	/// <param name="userId">The user id to get the token from.</param>
+	/// <param name="token">The found access token.</param>
+	/// <returns>Whether an access token was found.</returns>
+	public bool TryGetAccessToken(ulong userId, out DiscordAccessToken? token)
+		=> this.UserIdAccessTokenMapper.TryGetValue(userId, out token);
+
+	/// <summary>
+	/// Refreshes an access token for <paramref name="user"/>.
+	/// <para>Fires an <see cref="AccessTokenRefreshed"/> event.</para>
+	/// </summary>
+	/// <param name="user">The user to revoke their token from.</param>
+	public Task<bool> RefreshAccessTokenAsync(DiscordUser user)
+		=> this.RefreshAccessTokenAsync(user.Id);
+
+	/// <summary>
+	/// Revokes an access token for <paramref name="user"/>.
+	/// <para>Fires an <see cref="AccessTokenRevoked"/> event.</para>
+	/// </summary>
+	/// <param name="user">The user to revoke their token from.</param>
+	public Task<bool> RevokeAccessTokenAsync(DiscordUser user)
+		=> this.RevokeAccessTokenAsync(user.Id);
+
+	/// <summary>
+	/// Refreshes an access token for <paramref name="userId"/>.
+	/// <para>Fires an <see cref="AccessTokenRefreshed"/> event.</para>
+	/// </summary>
+	/// <param name="userId">The user id to revoke their token from.</param>
+	public async Task<bool> RefreshAccessTokenAsync(ulong userId)
+	{
+		if (!this.UserIdAccessTokenMapper.TryGetValue(userId, out var token))
+			return false;
+
+		await this.RefreshAccessTokenAsync(token, userId);
+		return true;
+	}
+
+	/// <summary>
+	/// Revokes an access token for <paramref name="userId"/>.
+	/// <para>Fires an <see cref="AccessTokenRevoked"/> event.</para>
+	/// </summary>
+	/// <param name="userId">The user id to revoke their token from.</param>
+	public async Task<bool> RevokeAccessTokenAsync(ulong userId)
+	{
+		if (!this.UserIdAccessTokenMapper.TryGetValue(userId, out var token))
+			return false;
+
+		await this.RevokeAccessTokenAsync(token, userId);
+		return true;
+	}
+
+	/// <summary>
 	/// Refreshes all access tokens.
 	/// <para>Fires an <see cref="AccessTokenRefreshed"/> event for every refreshed token.</para>
 	/// </summary>
 	public async Task RefreshAllAccessTokensAsync()
 	{
-		foreach (var token in this.UserIdAccessTokenMapper.Values)
-			await this.OAuth2Client.RefreshAccessTokenAsync(token);
+		foreach (var mappedToken in this.UserIdAccessTokenMapper)
+			await this.RefreshAccessTokenAsync(mappedToken.Value, mappedToken.Key);
 	}
 
 	/// <summary>
@@ -277,11 +340,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Waits for an access token.
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
-	/// <param name="url">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
+	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
 	/// <param name="token">A custom cancellation token that can be cancelled at any point.</param>
-	public async Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri url, CancellationToken token)
+	public async Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri uri, CancellationToken token)
 	{
-		var state = this.OAuth2Client.GetStateFromUri(url);
+		var state = this.OAuth2Client.GetStateFromUri(uri);
 
 		var res = await this._authorizationCodeWaiter
 			.WaitForMatchAsync(new(state,
@@ -292,24 +355,25 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 	/// <summary>
 	/// Waits for an access token.
+	/// <para>Make sure to submit <paramref name="uri"/> to <see cref="SubmitPendingOAuth2Url"/> before calling.</para>
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
-	/// <param name="url">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
+	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
 	/// <param name="timeoutOverride">Override the timeout period of one minute.</param>
-	public Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri url, TimeSpan? timeoutOverride = null)
-		=> this.WaitForAccessTokenAsync(user, url, GetCancellationToken(timeoutOverride));
+	public Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri uri, TimeSpan? timeoutOverride = null)
+		=> this.WaitForAccessTokenAsync(user, uri, GetCancellationToken(timeoutOverride));
 
 	/// <summary>
 	/// Refreshes an access token.
 	/// </summary>
 	/// <param name="accessToken">The access token to refresh.</param>
-	internal async void RefreshAccessTokenAsync(DiscordAccessToken accessToken)
+	/// <param name="userId">The user id the access token belongs to.</param>
+	internal async Task RefreshAccessTokenAsync(DiscordAccessToken accessToken, ulong userId)
 	{
-		var info = await this.OAuth2Client.GetCurrentAuthorizationInformationAsync(accessToken);
 		var freshToken = await this.OAuth2Client.RefreshAccessTokenAsync(accessToken);
 		_ = Task.Run(() => this._accessTokenRefreshed.InvokeAsync(this.OAuth2Client, new(this.ServiceProvider)
 		{
-			RefreshedDiscordAccessToken = freshToken, UserId = info.User!.Id
+			RefreshedDiscordAccessToken = freshToken, UserId = userId
 		}));
 	}
 
@@ -317,6 +381,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Revokes an access token.
 	/// </summary>
 	/// <param name="accessToken">The access token to revoke.</param>
+	/// <param name="userId">The user id the access token belongs to.</param>
 	internal async Task RevokeAccessTokenAsync(DiscordAccessToken accessToken, ulong userId)
 	{
 		await this.OAuth2Client.RevokeByAccessTokenAsync(accessToken);
@@ -337,11 +402,13 @@ public sealed class OAuth2WebExtension : BaseExtension
 		{
 			Uri requestUrl = new(context.Request.GetDisplayUrl());
 
-			if (!this.OAuth2RequestUrls.Any(u => this.OAuth2Client.ValidateState(new(u), requestUrl)))
+			if (!this.OAuth2RequestUrls.Any(u =>
+				    this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates)))
 			{
 				context.Response.StatusCode = 500;
 				context.Response.ContentType = "application/json";
-				await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Invalid state\" }");
+				await context.Response.WriteAsync(
+					"{ \"handled\": false, \"error\": true, \"message\": \"Invalid state\" }");
 				return;
 			}
 
@@ -352,19 +419,34 @@ public sealed class OAuth2WebExtension : BaseExtension
 				new(this.ServiceProvider) { ReceivedCode = code, ReceivedState = state });
 
 			var accessToken = await this.OAuth2Client.ExchangeAccessTokenAsync(code);
-
-			_ = Task.Run(async () =>
+			var info = await this.OAuth2Client.GetCurrentAuthorizationInformationAsync(accessToken);
+			if (this.Configuration.SecureStates)
 			{
-				var info = await this.OAuth2Client.GetCurrentAuthorizationInformationAsync(accessToken);
-				await this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
-					new(this.ServiceProvider)
-					{
-						ExchangedCode = code, ReceivedState = state, DiscordAccessToken = accessToken, UserId = info.User!.Id
-					}).ConfigureAwait(false);
-			});
+				var stateUserId = ulong.Parse(this.OAuth2Client.ReadSecureState(state).Split("::")[1]);
+				if (stateUserId != info.User?.Id)
+					throw new SecurityException("State mismatch");
+			}
+
+			_ = Task.Run(() => this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
+				new(this.ServiceProvider)
+				{
+					ExchangedCode = code,
+					ReceivedState = state,
+					DiscordAccessToken = accessToken,
+					UserId = info.User!.Id
+				}));
+
 			context.Response.StatusCode = 200;
 			context.Response.ContentType = "application/json";
 			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false }");
+		}
+		catch (SecurityException ex)
+		{
+			_ = Task.Run(() => this.OAuth2Client._oauth2ClientErrored.InvokeAsync(this.OAuth2Client,
+				new(this.ServiceProvider) { EventName = "HandleOAuth2Async", Exception = ex }));
+			context.Response.StatusCode = 401;
+			context.Response.ContentType = "application/json";
+			await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Security Exception\" }");
 		}
 		catch (Exception ex)
 		{

@@ -54,7 +54,14 @@ public class OAuth2WebConfiguration
 	public string RedirectUri { internal get; init; }
 
 	/// <summary>
+	/// Whether <see cref="DiscordOAuth2Client.GenerateSecureState"/> and <see cref="DiscordOAuth2Client.ReadSecureState"/> will be used.
+	/// <para>Defaults to <see langword="false"/>.</para>
+	/// </summary>
+	public bool SecureStates { internal get; init; }
+
+	/// <summary>
 	/// Sets whether to listen on <c>*:<see cref="Port">Port</see></c> instead of <c>127.0.0.1:<see cref="Port">Port</see></c>.
+	/// <para>Defaults to <see langword="false"/>.</para>
 	/// </summary>
 	public bool ListenAll { internal get; init; }
 
@@ -93,5 +100,6 @@ public class OAuth2WebConfiguration
 		this.ServiceProvider = other.ServiceProvider;
 		this.ListenAll = other.ListenAll;
 		this.Port = other.Port;
+		this.SecureStates = other.SecureStates;
 	}
 }
