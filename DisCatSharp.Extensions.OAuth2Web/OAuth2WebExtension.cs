@@ -442,7 +442,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 		}
 		catch (SecurityException ex)
 		{
-			_ = Task.Run(() => this.OAuth2Client._oauth2ClientErrored.InvokeAsync(this.OAuth2Client,
+			_ = Task.Run(() => this.OAuth2Client.OAuth2ClientErroredInternal.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider) { EventName = "HandleOAuth2Async", Exception = ex }));
 			context.Response.StatusCode = 401;
 			context.Response.ContentType = "application/json";
@@ -450,7 +450,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 		}
 		catch (Exception ex)
 		{
-			_ = Task.Run(() => this.OAuth2Client._oauth2ClientErrored.InvokeAsync(this.OAuth2Client,
+			_ = Task.Run(() => this.OAuth2Client.OAuth2ClientErroredInternal.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider) { EventName = "HandleOAuth2Async", Exception = ex }));
 			context.Response.StatusCode = 500;
 			context.Response.ContentType = "application/json";
