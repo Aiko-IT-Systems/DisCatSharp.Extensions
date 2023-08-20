@@ -5,6 +5,7 @@
 	<Import Project="../Targets/Package.targets" />
 	<Import Project="../Targets/NuGet.targets" />
 	<Import Project="../Targets/Library.targets" />
+
 	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
 	  <TypeScriptTarget>ESNext</TypeScriptTarget>
 	</PropertyGroup>
