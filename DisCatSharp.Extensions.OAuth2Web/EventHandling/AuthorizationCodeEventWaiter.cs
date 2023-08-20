@@ -47,6 +47,7 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AuthorizationCodeEventWaiter"/> class.
 	/// </summary>
+	/// <param name="extension">The OAuth2 web extension.</param>
 	/// <param name="client">The client.</param>
 	public AuthorizationCodeEventWaiter(OAuth2WebExtension extension, DiscordOAuth2Client client)
 	{

@@ -46,7 +46,6 @@ internal class AuthorizationCodeMatchRequest
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AuthorizationCodeMatchRequest"/> class.
 	/// </summary>
-	/// <param name="authorizationCode">The authorization code to wait for.</param>
 	/// <param name="state">The state to wait for.</param>
 	/// <param name="predicate">The predicate.</param>
 	/// <param name="cancellation">The cancellation token.</param>
