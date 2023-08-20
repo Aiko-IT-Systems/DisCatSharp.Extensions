@@ -19,26 +19,26 @@ DisCatSharp.Extensions.TwoFactorCommands
 
 Extension allowing to require two factor authentication for commands.
 	</Description>
-    <PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net6</PackageTags>
+    <PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net6,Net7</PackageTags>
   </PropertyGroup>
 
 <ItemGroup>
-    <PackageReference Include="DatabaseWrapper" Version="6.0.3" />
-    <PackageReference Include="DatabaseWrapper.Sqlite" Version="6.0.3" />
-  <PackageReference Include="DisCatSharp" Version="10.4.1" />
-  <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.5.0">
+  <PackageReference Include="DatabaseWrapper" Version="6.0.3" />
+  <PackageReference Include="DatabaseWrapper.Sqlite" Version="6.0.3" />
+  <PackageReference Include="DisCatSharp" Version="10.4.*-*" />
+  <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.*">
 	<PrivateAssets>all</PrivateAssets>
 	<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
-  <PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.4.1" />
-  <PackageReference Include="DisCatSharp.Attributes" Version="10.4.2" />
-  <PackageReference Include="DisCatSharp.CommandsNext" Version="10.4.1" />
-  <PackageReference Include="DisCatSharp.Common" Version="10.4.1" />
-  <PackageReference Include="DisCatSharp.Interactivity" Version="10.4.1" />
-    <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  <PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.4.*-*" />
+  <PackageReference Include="DisCatSharp.Attributes" Version="10.4.*" />
+  <PackageReference Include="DisCatSharp.CommandsNext" Version="10.4.*-*" />
+  <PackageReference Include="DisCatSharp.Common" Version="10.4.*-*" />
+  <PackageReference Include="DisCatSharp.Interactivity" Version="10.4.*-*" />
+  <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
+  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 </ItemGroup>
 

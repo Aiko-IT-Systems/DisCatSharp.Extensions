@@ -16,58 +16,85 @@
 			"dest":"api/DisCatSharp.Extensions.TwoFactorCommands",
 			"filter":"filter_config.yml",
 			"disableDefaultFilter":false
+		},
+		{
+			"src":[
+				{
+					"src":"../DisCatSharp.Extensions.OAuth2Web/",
+					"files":[
+						"**.csproj"
+					],
+					"exclude":[
+						"**/obj/**",
+						"**/bin/**"
+					]
+				}
+			],
+			"dest":"api/DisCatSharp.Extensions.OAuth2Web",
+			"filter":"filter_config.yml",
+			"disableDefaultFilter":false
 		}
 	],
-	"build":{
+	"build": {
+		"xrefService": [
+			"https://xref.docs.microsoft.com/query?uid={uid}"
+		],
 		"xref": [
 			"https://docs.dcs.aitsys.dev/xrefmap.yml"
 		],
-		"content":[
+		"content": [
 			{
-				"files":[
+				"files": [
 					"api/**/**.yml",
 					"api/**/**.md",
 					"api/**.yml",
 					"api/**.md"
+				],
+				"exclude": [
+					"**/node_modules/**"
 				]
 			},
 			{
-				"files":[
+				"files": [
 					"**.md",
 					"toc.yml",
+					"faq/**.yml",
+					"faq/**.md",
 					"articles/**.yml",
 					"articles/**.md"
 				],
-				"exclude":[
+				"exclude": [
 					"**/bin/**",
 					"**/obj/**",
 					"_site/**",
-					"dcs/**"
+					"dcs/**",
+					"**/node_modules/**"
 				]
 			}
 		],
-		"resource":[
+		"resource": [
 			{
-				"files":[
+				"files": [
 					"images/**",
-					"natives/**.zip",
-					"./.htaccess"
+					"./.htaccess",
+					"snippets/**"
 				],
-				"exclude":[
+				"exclude": [
 					"**/bin/**",
 					"**/obj/**",
 					"_site/**",
-					"images/_**"
+					"images/_**",
+					"**/node_modules/**"
 				]
 			}
 		],
-		"overwrite":[],
-		"dest":"_site",
-		"globalMetadata":{
+		"overwrite": [],
+		"dest": "_site",
+		"globalMetadata": {
 			"_appTitle": "DisCatSharp Extensions Docs",
 			"_appName": "DisCatSharp Extensions",
 			"_appFooter": "<strong>Made with ❤️ by AITSYS</strong>",
-			"_appLogoPath": "logo.png",
+			"_appLogoPath": "logo.svg",
 			"_enableSearch": true,
 			"_disableNextArticle": false,
 			"_disableSideFilter": false,
@@ -87,7 +114,8 @@
 			"_fbPageId": "112155734832129",
 			"_twitterSite": "@DisCatSharp",
 			"_twitterImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
-			"_layout": "conceptual"
+			"_layout": "conceptual",
+			"_urlNormalizationActive": true
 		},
 		"disableGitFeatures": false,
 		"exportRawModel": false,
@@ -106,15 +134,16 @@
 			"dcs"
 		],
 		"postProcessors": [
-			"ExtractSearchIndex"
+			"ExtractSearchIndex",
+			"LastModified"
 		],
-		"noLangKeyword":false,
-		"keepFileLink":false,
-		"cleanupCacheHistory":false,
-		"sitemap":{
-			"baseUrl":"https://ext-docs.dcs.aitsys.dev/",
-			"changefreq":"daily",
-			"priority":1.0
+		"noLangKeyword": false,
+		"keepFileLink": false,
+		"cleanupCacheHistory": false,
+		"sitemap": {
+			"baseUrl": "https://ext-docs.dcs.aitsys.dev/",
+			"changefreq": "daily",
+			"priority": 1.0
 		}
 	}
 }

@@ -38,7 +38,7 @@ public sealed class TwoFactorConfiguration
 	/// <para>Objects in this provider are used when instantiating command modules. This allows passing data around without resorting to static members.</para>
 	/// <para>Defaults to an empty service provider.</para>
 	/// </summary>
-	public IServiceProvider ServiceProvider { internal get; set; }
+	public IServiceProvider ServiceProvider { internal get; set; } = new ServiceCollection().BuildServiceProvider(true);
 
 	/// <summary>
 	/// Sets the length of digits for the 2fa code. Defaults to <c>6</c>.

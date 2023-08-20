@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<Import Project="../Targets/Version.targets" />
+	<Import Project="../Targets/DisCatSharp.targets" />
+	<Import Project="../Targets/Package.targets" />
+	<Import Project="../Targets/NuGet.targets" />
+	<Import Project="../Targets/Library.targets" />
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
+	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
+	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AssemblyName>DisCatSharp.Extensions.OAuth2Web</AssemblyName>
+		<RootNamespace>DisCatSharp.Extensions.OAuth2Web</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>DisCatSharp.Extensions.OAuth2Web</PackageId>
+		<Description>
+		  DisCatSharp.Extensions.OAuth2Web
+
+		  Extension providing a web server for the DiscordOAuth2Client.
+		</Description>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,OAuth2,OAuth,Discord OAuth2,Discord,Bots,Discord Bots,AITSYS,Net6,Net7,Webserver</PackageTags>
+		<TypeScriptJSXEmit>none</TypeScriptJSXEmit>
+		<TypeScriptModuleKind>none</TypeScriptModuleKind>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ConcurrentHashSet" Version="1.3.0" />
+		<PackageReference Include="DisCatSharp" Version="[10.4.2-nightly-017,)" />
+		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="DisCatSharp.Attributes" Version="10.4.*" />
+	</ItemGroup>
+
+</Project>
