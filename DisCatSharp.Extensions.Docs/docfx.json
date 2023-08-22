@@ -138,7 +138,7 @@
 			"LastModified"
 		],
 		"noLangKeyword": false,
-		"keepFileLink": false,
+		"keepFileLink": true,
 		"cleanupCacheHistory": false,
 		"sitemap": {
 			"baseUrl": "https://ext-docs.dcs.aitsys.dev/",
