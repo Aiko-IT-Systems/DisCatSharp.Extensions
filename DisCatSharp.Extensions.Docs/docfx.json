@@ -115,7 +115,10 @@
 			"_twitterSite": "@DisCatSharp",
 			"_twitterImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
 			"_layout": "conceptual",
-			"_urlNormalizationActive": true
+			"_urlNormalizationActive": true,
+			"_providerName": "AITSYS DocFx",
+			"_providerUrl": "https://github.com/Aiko-IT-Systems/docfx",
+			"description": "Your library to write discord bots in C# with focus on always providing access to the latest discord features."
 		},
 		"disableGitFeatures": false,
 		"exportRawModel": false,
@@ -135,6 +138,7 @@
 		],
 		"postProcessors": [
 			"ExtractSearchIndex",
+			"DescriptionGenerator",
 			"LastModified"
 		],
 		"noLangKeyword": false,
