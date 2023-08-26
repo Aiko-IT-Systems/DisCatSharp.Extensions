@@ -15,7 +15,10 @@
 			],
 			"dest":"api/DisCatSharp.Extensions.TwoFactorCommands",
 			"filter":"filter_config.yml",
-			"disableDefaultFilter":false
+			"disableDefaultFilter":false,
+			"memberLayout": "separatePages",
+			"namespaceLayout": "flattened",
+			"enumSortOrder": "declaringOrder"
 		},
 		{
 			"src":[
@@ -32,7 +35,10 @@
 			],
 			"dest":"api/DisCatSharp.Extensions.OAuth2Web",
 			"filter":"filter_config.yml",
-			"disableDefaultFilter":false
+			"disableDefaultFilter":false,
+			"memberLayout": "separatePages",
+			"namespaceLayout": "flattened",
+			"enumSortOrder": "declaringOrder"
 		}
 	],
 	"build": {
@@ -110,15 +116,15 @@
 			"_googleTagId": "G-8JHG7YVNKK",
 			"_lang": "en-US",
 			"_ogType": "website",
-			"_ogImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
+			"_ogImage": "/dcs-docs-embeds-logo.png",
 			"_fbPageId": "112155734832129",
 			"_twitterSite": "@DisCatSharp",
-			"_twitterImage": "https://cdn.aitsys.dev/file/data/kmjpa6f64me66dsm7dz3/PHID-FILE-degpfzd7nbw2q5yko5j7/logobig.png",
+			"_twitterImage": "/dcs-docs-embeds-logo.png",
 			"_layout": "conceptual",
 			"_urlNormalizationActive": true,
 			"_providerName": "AITSYS DocFx",
 			"_providerUrl": "https://github.com/Aiko-IT-Systems/docfx",
-			"description": "Your library to write discord bots in C# with focus on always providing access to the latest discord features."
+			"description": "Extensions for DisCatSharp."
 		},
 		"disableGitFeatures": false,
 		"exportRawModel": false,
@@ -143,7 +149,6 @@
 		],
 		"noLangKeyword": false,
 		"keepFileLink": true,
-		"cleanupCacheHistory": false,
 		"sitemap": {
 			"baseUrl": "https://ext-docs.dcs.aitsys.dev/",
 			"changefreq": "daily",
