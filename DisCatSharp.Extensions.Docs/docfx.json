@@ -46,7 +46,7 @@
 			"https://xref.docs.microsoft.com/query?uid={uid}"
 		],
 		"xref": [
-			"https://docs.dcs.aitsys.dev/xrefmap.yml"
+			"xrefmap-dcs.yml"
 		],
 		"content": [
 			{
