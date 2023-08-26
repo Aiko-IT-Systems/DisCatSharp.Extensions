@@ -1,0 +1,29 @@
+### YamlMime:TableOfContent
+items:
+- uid: DisCatSharp.Extensions.OAuth2Web
+  name: DisCatSharp.Extensions.OAuth2Web
+  items:
+  - uid: DisCatSharp.Extensions.OAuth2Web.ExtensionMethods
+    name: ExtensionMethods
+  - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2Result`1
+    name: OAuth2Result<T>
+  - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2WebConfiguration
+    name: OAuth2WebConfiguration
+  - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension
+    name: OAuth2WebExtension
+  - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtensionUtilities
+    name: OAuth2WebExtensionUtilities
+- uid: DisCatSharp.Extensions.OAuth2Web.EventArgs
+  name: DisCatSharp.Extensions.OAuth2Web.EventArgs
+  items:
+  - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AccessTokenRefreshEventArgs
+    name: AccessTokenRefreshEventArgs
+  - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AccessTokenRevokeEventArgs
+    name: AccessTokenRevokeEventArgs
+  - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AuthorizationCodeExchangeEventArgs
+    name: AuthorizationCodeExchangeEventArgs
+  - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AuthorizationCodeReceiveEventArgs
+    name: AuthorizationCodeReceiveEventArgs
+  - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.DiscordOAuth2EventArgs
+    name: DiscordOAuth2EventArgs
+memberLayout: SeparatePages

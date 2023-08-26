@@ -1,0 +1,46 @@
+### YamlMime:TableOfContent
+items:
+- uid: DisCatSharp.ApplicationCommands.Attributes
+  name: DisCatSharp.ApplicationCommands.Attributes
+  items:
+  - uid: DisCatSharp.ApplicationCommands.Attributes.ApplicationCommandRequireEnrolledTwoFactorAttribute
+    name: ApplicationCommandRequireEnrolledTwoFactorAttribute
+- uid: DisCatSharp.CommandsNext.Attributes
+  name: DisCatSharp.CommandsNext.Attributes
+  items:
+  - uid: DisCatSharp.CommandsNext.Attributes.CommandRequireEnrolledTwoFactorAttribute
+    name: CommandRequireEnrolledTwoFactorAttribute
+- uid: DisCatSharp.Extensions.TwoFactorCommands
+  name: DisCatSharp.Extensions.TwoFactorCommands
+  items:
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods
+    name: ExtensionMethods
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorConfiguration
+    name: TwoFactorConfiguration
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtension
+    name: TwoFactorExtension
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities
+    name: TwoFactorExtensionUtilities
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorResponseConfiguration
+    name: TwoFactorResponseConfiguration
+- uid: DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands
+  name: DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands
+  items:
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension
+    name: TwoFactorApplicationCommandExtension
+- uid: DisCatSharp.Extensions.TwoFactorCommands.CommandsNext
+  name: DisCatSharp.Extensions.TwoFactorCommands.CommandsNext
+  items:
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.CommandsNext.TwoFactorCommandsNextExtension
+    name: TwoFactorCommandsNextExtension
+- uid: DisCatSharp.Extensions.TwoFactorCommands.Entities
+  name: DisCatSharp.Extensions.TwoFactorCommands.Entities
+  items:
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.Entities.TwoFactorResponse
+    name: TwoFactorResponse
+- uid: DisCatSharp.Extensions.TwoFactorCommands.Enums
+  name: DisCatSharp.Extensions.TwoFactorCommands.Enums
+  items:
+  - uid: DisCatSharp.Extensions.TwoFactorCommands.Enums.TwoFactorResult
+    name: TwoFactorResult
+memberLayout: SeparatePages
