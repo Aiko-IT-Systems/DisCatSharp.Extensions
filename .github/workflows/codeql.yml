@@ -23,7 +23,7 @@ jobs:
         language: [ 'csharp' ]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Remove additional projects
       run: dotnet sln remove ../Nyaw/Nyaw/Nyaw.csproj
     - name: Initialize CodeQL
