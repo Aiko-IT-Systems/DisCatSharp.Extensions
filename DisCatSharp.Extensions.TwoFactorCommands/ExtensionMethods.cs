@@ -41,7 +41,7 @@ public static class ExtensionMethods
 	/// <param name="client">Client to enable TwoFactor for.</param>
 	/// <param name="cfg">TwoFactor configuration to use.</param>
 	/// <returns>Created <see cref="TwoFactorExtension"/>.</returns>
-	public static TwoFactorExtension UseTwoFactor(this DiscordClient client, TwoFactorConfiguration cfg = null)
+	public static TwoFactorExtension UseTwoFactor(this DiscordClient client, TwoFactorConfiguration? cfg = null)
 	{
 		if (client.GetExtension<TwoFactorExtension>() != null)
 			throw new InvalidOperationException("TwoFactor is already enabled for that client.");
@@ -60,7 +60,7 @@ public static class ExtensionMethods
 	/// <param name="client">Client to enable TwoFactor for.</param>
 	/// <param name="cfg">TwoFactor configuration to use.</param>
 	/// <returns>A dictionary of created <see cref="TwoFactorExtension"/>, indexed by shard id.</returns>
-	public static async Task<IReadOnlyDictionary<int, TwoFactorExtension>> UseTwoFactorAsync(this DiscordShardedClient client, TwoFactorConfiguration cfg = null)
+	public static async Task<IReadOnlyDictionary<int, TwoFactorExtension>> UseTwoFactorAsync(this DiscordShardedClient client, TwoFactorConfiguration? cfg = null)
 	{
 		var modules = new Dictionary<int, TwoFactorExtension>();
 		await client.InitializeShardsAsync().ConfigureAwait(false);
@@ -93,10 +93,7 @@ public static class ExtensionMethods
 	public static async Task<IReadOnlyDictionary<int, TwoFactorExtension>> GetTwoFactorAsync(this DiscordShardedClient client)
 	{
 		await client.InitializeShardsAsync().ConfigureAwait(false);
-		var extensions = new Dictionary<int, TwoFactorExtension>();
-
-		foreach (var shard in client.ShardClients.Select(xkvp => xkvp.Value))
-			extensions.Add(shard.ShardId, shard.GetExtension<TwoFactorExtension>());
+		var extensions = client.ShardClients.Select(xkvp => xkvp.Value).ToDictionary(shard => shard.ShardId, shard => shard.GetExtension<TwoFactorExtension>());
 
 		return new ReadOnlyDictionary<int, TwoFactorExtension>(extensions);
 	}

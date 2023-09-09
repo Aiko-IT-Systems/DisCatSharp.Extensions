@@ -77,11 +77,12 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
-	internal TwoFactorExtension(TwoFactorConfiguration configuration = null)
+	internal TwoFactorExtension(TwoFactorConfiguration? configuration = null)
 	{
 		configuration ??= new TwoFactorConfiguration();
 		this.Configuration = configuration;
 		this.TwoFactorClient = new(configuration.Issuer, configuration.Digits, configuration.Period, configuration.Algorithm);
+		this.DatabaseClient = new(this.Configuration.DatabasePath);
 	}
 
 	/// <summary>
@@ -96,16 +97,15 @@ public sealed class TwoFactorExtension : BaseExtension
 
 		this.Client = client;
 
-		this.DatabaseClient = new(this.Configuration.DatabasePath);
-		if (!this.DatabaseClient.TableExists(this._tableName))
+		if (this.DatabaseClient.TableExists(this._tableName))
+			return;
+
+		var columns = new List<Column>
 		{
-			var columns = new List<Column>
-			{
-				new Column(this._userField, true, DataTypeEnum.Varchar, 128, null, false),
-				new Column(this._secretField, false, DataTypeEnum.Varchar, 512, null, false),
-			};
-			this.DatabaseClient.CreateTable(this._tableName, columns);
-		}
+			new Column(this._userField, true, DataTypeEnum.Varchar, 128, null, false),
+			new Column(this._secretField, false, DataTypeEnum.Varchar, 512, null, false),
+		};
+		this.DatabaseClient.CreateTable(this._tableName, columns);
 	}
 
 	/// <summary>
