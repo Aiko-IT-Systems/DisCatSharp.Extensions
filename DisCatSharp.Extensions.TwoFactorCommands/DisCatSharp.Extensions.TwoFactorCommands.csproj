@@ -23,7 +23,7 @@ Extension allowing to require two factor authentication for commands.
   </PropertyGroup>
 
 <ItemGroup>
-  <PackageReference Include="DatabaseWrapper" Version="6.0.5" />
+  <PackageReference Include="DatabaseWrapper" Version="6.0.6" />
   <PackageReference Include="DatabaseWrapper.Sqlite" Version="6.0.5" />
   <PackageReference Include="DisCatSharp" Version="10.4.*-*" />
   <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="5.*">
