@@ -35,8 +35,8 @@ Extension allowing to require two factor authentication for commands.
   <PackageReference Include="DisCatSharp.Common" Version="10.4.*-*" />
   <PackageReference Include="DisCatSharp.Interactivity" Version="10.4.*-*" />
   <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
   <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 </ItemGroup>
