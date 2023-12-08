@@ -399,13 +399,12 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Handles the OAuth2 authorization code exchange.
 	/// </summary>
 	/// <param name="context">The http context.</param>
-	private async Task HandleOAuth2Async(HttpContext context)
+	private async Task HandleOAuth2Async(HttpContext context, string? shard = null)
 	{
 		try
 		{
 			Uri requestUrl = new(context.Request.GetDisplayUrl());
 
-			var shard = context.Request.RouteValues["shard"]?.ToString();
 			var shardId = 0;
 			if (shard is not null)
 				shardId = Convert.ToInt32(shard!.ToCharArray()[1]);

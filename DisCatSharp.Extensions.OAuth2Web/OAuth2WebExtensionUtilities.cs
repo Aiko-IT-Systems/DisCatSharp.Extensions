@@ -20,9 +20,55 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace DisCatSharp.Extensions.OAuth2Web;
 
 public static class OAuth2WebExtensionUtilities
 {
+	public static async Task GenerateApache2ProxyFileAsync(this DiscordShardedClient client, CancellationToken? cancellationToken = null)
+	{
+		var extensions = await client.GetOAuth2WebAsync();
+		var configurations = extensions.Values.Select(x => x.Configuration).ToList();
+		List<string> proxyStrings = new()
+		{
+			"\tProxyRequests Off", "\tProxyPreserveHost On"
+		};
 
+		foreach (var configuration in configurations)
+		{
+			Uri redirectUri = new(configuration.RedirectUri);
+			var targetHost = configuration.ListenAll ? configuration.ProxyTargetIpOrHost : "127.0.0.1";
+			var path = redirectUri.AbsolutePath;
+
+			proxyStrings.Add($"\tProxyPass {path} http://{targetHost}:{configuration.StartPort}{path}");
+			proxyStrings.Add($"\tProxyPassReverse {path} http://{targetHost}:{configuration.StartPort}{path}");
+		}
+
+		await File.WriteAllLinesAsync("dcs_oauth2web_sharded_proxy.conf", proxyStrings, Encoding.UTF8, cancellationToken ?? CancellationToken.None);
+	}
+
+	public static async Task GenerateApache2ProxyFileAsync(this DiscordClient client, CancellationToken? cancellationToken = null)
+	{
+		var extensions = client.GetOAuth2Web();
+		var configuration = extensions.Configuration;
+		List<string> proxyStrings = new();
+
+		Uri redirectUri = new(configuration.RedirectUri);
+		var targetHost = configuration.ListenAll ? configuration.ProxyTargetIpOrHost : "127.0.0.1";
+		var path = redirectUri.AbsolutePath;
+
+		proxyStrings.Add("\tProxyRequests Off");
+		proxyStrings.Add("\tProxyPreserveHost On");
+		proxyStrings.Add($"\tProxyPass {path} http://{targetHost}:{configuration.StartPort}{path}");
+		proxyStrings.Add($"\tProxyPassReverse {path} http://{targetHost}:{configuration.StartPort}{path}");
+
+		await File.WriteAllLinesAsync("dcs_oauth2web_proxy.conf", proxyStrings, Encoding.UTF8, cancellationToken ?? CancellationToken.None);
+	}
 }

@@ -74,6 +74,12 @@ public class OAuth2WebConfiguration
 	public bool ListenAll { internal get; init; }
 
 	/// <summary>
+	/// Sets the ip address the proxy will target.
+	/// <para>Will be <c>127.0.0.1</c> if <see cref="ListenAll"/> is <see langword="false"/>.</para>
+	/// </summary>
+	public string ProxyTargetIpOrHost { internal get; init; }
+
+	/// <summary>
 	/// Sets the port to listen on.
 	/// <para>Defaults to <c>42069</c>.</para>
 	/// <para>If used in sharding, the port will automatically be increased by <c>1</c> per shard.</para>
@@ -115,5 +121,6 @@ public class OAuth2WebConfiguration
 		this.ListenAll = other.ListenAll;
 		this.StartPort = other.StartPort;
 		this.SecureStates = other.SecureStates;
+		this.ProxyTargetIpOrHost = other.ProxyTargetIpOrHost;
 	}
 }
