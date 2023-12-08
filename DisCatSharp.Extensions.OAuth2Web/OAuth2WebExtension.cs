@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Threading;
@@ -131,7 +132,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	/// All pending OAuth2 request urls.
 	/// </summary>
-	internal ConcurrentBag<string> OAuth2RequestUrls { get; } = new();
+	internal List<string> OAuth2RequestUrls { get; } = new();
 
 	/// <summary>
 	/// Gets all access tokens mapped to user id.
@@ -338,6 +339,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 	/// <summary>
 	/// Waits for an access token.
+	/// <para>Make sure to submit <paramref name="uri"/> to <see cref="SubmitPendingOAuth2Url"/> before calling.</para>
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
 	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
@@ -403,7 +405,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 			Uri requestUrl = new(context.Request.GetDisplayUrl());
 
 			if (!this.OAuth2RequestUrls.Any(u =>
-				    this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates)))
+				this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates)))
 			{
 				context.Response.StatusCode = 500;
 				context.Response.ContentType = "application/json";
@@ -416,7 +418,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 			var state = this.OAuth2Client.GetStateFromUri(requestUrl);
 
 			await this._authorizationCodeReceived.InvokeAsync(this.OAuth2Client,
-				new(this.ServiceProvider) { ReceivedCode = code, ReceivedState = state });
+				new(this.ServiceProvider)
+				{
+					ReceivedCode = code, ReceivedState = state
+				});
 
 			var accessToken = await this.OAuth2Client.ExchangeAccessTokenAsync(code);
 			var info = await this.OAuth2Client.GetCurrentAuthorizationInformationAsync(accessToken);
@@ -430,12 +435,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 			_ = Task.Run(() => this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
 				{
-					ExchangedCode = code,
-					ReceivedState = state,
-					DiscordAccessToken = accessToken,
-					UserId = info.User!.Id
+					ExchangedCode = code, ReceivedState = state, DiscordAccessToken = accessToken, UserId = info.User!.Id
 				}));
 
+			var targetPending = this.OAuth2RequestUrls.First(u => this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates));
+			this.OAuth2RequestUrls.Remove(targetPending);
 			context.Response.StatusCode = 200;
 			context.Response.ContentType = "application/json";
 			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false }");
@@ -443,7 +447,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 		catch (SecurityException ex)
 		{
 			_ = Task.Run(() => this.OAuth2Client.OAuth2ClientErroredInternal.InvokeAsync(this.OAuth2Client,
-				new(this.ServiceProvider) { EventName = "HandleOAuth2Async", Exception = ex }));
+				new(this.ServiceProvider)
+				{
+					EventName = "HandleOAuth2Async", Exception = ex
+				}));
 			context.Response.StatusCode = 401;
 			context.Response.ContentType = "application/json";
 			await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Security Exception\" }");
@@ -451,7 +458,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 		catch (Exception ex)
 		{
 			_ = Task.Run(() => this.OAuth2Client.OAuth2ClientErroredInternal.InvokeAsync(this.OAuth2Client,
-				new(this.ServiceProvider) { EventName = "HandleOAuth2Async", Exception = ex }));
+				new(this.ServiceProvider)
+				{
+					EventName = "HandleOAuth2Async", Exception = ex
+				}));
 			context.Response.StatusCode = 500;
 			context.Response.ContentType = "application/json";
 			await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Something went wrong\" }");
