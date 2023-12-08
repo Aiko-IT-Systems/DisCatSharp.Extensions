@@ -26,6 +26,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
+using DisCatSharp.Entities;
+
 using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract
@@ -73,8 +75,7 @@ public static class ExtensionMethods
 			var oa2W = shard.GetExtension<OAuth2WebExtension>();
 			oa2W ??= shard.UseOAuth2Web(new(config)
 			{
-				StartPort = currentPort,
-				RedirectUri = $"{baseRedirectUri}s{shard.ShardId}/"
+				StartPort = currentPort, RedirectUri = $"{baseRedirectUri}s{shard.ShardId}/"
 			});
 			currentPort++;
 
@@ -124,4 +125,31 @@ public static class ExtensionMethods
 		foreach (var extension in extensions.Values)
 			await extension.StopAsync();
 	}
+
+	/// <summary>
+	/// <para>Checks if all redirect uris are set for the application in the developer portal.</para>
+	/// <para>Use this function after you've executed <see cref="DiscordShardedClient.StartAsync"/>.</para>
+	/// </summary>
+	/// <param name="extensions">The extensions.</param>
+	/// <param name="client">The <see cref="DiscordShardedClient"/>.</param>
+	/// <returns>Whether all required redirect uris are set.</returns>
+	public static bool HasAllRequiredRedirectUrisSet(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions, DiscordShardedClient client)
+		=> extensions.Values.Select(extension => extension.Configuration.RedirectUri).All(client.CurrentApplication.RedirectUris.Contains);
+
+	/// <summary>
+	/// Gets the required redirect uris for the developer portal.
+	/// </summary>
+	/// <param name="extensions">The extensions.</param>
+	/// <returns>The required redirect uris.</returns>
+	public static IReadOnlyList<string> GetRequiredRedirectUris(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions)
+		=> extensions.Values.Select(extension => extension.Configuration.RedirectUri).ToList().AsReadOnly();
+
+	/// <summary>
+	/// <para>Checks if all redirect uris are set for the application in the developer portal.</para>
+	/// <para>Use this function after you've executed <see cref="DiscordClient.ConnectAsync"/>.</para>
+	/// </summary>
+	/// <param name="extension">The extension.</param>
+	/// <returns>Whether the required redirect uri is set.</returns>
+	public static bool HasRequiredRedirectUriSet(this OAuth2WebExtension extension)
+		=> extension.Client.CurrentApplication.RedirectUris.Contains(extension.Configuration.RedirectUri);
 }
