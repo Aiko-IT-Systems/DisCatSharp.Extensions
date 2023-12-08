@@ -60,7 +60,7 @@ public class OAuth2WebConfiguration
 	public bool SecureStates { internal get; init; }
 
 	/// <summary>
-	/// Sets whether to listen on <c>*:<see cref="Port">Port</see></c> instead of <c>127.0.0.1:<see cref="Port">Port</see></c>.
+	/// Sets whether to listen on <c>*:<see cref="StartPort">StartPort</see></c> instead of <c>127.0.0.1:<see cref="StartPort">StartPort</see></c>.
 	/// <para>Defaults to <see langword="false"/>.</para>
 	/// </summary>
 	public bool ListenAll { internal get; init; }
@@ -68,8 +68,14 @@ public class OAuth2WebConfiguration
 	/// <summary>
 	/// Sets the port to listen on.
 	/// <para>Defaults to <c>42069</c>.</para>
+	/// <para>If used in sharding, the port will automatically be increased by <c>1</c> per shard.</para>
+	/// <example>
+	/// Example: Sharding with 2 shards.
+	/// <para>Shard 0 will listen on <c>42069</c>.</para>
+	/// <para>Shard 1 will listen on <c>42070</c></para>
+	/// </example>
 	/// </summary>
-	public int Port { internal get; set; } = 42069;
+	public int StartPort { internal get; init; } = 42069;
 
 	/// <summary>
 	/// Creates a new instance of <see cref="OAuth2WebConfiguration"/>.
@@ -99,7 +105,7 @@ public class OAuth2WebConfiguration
 		this.RedirectUri = other.RedirectUri;
 		this.ServiceProvider = other.ServiceProvider;
 		this.ListenAll = other.ListenAll;
-		this.Port = other.Port;
+		this.StartPort = other.StartPort;
 		this.SecureStates = other.SecureStates;
 	}
 }

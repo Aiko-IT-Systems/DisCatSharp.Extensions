@@ -161,8 +161,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 		builder.Services.AddAuthorization();
 
 		builder.WebHost.UseUrls(this.Configuration.ListenAll
-			? $"http://*:{this.Configuration.Port}"
-			: $"http://127.0.0.1:{this.Configuration.Port}");
+			? $"http://*:{this.Configuration.StartPort}"
+			: $"http://127.0.0.1:{this.Configuration.StartPort}");
 
 		this.WEB_APP = builder.Build();
 

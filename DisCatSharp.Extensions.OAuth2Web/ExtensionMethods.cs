@@ -28,6 +28,8 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 
+// ReSharper disable NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract
+
 namespace DisCatSharp.Extensions.OAuth2Web;
 
 /// <summary>
@@ -64,10 +66,15 @@ public static class ExtensionMethods
 		var modules = new Dictionary<int, OAuth2WebExtension>();
 		await client.InitializeShardsAsync().ConfigureAwait(false);
 
+		var currentPort = config.StartPort;
 		foreach (var shard in client.ShardClients.Select(xkvp => xkvp.Value))
 		{
 			var oa2W = shard.GetExtension<OAuth2WebExtension>();
-			oa2W ??= shard.UseOAuth2Web(config);
+			oa2W ??= shard.UseOAuth2Web(new(config)
+			{
+				StartPort = currentPort
+			});
+			currentPort++;
 
 			modules[shard.ShardId] = oa2W;
 		}
@@ -83,7 +90,6 @@ public static class ExtensionMethods
 	public static OAuth2WebExtension GetOAuth2Web(this DiscordClient client)
 		=> client.GetExtension<OAuth2WebExtension>();
 
-
 	/// <summary>
 	/// Gets the active OAuth2Web modules for all shards in this client.
 	/// </summary>
@@ -95,5 +101,25 @@ public static class ExtensionMethods
 		var extensions = client.ShardClients.Select(xkvp => xkvp.Value).ToDictionary(shard => shard.ShardId, shard => shard.GetExtension<OAuth2WebExtension>());
 
 		return new ReadOnlyDictionary<int, OAuth2WebExtension>(extensions);
+	}
+
+	/// <summary>
+	/// Starts the oauth2 web server for all shards.
+	/// </summary>
+	/// <param name="extensions">The extension dictionary.</param>
+	public static void Start(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions)
+	{
+		foreach (var extension in extensions.Values)
+			extension.Start();
+	}
+
+	/// <summary>
+	/// Stops the oauth2 web server for all shards.
+	/// </summary>
+	/// <param name="extensions">The extension dictionary.</param>
+	public static async Task StopAsync(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions)
+	{
+		foreach (var extension in extensions.Values)
+			await extension.StopAsync();
 	}
 }
