@@ -67,12 +67,14 @@ public static class ExtensionMethods
 		await client.InitializeShardsAsync().ConfigureAwait(false);
 
 		var currentPort = config.StartPort;
+		var baseRedirectUri = config.RedirectUri;
 		foreach (var shard in client.ShardClients.Select(xkvp => xkvp.Value))
 		{
 			var oa2W = shard.GetExtension<OAuth2WebExtension>();
 			oa2W ??= shard.UseOAuth2Web(new(config)
 			{
-				StartPort = currentPort
+				StartPort = currentPort,
+				RedirectUri = $"{baseRedirectUri}s{shard.ShardId}/"
 			});
 			currentPort++;
 

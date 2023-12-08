@@ -156,7 +156,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 		this._authorizationCodeWaiter = new(this, this.OAuth2Client);
 
 		var builder = WebApplication.CreateBuilder();
-		;
+
 		builder.Services.AddRouting();
 		builder.Services.AddAuthorization();
 
@@ -170,7 +170,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 		this.WEB_APP.UseAuthorization();
 
-		this.WEB_APP.MapGet("/oauth", this.HandleOAuth2Async);
+		this.WEB_APP.MapGet("/oauth/{shard}", this.HandleOAuth2Async);
+		this.WEB_APP.MapGet("/oauth/", this.HandleOAuth2Async);
 
 		this.AuthorizationCodeExchanged += this.OnAuthorizationCodeExchangedAsync;
 		this.AccessTokenRefreshed += this.OnAccessTokenRefreshedAsync;
@@ -403,6 +404,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 		try
 		{
 			Uri requestUrl = new(context.Request.GetDisplayUrl());
+
+			var shard = context.Request.RouteValues["shard"]?.ToString();
+			var shardId = 0;
+			if (shard is not null)
+				shardId = Convert.ToInt32(shard!.ToCharArray()[1]);
 
 			if (!this.OAuth2RequestUrls.Any(u =>
 				this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates)))

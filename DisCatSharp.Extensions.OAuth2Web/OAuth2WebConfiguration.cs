@@ -50,6 +50,14 @@ public class OAuth2WebConfiguration
 
 	/// <summary>
 	/// Sets the redirect uri.
+	/// <para>Must be <c>http(s)://(sub).domain.tld/oauth/</c>.</para>
+	/// <para>Must end on <c>/</c>.</para>
+	/// <para>If used in sharding, the redirect uri internally appends <see cref="DisCatSharp.DiscordClient.ShardId"/></para>
+	/// <example>
+	/// Example: Sharded redirect uri:
+	/// <para>Shard 1 will have the uri <c>http://localhost:<see cref="StartPort">StartPort</see>/oauth/s1/</c>.</para>
+	/// <para>Shard 2 will have the uri <c>http://localhost:<see cref="StartPort">StartPort+1</see>/oauth/s2/</c>.</para>
+	/// </example>
 	/// </summary>
 	public string RedirectUri { internal get; init; }
 
