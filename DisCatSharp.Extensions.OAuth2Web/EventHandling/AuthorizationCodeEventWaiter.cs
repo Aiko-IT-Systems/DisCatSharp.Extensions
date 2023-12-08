@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 using ConcurrentCollections;
 
@@ -81,7 +82,7 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 	}
 
 	/// <summary>
-	/// Collects reactions and returns the result when the <see cref="AuthorizationCodeMatchRequest"/>'s cancellation token is canceled.
+	/// Collects requests and returns the result when the <see cref="AuthorizationCodeMatchRequest"/>'s cancellation token is canceled.
 	/// </summary>
 	/// <param name="request">The request to wait on.</param>
 	/// <returns>The result from request's predicate over the period of time leading up to the token's cancellation.</returns>
@@ -111,10 +112,10 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 	/// <param name="args">The args.</param>
 	private Task HandleAsync(DiscordOAuth2Client _, AuthorizationCodeExchangeEventArgs args)
 	{
-		foreach (var mreq in this._matchRequests.Where(mreq => mreq.State == args.ReceivedState && mreq.IsMatch(args)))
+		foreach (var mreq in this._matchRequests.Where(mreq => HttpUtility.UrlDecode(mreq.State) == args.ReceivedState && mreq.IsMatch(args)))
 			mreq.Tcs.TrySetResult(args);
 
-		foreach (var creq in this._collectRequests.Where(creq => creq.State == args.ReceivedState && creq.IsMatch(args)))
+		foreach (var creq in this._collectRequests.Where(creq => HttpUtility.UrlDecode(creq.State) == args.ReceivedState && creq.IsMatch(args)))
 			creq.Collected.Add(args);
 
 		return Task.CompletedTask;

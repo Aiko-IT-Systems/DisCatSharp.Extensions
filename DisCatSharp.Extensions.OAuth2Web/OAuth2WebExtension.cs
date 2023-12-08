@@ -327,7 +327,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	/// Starts the web server.
 	/// </summary>
-	public void StartAsync()
+	public void Start()
 		=> Task.Run(() => this.WEB_APP.RunAsync());
 
 	/// <summary>
@@ -432,14 +432,17 @@ public sealed class OAuth2WebExtension : BaseExtension
 					throw new SecurityException("State mismatch");
 			}
 
-			_ = Task.Run(() => this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
+			var targetPending = this.OAuth2RequestUrls.First(u => this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates));
+			this.OAuth2RequestUrls.Remove(targetPending);
+			if (info.User is not null)
+				this.UserIdAccessTokenMapper.TryAdd(info.User.Id, accessToken);
+
+			_ = Task.Run(async () => await this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
 				{
 					ExchangedCode = code, ReceivedState = state, DiscordAccessToken = accessToken, UserId = info.User!.Id
 				}));
 
-			var targetPending = this.OAuth2RequestUrls.First(u => this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates));
-			this.OAuth2RequestUrls.Remove(targetPending);
 			context.Response.StatusCode = 200;
 			context.Response.ContentType = "application/json";
 			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false }");
