@@ -30,8 +30,17 @@ using System.Threading.Tasks;
 
 namespace DisCatSharp.Extensions.OAuth2Web;
 
+/// <summary>
+/// Provides extension methods for OAuth2Web.
+/// </summary>
 public static class OAuth2WebExtensionUtilities
 {
+	/// <summary>
+	/// Generates the proxy configuration for apache2 hosts for use with a <see cref="DiscordShardedClient"/>.
+	/// </summary>
+	/// <param name="client">The client.</param>
+	/// <param name="cancellationToken">The optional cancellation token.</param>
+	/// <returns>A file will be created in the executing directory with the name <c>dcs_oauth2web_sharded_proxy.conf</c>.</returns>
 	public static async Task GenerateApache2ProxyFileAsync(this DiscordShardedClient client, CancellationToken? cancellationToken = null)
 	{
 		var extensions = await client.GetOAuth2WebAsync();
@@ -54,6 +63,12 @@ public static class OAuth2WebExtensionUtilities
 		await File.WriteAllLinesAsync("dcs_oauth2web_sharded_proxy.conf", proxyStrings, Encoding.UTF8, cancellationToken ?? CancellationToken.None);
 	}
 
+	/// <summary>
+	/// Generates the proxy configuration for apache2 hosts for use with a single <see cref="DiscordClient"/>.
+	/// </summary>
+	/// <param name="client">The client.</param>
+	/// <param name="cancellationToken">The optional cancellation token.</param>
+	/// <returns>A file will be created in the executing directory with the name <c>dcs_oauth2web_proxy.conf</c>.</returns>
 	public static async Task GenerateApache2ProxyFileAsync(this DiscordClient client, CancellationToken? cancellationToken = null)
 	{
 		var extensions = client.GetOAuth2Web();
