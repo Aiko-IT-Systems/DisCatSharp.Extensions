@@ -41,4 +41,8 @@ Extension allowing to require two factor authentication for commands.
 	<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 </ItemGroup>
 
+<ItemGroup>
+  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+</ItemGroup>
+
 </Project>
