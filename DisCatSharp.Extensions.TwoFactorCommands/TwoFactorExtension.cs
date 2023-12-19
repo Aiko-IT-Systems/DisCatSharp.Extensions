@@ -79,7 +79,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// <param name="configuration">The config.</param>
 	internal TwoFactorExtension(TwoFactorConfiguration configuration = null)
 	{
-		configuration ??= new TwoFactorConfiguration();
+		configuration ??= new();
 		this.Configuration = configuration;
 		this.TwoFactorClient = new(configuration.Issuer, configuration.Digits, configuration.Period, configuration.Algorithm);
 	}
@@ -101,8 +101,8 @@ public sealed class TwoFactorExtension : BaseExtension
 		{
 			var columns = new List<Column>
 			{
-				new Column(this._userField, true, DataTypeEnum.Varchar, 128, null, false),
-				new Column(this._secretField, false, DataTypeEnum.Varchar, 512, null, false),
+				new(this._userField, true, DataTypeEnum.Varchar, 128, null, false),
+				new(this._secretField, false, DataTypeEnum.Varchar, 512, null, false)
 			};
 			this.DatabaseClient.CreateTable(this._tableName, columns);
 		}
@@ -114,14 +114,14 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// <param name="user">The user id to check.</param>
 	/// <returns></returns>
 	private bool HasData(ulong user)
-		=> this.DatabaseClient.Exists(this._tableName, new Expr(this._userField, OperatorEnum.Equals, user.ToString()));
+		=> this.DatabaseClient.Exists(this._tableName, new(this._userField, OperatorEnum.Equals, user.ToString()));
 
 	/// <summary>
 	/// Gets the secret for the given user id from the database.
 	/// </summary>
 	/// <param name="user">The user id to get data for.</param>
 	private string GetSecretFor(ulong user)
-		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new Expr(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1].ToString();
+		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1].ToString();
 
 	/// <summary>
 	/// Adds a secret for the given user id to the database.
@@ -143,7 +143,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">The user id to remove data for.</param>
 	private void RemoveSecret(ulong user)
-		=> this.DatabaseClient.Delete(this._tableName, new Expr(this._userField, OperatorEnum.Equals, user.ToString()));
+		=> this.DatabaseClient.Delete(this._tableName, new(this._userField, OperatorEnum.Equals, user.ToString()));
 
 	/// <summary>
 	/// Checks whether the two factor auth code is valid for given user id.

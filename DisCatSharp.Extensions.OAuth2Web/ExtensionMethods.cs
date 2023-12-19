@@ -75,7 +75,8 @@ public static class ExtensionMethods
 			var oa2W = shard.GetExtension<OAuth2WebExtension>();
 			oa2W ??= shard.UseOAuth2Web(new(config)
 			{
-				StartPort = currentPort, RedirectUri = $"{baseRedirectUri}s{shard.ShardId}/"
+				StartPort = currentPort,
+				RedirectUri = $"{baseRedirectUri}s{shard.ShardId}/"
 			});
 			currentPort++;
 

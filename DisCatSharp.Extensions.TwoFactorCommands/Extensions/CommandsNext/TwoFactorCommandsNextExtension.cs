@@ -42,5 +42,8 @@ public static class TwoFactorCommandsNextExtension
 	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
 	[Experimental("No support for this yet. Not implemented")]
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(new TwoFactorResponse() { Result = TwoFactorResult.NotImplemented });
+		=> await Task.FromResult(new TwoFactorResponse()
+		{
+			Result = TwoFactorResult.NotImplemented
+		});
 }

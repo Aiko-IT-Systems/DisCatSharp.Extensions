@@ -46,7 +46,7 @@ public static class ExtensionMethods
 		if (client.GetExtension<TwoFactorExtension>() != null)
 			throw new InvalidOperationException("TwoFactor is already enabled for that client.");
 
-		cfg ??= new TwoFactorConfiguration();
+		cfg ??= new();
 		cfg.ServiceProvider ??= client.ServiceProvider ?? new ServiceCollection().BuildServiceProvider(true);
 
 		var tfe = new TwoFactorExtension(cfg);
@@ -83,7 +83,6 @@ public static class ExtensionMethods
 	/// <returns>The module, or null if not activated.</returns>
 	public static TwoFactorExtension GetTwoFactor(this DiscordClient client)
 		=> client.GetExtension<TwoFactorExtension>();
-
 
 	/// <summary>
 	/// Gets the active TwoFactor modules for all shards in this client.

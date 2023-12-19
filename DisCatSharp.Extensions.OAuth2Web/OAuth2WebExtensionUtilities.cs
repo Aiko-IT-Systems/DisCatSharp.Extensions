@@ -47,7 +47,8 @@ public static class OAuth2WebExtensionUtilities
 		var configurations = extensions.Values.Select(x => x.Configuration).ToList();
 		List<string> proxyStrings = new()
 		{
-			"\tProxyRequests Off", "\tProxyPreserveHost On"
+			"\tProxyRequests Off",
+			"\tProxyPreserveHost On"
 		};
 
 		foreach (var configuration in configurations)

@@ -34,5 +34,5 @@ public class AccessTokenRevokeEventArgs : DiscordOAuth2EventArgs
 
 	internal AccessTokenRevokeEventArgs(IServiceProvider provider)
 		: base(provider)
-	{}
+	{ }
 }

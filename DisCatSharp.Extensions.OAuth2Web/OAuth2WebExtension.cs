@@ -376,7 +376,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 		var freshToken = await this.OAuth2Client.RefreshAccessTokenAsync(accessToken);
 		_ = Task.Run(() => this._accessTokenRefreshed.InvokeAsync(this.OAuth2Client, new(this.ServiceProvider)
 		{
-			RefreshedDiscordAccessToken = freshToken, UserId = userId
+			RefreshedDiscordAccessToken = freshToken,
+			UserId = userId
 		}));
 	}
 
@@ -391,7 +392,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 		await this.OAuth2Client.RevokeByRefreshTokenAsync(accessToken);
 		_ = Task.Run(() => this._accessTokenRevoked.InvokeAsync(this.OAuth2Client, new(this.ServiceProvider)
 		{
-			RevokedDiscordAccessToken = accessToken, UserId = userId
+			RevokedDiscordAccessToken = accessToken,
+			UserId = userId
 		}));
 	}
 
@@ -425,7 +427,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			await this._authorizationCodeReceived.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
 				{
-					ReceivedCode = code, ReceivedState = state
+					ReceivedCode = code,
+					ReceivedState = state
 				});
 
 			var accessToken = await this.OAuth2Client.ExchangeAccessTokenAsync(code);
@@ -445,7 +448,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 			_ = Task.Run(async () => await this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
 				{
-					ExchangedCode = code, ReceivedState = state, DiscordAccessToken = accessToken, UserId = info.User!.Id
+					ExchangedCode = code,
+					ReceivedState = state,
+					DiscordAccessToken = accessToken,
+					UserId = info.User!.Id
 				}));
 
 			context.Response.StatusCode = 200;
@@ -457,7 +463,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			_ = Task.Run(() => this.OAuth2Client.OAuth2ClientErroredInternal.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
 				{
-					EventName = "HandleOAuth2Async", Exception = ex
+					EventName = "HandleOAuth2Async",
+					Exception = ex
 				}));
 			context.Response.StatusCode = 401;
 			context.Response.ContentType = "application/json";
@@ -468,7 +475,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			_ = Task.Run(() => this.OAuth2Client.OAuth2ClientErroredInternal.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
 				{
-					EventName = "HandleOAuth2Async", Exception = ex
+					EventName = "HandleOAuth2Async",
+					Exception = ex
 				}));
 			context.Response.StatusCode = 500;
 			context.Response.ContentType = "application/json";

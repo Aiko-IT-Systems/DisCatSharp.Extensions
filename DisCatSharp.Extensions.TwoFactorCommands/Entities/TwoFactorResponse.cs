@@ -52,5 +52,6 @@ public class TwoFactorResponse
 	/// </summary>
 	public TwoFactorResult Result { get; internal set; } = TwoFactorResult.TimedOut;
 
-	internal TwoFactorResponse() { }
+	internal TwoFactorResponse()
+	{ }
 }

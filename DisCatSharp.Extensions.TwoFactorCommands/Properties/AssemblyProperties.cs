@@ -33,4 +33,3 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Microsoft.DocAsCode")]
 [assembly: InternalsVisibleTo("Microsoft.DocAsCode.Metadata.ManagedReference")]
 [assembly: InternalsVisibleTo("ProjectMakoto")]
-

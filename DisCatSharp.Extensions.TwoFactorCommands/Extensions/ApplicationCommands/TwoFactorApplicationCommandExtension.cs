@@ -45,17 +45,21 @@ public static class TwoFactorApplicationCommandExtension
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this BaseContext ctx)
 	{
 		var ext = ctx.Client.GetTwoFactor();
-		
+
 		if (!ext.IsEnrolled(ctx.User.Id))
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
 				await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
 
-			return new TwoFactorResponse() { Client = ctx.Client, Result = TwoFactorResult.NotEnrolled };
+			return new()
+			{
+				Client = ctx.Client,
+				Result = TwoFactorResult.NotEnrolled
+			};
 		}
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
-		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
+		builder.AddTextComponent(new(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await ctx.CreateModalResponseAsync(builder);
 
 		var response = new TwoFactorResponse()
@@ -111,11 +115,15 @@ public static class TwoFactorApplicationCommandExtension
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
 				await evt.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
 
-			return new TwoFactorResponse() { Client = client, Result = TwoFactorResult.NotEnrolled };
+			return new()
+			{
+				Client = client,
+				Result = TwoFactorResult.NotEnrolled
+			};
 		}
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
-		builder.AddTextComponent(new DiscordTextComponent(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
+		builder.AddTextComponent(new(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await evt.Interaction.CreateInteractionModalResponseAsync(builder);
 
 		var response = new TwoFactorResponse()
