@@ -19,7 +19,7 @@ DisCatSharp.Extensions.TwoFactorCommands
 
 Extension allowing to require two factor authentication for commands.
 	</Description>
-    <PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net6,Net7</PackageTags>
+    <PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net7,Net8</PackageTags>
   </PropertyGroup>
 
 <ItemGroup>

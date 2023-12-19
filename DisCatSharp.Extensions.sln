@@ -39,6 +39,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreFiles", "CoreFiles", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisCatSharp.Extensions.OAuth2Web", "DisCatSharp.Extensions.OAuth2Web\DisCatSharp.Extensions.OAuth2Web.csproj", "{6BD242EC-89DD-4026-80E0-29E176F317FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{0C70C043-A767-4FF3-8987-476DE7268B23}"
+	ProjectSection(SolutionItems) = preProject
+		Targets\DisCatSharp.targets = Targets\DisCatSharp.targets
+		Targets\Library.targets = Targets\Library.targets
+		Targets\NuGet.targets = Targets\NuGet.targets
+		Targets\Package.targets = Targets\Package.targets
+		Targets\Version.targets = Targets\Version.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
