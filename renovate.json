@@ -1,6 +1,7 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": [
-		"local>Aiko-IT-Systems/renovate-config"
+		"local>Aiko-IT-Systems/renovate-config",
+    		":dependencyDashboard"
 	]
 }
