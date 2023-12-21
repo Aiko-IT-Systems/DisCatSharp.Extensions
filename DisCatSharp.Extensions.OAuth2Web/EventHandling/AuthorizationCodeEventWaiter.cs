@@ -42,8 +42,8 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 {
 	private readonly DiscordOAuth2Client _client;
 	private readonly OAuth2WebExtension _extension;
-	private readonly ConcurrentHashSet<AuthorizationCodeMatchRequest> _matchRequests = new();
-	private readonly ConcurrentHashSet<AuthorizationCodeCollectRequest> _collectRequests = new();
+	private readonly ConcurrentHashSet<AuthorizationCodeMatchRequest> _matchRequests = [];
+	private readonly ConcurrentHashSet<AuthorizationCodeCollectRequest> _collectRequests = [];
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AuthorizationCodeEventWaiter"/> class.

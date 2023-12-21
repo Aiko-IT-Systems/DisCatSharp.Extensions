@@ -45,11 +45,7 @@ public static class OAuth2WebExtensionUtilities
 	{
 		var extensions = await client.GetOAuth2WebAsync();
 		var configurations = extensions.Values.Select(x => x.Configuration).ToList();
-		List<string> proxyStrings = new()
-		{
-			"\tProxyRequests Off",
-			"\tProxyPreserveHost On"
-		};
+		List<string> proxyStrings = ["\tProxyRequests Off", "\tProxyPreserveHost On"];
 
 		foreach (var configuration in configurations)
 		{
@@ -74,7 +70,7 @@ public static class OAuth2WebExtensionUtilities
 	{
 		var extensions = client.GetOAuth2Web();
 		var configuration = extensions.Configuration;
-		List<string> proxyStrings = new();
+		List<string> proxyStrings = [];
 
 		Uri redirectUri = new(configuration.RedirectUri);
 		var targetHost = configuration.ListenAll ? configuration.ProxyTargetIpOrHost : "127.0.0.1";

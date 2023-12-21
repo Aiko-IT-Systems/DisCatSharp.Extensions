@@ -76,11 +76,6 @@ public sealed class TwoFactorExtension : BaseExtension
 		=> this.Configuration.ServiceProvider;
 
 	/// <summary>
-	/// Gets the string representing the version of bot lib extension.
-	/// </summary>
-	public string VersionString { get; }
-
-	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
@@ -90,19 +85,16 @@ public sealed class TwoFactorExtension : BaseExtension
 		this.Configuration = configuration;
 		this.TwoFactorClient = new(configuration.Issuer, configuration.Digits, configuration.Period, configuration.Algorithm);
 
-		var a = typeof(TwoFactorExtension).GetTypeInfo().Assembly;
+		this.DatabaseClient = new(this.Configuration.DatabasePath);
+		if (this.DatabaseClient.TableExists(this._tableName))
+			return;
 
-		var iv = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-		if (iv != null)
-			this.VersionString = iv.InformationalVersion;
-		else
+		var columns = new List<Column>
 		{
-			var v = a.GetName().Version;
-			var vs = v.ToString(3);
-
-			if (v.Revision > 0)
-				this.VersionString = $"{vs}, CI build {v.Revision}";
-		}
+			new(this._userField, true, DataTypeEnum.Varchar, 128, null, false),
+			new(this._secretField, false, DataTypeEnum.Varchar, 512, null, false)
+		};
+		this.DatabaseClient.CreateTable(this._tableName, columns);
 	}
 
 	/// <summary>
@@ -117,18 +109,27 @@ public sealed class TwoFactorExtension : BaseExtension
 
 		this.Client = client;
 
-		this.DatabaseClient = new(this.Configuration.DatabasePath);
-		if (!this.DatabaseClient.TableExists(this._tableName))
+		var a = typeof(TwoFactorExtension).GetTypeInfo().Assembly;
+
+		var iv = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+		if (iv != null)
+			this.VersionString = iv.InformationalVersion;
+		else
 		{
-			var columns = new List<Column>
-			{
-				new(this._userField, true, DataTypeEnum.Varchar, 128, null, false),
-				new(this._secretField, false, DataTypeEnum.Varchar, 512, null, false)
-			};
-			this.DatabaseClient.CreateTable(this._tableName, columns);
+			var v = a.GetName().Version;
+			var vs = v.ToString(3);
+
+			if (v.Revision > 0)
+				this.VersionString = $"{vs}, CI build {v.Revision}";
 		}
 
-		Task.Run(async () => await Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productNameOrPackageId: "DisCatSharp.Extensions.TwoFactorCommands", manualVersion: this.VersionString, checkMode: this.Client.Configuration.UpdateCheckMode).ConfigureAwait(false)).Wait();
+		this.HasVersionCheckSupport = true;
+
+		this.RepositoryOwner = "Aiko-IT-Systems";
+
+		this.Repository = "DisCatSharp.Extensions";
+
+		this.PackageId = "DisCatSharp.Extensions.OAuth2Web";
 	}
 
 	/// <summary>

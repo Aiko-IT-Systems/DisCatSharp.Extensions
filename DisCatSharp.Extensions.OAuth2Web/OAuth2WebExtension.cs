@@ -133,17 +133,12 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	/// All pending OAuth2 request urls.
 	/// </summary>
-	internal List<string> OAuth2RequestUrls { get; } = new();
+	internal List<string> OAuth2RequestUrls { get; } = [];
 
 	/// <summary>
 	/// Gets all access tokens mapped to user id.
 	/// </summary>
 	internal ConcurrentDictionary<ulong, DiscordAccessToken> UserIdAccessTokenMapper { get; } = new();
-
-	/// <summary>
-	/// Gets the string representing the version of bot lib extension.
-	/// </summary>
-	public string VersionString { get; }
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="OAuth2WebExtension"/> class.
@@ -182,20 +177,6 @@ public sealed class OAuth2WebExtension : BaseExtension
 		this.AuthorizationCodeExchanged += this.OnAuthorizationCodeExchangedAsync;
 		this.AccessTokenRefreshed += this.OnAccessTokenRefreshedAsync;
 		this.AccessTokenRevoked += this.OnAccessTokenRevokedAsync;
-
-		var a = typeof(OAuth2WebExtension).GetTypeInfo().Assembly;
-
-		var iv = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-		if (iv != null)
-			this.VersionString = iv.InformationalVersion;
-		else
-		{
-			var v = a.GetName().Version;
-			var vs = v.ToString(3);
-
-			if (v.Revision > 0)
-				this.VersionString = $"{vs}, CI build {v.Revision}";
-		}
 	}
 
 	/// <summary>
@@ -344,7 +325,27 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 		this.Client = client;
 
-		Task.Run(async () => await Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productNameOrPackageId: "DisCatSharp.Extensions.OAuth2Web", manualVersion: this.VersionString, checkMode: this.Client.Configuration.UpdateCheckMode).ConfigureAwait(false)).Wait();
+		var a = typeof(OAuth2WebExtension).GetTypeInfo().Assembly;
+
+		var iv = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+		if (iv != null)
+			this.VersionString = iv.InformationalVersion;
+		else
+		{
+			var v = a.GetName().Version;
+			var vs = v.ToString(3);
+
+			if (v.Revision > 0)
+				this.VersionString = $"{vs}, CI build {v.Revision}";
+		}
+
+		this.HasVersionCheckSupport = true;
+
+		this.RepositoryOwner = "Aiko-IT-Systems";
+
+		this.Repository = "DisCatSharp.Extensions";
+
+		this.PackageId = "DisCatSharp.Extensions.OAuth2Web";
 	}
 
 	/// <summary>
