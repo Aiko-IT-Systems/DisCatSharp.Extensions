@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using DatabaseWrapper.Core;
 using DatabaseWrapper.Sqlite;
@@ -74,6 +75,11 @@ public sealed class TwoFactorExtension : BaseExtension
 		=> this.Configuration.ServiceProvider;
 
 	/// <summary>
+	/// Gets the string representing the version of bot lib extension.
+	/// </summary>
+	public string VersionString { get; }
+
+	/// <summary>
 	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
@@ -82,6 +88,20 @@ public sealed class TwoFactorExtension : BaseExtension
 		configuration ??= new();
 		this.Configuration = configuration;
 		this.TwoFactorClient = new(configuration.Issuer, configuration.Digits, configuration.Period, configuration.Algorithm);
+
+		var a = typeof(TwoFactorExtension).GetTypeInfo().Assembly;
+
+		var iv = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+		if (iv != null)
+			this.VersionString = iv.InformationalVersion;
+		else
+		{
+			var v = a.GetName().Version;
+			var vs = v.ToString(3);
+
+			if (v.Revision > 0)
+				this.VersionString = $"{vs}, CI build {v.Revision}";
+		}
 	}
 
 	/// <summary>
@@ -106,6 +126,8 @@ public sealed class TwoFactorExtension : BaseExtension
 			};
 			this.DatabaseClient.CreateTable(this._tableName, columns);
 		}
+
+		Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productName: "DisCatSharp.Extensions.TwoFactorCommands", manualVersion: this.VersionString).Wait();
 	}
 
 	/// <summary>

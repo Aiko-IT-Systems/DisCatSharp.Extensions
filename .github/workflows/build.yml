@@ -32,7 +32,7 @@ jobs:
           8.0.100
           7.0.403
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --no-cache -f -v minimal
     - name: Build library
       run: dotnet build -c Release -v normal --no-restore
     - name: Test library

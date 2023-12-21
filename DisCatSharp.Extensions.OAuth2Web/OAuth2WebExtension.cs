@@ -24,6 +24,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
@@ -140,6 +141,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 	internal ConcurrentDictionary<ulong, DiscordAccessToken> UserIdAccessTokenMapper { get; } = new();
 
 	/// <summary>
+	/// Gets the string representing the version of bot lib extension.
+	/// </summary>
+	public string VersionString { get; }
+
+	/// <summary>
 	/// Initializes a new instance of the <see cref="OAuth2WebExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
@@ -176,6 +182,20 @@ public sealed class OAuth2WebExtension : BaseExtension
 		this.AuthorizationCodeExchanged += this.OnAuthorizationCodeExchangedAsync;
 		this.AccessTokenRefreshed += this.OnAccessTokenRefreshedAsync;
 		this.AccessTokenRevoked += this.OnAccessTokenRevokedAsync;
+
+		var a = typeof(OAuth2WebExtension).GetTypeInfo().Assembly;
+
+		var iv = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+		if (iv != null)
+			this.VersionString = iv.InformationalVersion;
+		else
+		{
+			var v = a.GetName().Version;
+			var vs = v.ToString(3);
+
+			if (v.Revision > 0)
+				this.VersionString = $"{vs}, CI build {v.Revision}";
+		}
 	}
 
 	/// <summary>
@@ -323,6 +343,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			throw new InvalidOperationException("What did I tell you?");
 
 		this.Client = client;
+
+		Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productName: "DisCatSharp.Extensions.OAuth2Web", manualVersion: this.VersionString).Wait();
 	}
 
 	/// <summary>
