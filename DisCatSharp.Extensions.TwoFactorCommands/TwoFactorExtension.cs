@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 using DatabaseWrapper.Core;
 using DatabaseWrapper.Sqlite;
@@ -127,7 +128,7 @@ public sealed class TwoFactorExtension : BaseExtension
 			this.DatabaseClient.CreateTable(this._tableName, columns);
 		}
 
-		Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productName: "DisCatSharp.Extensions.TwoFactorCommands", manualVersion: this.VersionString).Wait();
+		Task.Run(async () => await Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productNameOrPackageId: "DisCatSharp.Extensions.TwoFactorCommands", manualVersion: this.VersionString, checkMode: this.Client.Configuration.UpdateCheckMode).ConfigureAwait(false)).Wait();
 	}
 
 	/// <summary>

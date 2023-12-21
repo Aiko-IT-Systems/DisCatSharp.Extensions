@@ -344,7 +344,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 		this.Client = client;
 
-		Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productName: "DisCatSharp.Extensions.OAuth2Web", manualVersion: this.VersionString).Wait();
+		Task.Run(async () => await Utilities.CheckVersionAsync(this.Client, true, client.IsShard, repository: "DisCatSharp.Extensions", productNameOrPackageId: "DisCatSharp.Extensions.OAuth2Web", manualVersion: this.VersionString, checkMode: this.Client.Configuration.UpdateCheckMode).ConfigureAwait(false)).Wait();
 	}
 
 	/// <summary>
