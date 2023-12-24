@@ -31,20 +31,17 @@ namespace DisCatSharp.Extensions.OAuth2Web.EventHandling.Requests;
 /// <summary>
 /// Represents a authorization code exchange event that is being waited for.
 /// </summary>
-internal sealed class AuthorizationCodeCollectRequest : AuthorizationCodeMatchRequest
+/// <remarks>
+/// Initializes a new instance of the <see cref="AuthorizationCodeCollectRequest"/> class.
+/// </remarks>
+/// <param name="state">The state to wait for.</param>
+/// <param name="predicate">The predicate.</param>
+/// <param name="cancellation">The cancellation token.</param>
+internal sealed class AuthorizationCodeCollectRequest(string state, Func<AuthorizationCodeExchangeEventArgs, bool> predicate, CancellationToken cancellation)
+	: AuthorizationCodeMatchRequest(state, predicate, cancellation)
 {
 	/// <summary>
 	/// Gets the collected.
 	/// </summary>
-	public ConcurrentBag<AuthorizationCodeExchangeEventArgs> Collected { get; private set; }
-
-	/// <summary>
-	/// Initializes a new instance of the <see cref="AuthorizationCodeCollectRequest"/> class.
-	/// </summary>
-	/// <param name="state">The state to wait for.</param>
-	/// <param name="predicate">The predicate.</param>
-	/// <param name="cancellation">The cancellation token.</param>
-	public AuthorizationCodeCollectRequest(string state, Func<AuthorizationCodeExchangeEventArgs, bool> predicate, CancellationToken cancellation)
-		: base(state, predicate, cancellation)
-	{ }
+	public ConcurrentBag<AuthorizationCodeExchangeEventArgs> Collected { get; private set; } = [];
 }
