@@ -25,7 +25,7 @@ Extension allowing to require two factor authentication for commands.
 <ItemGroup>
   <PackageReference Include="DatabaseWrapper.Sqlite" Version="6.0.6" />
   <PackageReference Include="DisCatSharp" Version="[10.5.0-nightly-009,)" />
-  <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.1">
+  <PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
 	<PrivateAssets>all</PrivateAssets>
 	<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
