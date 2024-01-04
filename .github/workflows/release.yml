@@ -10,6 +10,7 @@ on:
       release_as_prerelease:
         description: "Release as pre-release"
         required: true
+        default: true
         type: boolean
 
 env:
