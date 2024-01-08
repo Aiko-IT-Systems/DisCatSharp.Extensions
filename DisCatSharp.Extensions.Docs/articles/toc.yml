@@ -1,15 +1,19 @@
 items:
     - name: Preamble
-      href: index.md
+      uid: preamble
     - name: Extensions
       items:
           - name: TwoFactor Commands
             items:
                 - name: Introduction
-                  href: extensions/twofactor_commands/intro.md
+                  uid: extensions_twofactor_commands_intro
+          - name: OAuth2 Web
+            items:
+                - name: Introduction
+                  uid: extensions_oauth2_web_intro
     - name: Miscellaneous
       items:
           - name: Nightly Builds
-            href: misc/nightly_builds.md
+            uid: misc_nightly_builds
           - name: Reporting Issues
-            href: misc/reporting_issues.md
+            uid: misc_reporting_issues

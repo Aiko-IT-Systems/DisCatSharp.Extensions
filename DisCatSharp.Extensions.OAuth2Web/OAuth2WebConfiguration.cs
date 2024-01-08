@@ -65,13 +65,13 @@ public class OAuth2WebConfiguration
 	/// Whether <see cref="DiscordOAuth2Client.GenerateSecureState"/> and <see cref="DiscordOAuth2Client.ReadSecureState"/> will be used.
 	/// <para>Defaults to <see langword="false"/>.</para>
 	/// </summary>
-	public bool SecureStates { internal get; init; }
+	public bool SecureStates { internal get; init; } = false;
 
 	/// <summary>
 	/// Sets whether to listen on <c>*:<see cref="StartPort">StartPort</see></c> instead of <c>127.0.0.1:<see cref="StartPort">StartPort</see></c>.
 	/// <para>Defaults to <see langword="false"/>.</para>
 	/// </summary>
-	public bool ListenAll { internal get; init; }
+	public bool ListenAll { internal get; init; } = false;
 
 	/// <summary>
 	/// Sets the ip address the proxy will target.

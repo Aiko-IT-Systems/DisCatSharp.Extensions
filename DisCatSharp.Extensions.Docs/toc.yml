@@ -1,9 +1,9 @@
 items:
     - name: Home
-      href: index.md
+      uid: index
     - name: API
-      href: api/index.md
+      uid: api_index
     - name: Articles
-      href: articles/preamble.md
+      uid: preamble
     - name: DisCatSharp Docs
       href: https://docs.dcs.aitsys.dev
