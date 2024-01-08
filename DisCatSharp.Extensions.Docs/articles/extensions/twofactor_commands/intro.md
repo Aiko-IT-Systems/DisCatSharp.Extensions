@@ -38,7 +38,7 @@ using DisCatSharp.Extensions.TwoFactorCommands;
 public static async Task EnrollTwoFactor(InteractionContext ctx)
 {
     // ...
-	var (Secret, QrCode) = ctx.Client.EnrollTwoFactor(ctx.User);
+    var (Secret, QrCode) = ctx.Client.EnrollTwoFactor(ctx.User);
 
     // Either send the QR code to the user, or the secret.
     // QrCode is a MemoryStream you can use with DiscordWebhookBuilder.AddFile as example.
@@ -61,7 +61,7 @@ using DisCatSharp.Extensions.TwoFactorCommands;
 public static async Task DisenrollTwoFactor(InteractionContext ctx)
 {
     // ...
-	ctx.Client.DisenrollTwoFactor(ctx.User.Id);
+    ctx.Client.DisenrollTwoFactor(ctx.User.Id);
 }
 ```
 
@@ -97,7 +97,7 @@ var tfa_result = await ctx.RequestTwoFactorAsync();
 
 if (tfa_result.Result != TwoFactorResult.ValidCode)
 {
-	// Handle incorrect code
+    // Handle incorrect code
     return;
 }
 

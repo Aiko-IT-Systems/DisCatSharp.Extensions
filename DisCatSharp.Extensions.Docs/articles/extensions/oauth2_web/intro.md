@@ -5,7 +5,6 @@ title: OAuth2 Web Introduction
 
 # Introduction to OAuth2 Web
 
-
 ## Using OAuth2 Web
 
 ### Installation
@@ -22,7 +21,7 @@ using DisCatSharp.Extensions.OAuth2Web;
 client.UseOAuth2Web(new OAuth2WebConfiguration
 {
     ClientId = 1234567890, // Your application's client ID
-	ClientSecret = "your_client_secret", // Your application's client secret
+    ClientSecret = "your_client_secret", // Your application's client secret
     RedirectUri = "http(s)://(sub).domain.tld/oauth/" // Your application's redirect URI
 	// ... other options
 });
