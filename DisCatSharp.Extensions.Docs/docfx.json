@@ -18,7 +18,9 @@
 			"disableDefaultFilter":false,
 			"memberLayout": "separatePages",
 			"namespaceLayout": "flattened",
-			"enumSortOrder": "declaringOrder"
+			"enumSortOrder": "declaringOrder",
+			"includeExplicitInterfaceImplementations": true
+
 		},
 		{
 			"src":[
@@ -38,7 +40,8 @@
 			"disableDefaultFilter":false,
 			"memberLayout": "separatePages",
 			"namespaceLayout": "flattened",
-			"enumSortOrder": "declaringOrder"
+			"enumSortOrder": "declaringOrder",
+			"includeExplicitInterfaceImplementations": true
 		}
 	],
 	"build": {
@@ -97,6 +100,11 @@
 		"overwrite": [],
 		"dest": "_site",
 		"globalMetadata": {
+      		"pdf": true,
+			"pdfTocPage": true,
+			"pdfFileName": "dcs-ext-docs.pdf",
+			"pdfCoverPage": "pdf/cover.html",
+			"pdfFooterTemplate": "pdf/footer.html",
 			"_appTitle": "DisCatSharp Extensions Docs",
 			"_appName": "DisCatSharp Extensions",
 			"_appFooter": "<strong>Made with ❤️ by AITSYS</strong>",
@@ -135,6 +143,12 @@
 			"_ogType": {
 				"articles/**/*.md": "article",
 				"changelogs/**/*.md": "article"
+			},
+			"pdfFileName": {
+				"articles/toc.yml": "dcs-ext-docs-articles.pdf",
+				"changelogs/toc.yml": "dcs-ext-docs-changelogs.pdf",
+				"api/DisCatSharp.Extensions.OAuth2Web/toc.yml": "dcs-ext-docs-api-oauth2web.pdf",
+				"api/DisCatSharp.Extensions.TwoFactorCommands/toc.yml": "dcs-ext-docs-api-twofactorcommands.pdf"
 			}
 		},
 		"template": [
@@ -144,8 +158,7 @@
 		],
 		"postProcessors": [
 			"ExtractSearchIndex",
-			"DescriptionGenerator",
-			"LastModified"
+			"DescriptionGenerator"
 		],
 		"noLangKeyword": false,
 		"keepFileLink": true,

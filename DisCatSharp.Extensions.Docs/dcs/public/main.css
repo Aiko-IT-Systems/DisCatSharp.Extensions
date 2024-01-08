@@ -6,6 +6,19 @@ body {
 	--bs-body-font-family: var(--bs-font-sans-gg) !important;
 }
 
+@media print {
+    body {
+		--bs-body-font-family: var(--bs-font-sans-gg) !important;
+		font-family: var(--bs-font-sans-gg) !important;
+    }
+
+	.discord-messages, discord-messages {
+		display: none !important;
+		visibility: hidden !important;
+	}
+}
+
+
 footer {
 	text-align: center !important;
 }
@@ -409,4 +422,12 @@ a.discord-button[href]::after {
 
 .discord-header {
 	display: contents !important;
+}
+
+.IMPORTANT > p > code {
+	color: #ffffff !important;
+}
+
+.table-responsive {
+	overflow-x: inherit !important;
 }

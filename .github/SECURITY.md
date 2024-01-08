@@ -2,4 +2,4 @@
 
 ## Reporting a Vulnerability
 
-Write an mail to support@aitsys.dev or open an ticket at our guild.
+Write an mail to support@aitsys.dev or open an ticket in our discord server.
