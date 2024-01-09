@@ -8,6 +8,8 @@ description: Using OAuth2 Web
 
 ## Setup
 
+# [Setup](#tab/single)
+
 Enable the extension by calling [UseOAuth2Web](xref:DisCatSharp.Extensions.OAuth2Web.ExtensionMethods.UseOAuth2Web*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
 
 ```cs
@@ -24,7 +26,21 @@ client.UseOAuth2Web(new OAuth2WebConfiguration
 });
 ```
 
-## Setup (sharded)
+After u done this you can start the oauth server at any time by calling [Start](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.Start*) on your [OAuth2WebExtension](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension) instance:
+
+```cs
+client.GetOAuth2WebExtension().Start();
+```
+
+This method is a void method and won't return anything.
+
+To stop the oauth server call [StopAsync](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.StopAsync*) on your [OAuth2WebExtension](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension) instance:
+
+```cs
+await client.GetOAuth2WebExtension().StopAsync();
+```
+
+# [Setup (sharded)](#tab/sharded)
 
 Enable the extension by calling [UseOAuth2WebAsync](xref:DisCatSharp.Extensions.OAuth2Web.ExtensionMethods.UseOAuth2WebAsync*) on your [DiscordShardedClient](xref:DisCatSharp.DiscordShardedClient) instance:
 
@@ -42,24 +58,6 @@ await shardedClient.UseOAuth2WebAsync(new OAuth2WebConfiguration
 });
 ```
 
-## Operating the oauth2 server
-
-After u done this you can start the oauth server at any time by calling [Start](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.Start*) on your [OAuth2WebExtension](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension) instance:
-
-```cs
-client.GetOAuth2WebExtension().Start();
-```
-
-This method is a void method and won't return anything.
-
-To stop the oauth server call [StopAsync](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.StopAsync*) on your [OAuth2WebExtension](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension) instance:
-
-```cs
-await client.GetOAuth2WebExtension().StopAsync();
-```
-
-## Operating the oauth2 server (sharded)
-
 After u done this you can start the oauth server at any time by calling [Start](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.Start*) on your [OAuth2WebExtension](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension) instances:
 
 ```cs
@@ -75,7 +73,7 @@ To stop the oauth server call [StopAsync](xref:DisCatSharp.Extensions.OAuth2Web.
 var oauth2Extensions = await shardedClient.GetOAuth2WebAsync();
 await oauth2Extensions.StopAsync();
 ```
-
+---
 
 ## Requesting access tokens
 
