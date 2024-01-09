@@ -90,7 +90,7 @@ public static async Task TestOAuth2Async(InteractionContext ctx)
     var oauth2 = ctx.Client.GetOAuth2Web();
 
     // Generate the oauth2 url with the additional connections scope
-    var uri = oauth2.GenerateOAuth2Url(ctx.User.Id, new List<string>() { "identify", "connections" }});
+    var uri = oauth2.GenerateOAuth2Url(ctx.User.Id, new List<string>() { "identify", "connections" });
 
     await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Please authorize via oauth at: {uri.AbsoluteUri}"));
 
