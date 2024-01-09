@@ -112,7 +112,7 @@ public static async Task TestOAuth2Async(InteractionContext ctx)
         await oauth2.RevokeAccessTokenAsync(ctx.User);
 
         // Inform the user that we revoked the access token
-        await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder().WithContent("Revoked access token"));
+        await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder().WithContent("Revoked access token").AsEphemeral());
     }
     else
         await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Timed out"));
