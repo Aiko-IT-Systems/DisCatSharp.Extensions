@@ -118,3 +118,7 @@ public static async Task TestOAuth2Async(InteractionContext ctx)
         await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Timed out"));
 }
 ```
+
+### Visual Example
+
+![OAuth2 Web Example](/images/oauth2web_example.gif)
