@@ -52,7 +52,7 @@ public static class ExtensionMethods
 
 		config.ServiceProvider ??= client.ServiceProvider ?? new ServiceCollection().BuildServiceProvider(true);
 
-		var oa2W = new OAuth2WebExtension(config);
+		var oa2W = new OAuth2WebExtension(config); // , client);
 		client.AddExtension(oa2W);
 		return oa2W;
 	}
@@ -91,7 +91,7 @@ public static class ExtensionMethods
 	/// </summary>
 	/// <param name="client">Client to get OAuth2Web module from.</param>
 	/// <returns>The module, or null if not activated.</returns>
-	public static OAuth2WebExtension GetOAuth2Web(this DiscordClient client)
+	public static OAuth2WebExtension? GetOAuth2Web(this DiscordClient client)
 		=> client.GetExtension<OAuth2WebExtension>();
 
 	/// <summary>
@@ -99,12 +99,12 @@ public static class ExtensionMethods
 	/// </summary>
 	/// <param name="client">Client to get OAuth2Web instances from.</param>
 	/// <returns>A dictionary of the modules, indexed by shard id.</returns>
-	public static async Task<IReadOnlyDictionary<int, OAuth2WebExtension>> GetOAuth2WebAsync(this DiscordShardedClient client)
+	public static async Task<IReadOnlyDictionary<int, OAuth2WebExtension?>> GetOAuth2WebAsync(this DiscordShardedClient client)
 	{
 		await client.InitializeShardsAsync().ConfigureAwait(false);
 		var extensions = client.ShardClients.Select(xkvp => xkvp.Value).ToDictionary(shard => shard.ShardId, shard => shard.GetExtension<OAuth2WebExtension>());
 
-		return new ReadOnlyDictionary<int, OAuth2WebExtension>(extensions);
+		return new ReadOnlyDictionary<int, OAuth2WebExtension?>(extensions);
 	}
 
 	/// <summary>

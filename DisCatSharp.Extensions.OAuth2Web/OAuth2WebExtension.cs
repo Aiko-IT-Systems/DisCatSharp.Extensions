@@ -144,11 +144,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Initializes a new instance of the <see cref="OAuth2WebExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
-	internal OAuth2WebExtension(OAuth2WebConfiguration configuration)
+	internal OAuth2WebExtension(OAuth2WebConfiguration configuration) // , DiscordClient discordClient)
 	{
 		this.Configuration = configuration;
 
-		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri);
+		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri); // , discordClient: discordClient);
 
 		this._authorizationCodeReceived = new("OAUTH2_AUTH_CODE_RECEIVED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._authorizationCodeExchanged = new("OAUTH2_AUTH_CODE_EXCHANGED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
