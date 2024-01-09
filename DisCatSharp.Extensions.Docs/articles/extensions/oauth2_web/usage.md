@@ -90,13 +90,7 @@ public static async Task TestOAuth2Async(InteractionContext ctx)
     var oauth2 = ctx.Client.GetOAuth2Web();
 
     // Generate the oauth2 url with the additional connections scope
-    // We assume you set SecureStates to true in the configuration
-    var uri = oauth2.OAuth2Client.GenerateOAuth2Url(
-        "identify connections",
-        oauth2.OAuth2Client.GenerateSecureState(ctx.User.Id));
-
-    // Add the pending oauth2 url to the oauth2 web extension
-    oauth2.SubmitPendingOAuth2Url(uri);
+    var uri = oauth2.GenerateOAuth2Url(ctx.User.Id, new List<string>() { "identify", "connections" }});
 
     await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Please authorize via oauth at: {uri.AbsoluteUri}"));
 

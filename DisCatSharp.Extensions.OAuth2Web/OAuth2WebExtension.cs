@@ -362,11 +362,25 @@ public sealed class OAuth2WebExtension : BaseExtension
 		=> this.OAuth2RequestUrls.Add(uri.AbsoluteUri);
 
 	/// <summary>
+	/// Generates an OAuth2 url and ads it to the pending urls.
+	/// </summary>
+	/// <param name="userId">The user to generate the url for.</param>
+	/// <param name="scopes">The scopes to request.</param>
+	/// <param name="suppressPrompt">Whether to suppress the prompt. Works only if previously authorized with same scopes.</param>
+	/// <returns></returns>
+	public Uri GenerateOAuth2Url(ulong userId, IEnumerable<string> scopes, bool suppressPrompt = false)
+	{
+		var generatedUrl = this.OAuth2Client.GenerateOAuth2Url(string.Join(' ', scopes), this.Configuration.SecureStates ? this.OAuth2Client.GenerateSecureState(userId) : this.OAuth2Client.GenerateState(), suppressPrompt);
+		this.SubmitPendingOAuth2Url(generatedUrl);
+		return generatedUrl;
+	}
+
+	/// <summary>
 	/// Waits for an access token.
 	/// <para>Make sure to submit <paramref name="uri"/> to <see cref="SubmitPendingOAuth2Url"/> before calling.</para>
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
-	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
+	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> or <see cref="GenerateOAuth2Url"/> to wait for.</param>
 	/// <param name="token">A custom cancellation token that can be cancelled at any point.</param>
 	public async Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri uri, CancellationToken token)
 	{

@@ -48,6 +48,7 @@
   "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.AccessTokenRevoked": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
   "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.AuthorizationCodeExchanged": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
   "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.AuthorizationCodeReceived": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
+  "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.GenerateOAuth2Url(System.UInt64,System.Collections.Generic.IEnumerable{System.String},System.Boolean)": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
   "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.OAuth2Client": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
   "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.RefreshAccessTokenAsync(DisCatSharp.Entities.DiscordUser)": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
   "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.RefreshAccessTokenAsync(System.UInt64)": "DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension.yml",
