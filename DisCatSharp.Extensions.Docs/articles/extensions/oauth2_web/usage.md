@@ -20,7 +20,7 @@ client.UseOAuth2Web(new OAuth2WebConfiguration
     ClientId = 1234567890, // Your application's client ID
     ClientSecret = "your_client_secret", // Your application's client secret
     RedirectUri = "http(s)://(sub).domain.tld/oauth/" // Your application's redirect URI
-	// ... other options
+    // ... other options
 });
 ```
 
@@ -38,7 +38,7 @@ await shardedClient.UseOAuth2WebAsync(new OAuth2WebConfiguration
     ClientId = 1234567890, // Your application's client ID
     ClientSecret = "your_client_secret", // Your application's client secret
     RedirectUri = "http(s)://(sub).domain.tld/oauth/" // Your application's redirect URI
-	// ... other options
+    // ... other options
 });
 ```
 
@@ -85,44 +85,44 @@ This is an example of how to request an access token from a user and to access u
 [SlashCommand("test_oauth2", "Tests OAuth2 Web")]
 public static async Task TestOAuth2Async(InteractionContext ctx)
 {
-	await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-		new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+        new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
 
     // Get the oauth2 web extension
-	var oauth2 = ctx.Client.GetOAuth2Web();
+    var oauth2 = ctx.Client.GetOAuth2Web();
 
     // Generate the oauth2 url with the additional connections scope
     // We assume you set SecureStates to true in the configuration
-	var uri = oauth2.OAuth2Client.GenerateOAuth2Url(
-		"identify connections",
-		oauth2.OAuth2Client.GenerateSecureState(ctx.User.Id));
+    var uri = oauth2.OAuth2Client.GenerateOAuth2Url(
+        "identify connections",
+        oauth2.OAuth2Client.GenerateSecureState(ctx.User.Id));
 
     // Add the pending oauth2 url to the oauth2 web extension
-	oauth2.SubmitPendingOAuth2Url(uri);
+    oauth2.SubmitPendingOAuth2Url(uri);
 
-	await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Please authorize via oauth at: {uri.AbsoluteUri}"));
+    await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Please authorize via oauth at: {uri.AbsoluteUri}"));
 
     // Give them a minute to authorize
     // This method waits for the automatic handling of access token receiving and exchange
-	var res = await oauth2.WaitForAccessTokenAsync(ctx.User, uri, TimeSpan.FromMinutes(1));
+    var res = await oauth2.WaitForAccessTokenAsync(ctx.User, uri, TimeSpan.FromMinutes(1));
 
     // Use the access token if the request hasn't timed out, otherwise respond with a timeout message
-	if (!res.TimedOut)
-	{
+    if (!res.TimedOut)
+    {
         // Get the user connections
-		var connections = await oauth2.OAuth2Client.GetCurrentUserConnectionsAsync(res.Result.DiscordAccessToken);
+        var connections = await oauth2.OAuth2Client.GetCurrentUserConnectionsAsync(res.Result.DiscordAccessToken);
 
         // Respond with the connection count and the first connection's username
-		await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent(
-			$"{connections.Count} total connections.\nFirst connection username: {connections.First().Name}"));
+        await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent(
+            $"{connections.Count} total connections.\nFirst connection username: {connections.First().Name}"));
 
         // Revoke the access token, we don't need it anymore for this example
-		await oauth2.RevokeAccessTokenAsync(ctx.User);
+        await oauth2.RevokeAccessTokenAsync(ctx.User);
 
         // Inform the user that we revoked the access token
         await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder().WithContent("Revoked access token."));
-	}
-	else
-		await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Timed out :("));
+    }
+    else
+        await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Timed out :("));
 }
 ```
