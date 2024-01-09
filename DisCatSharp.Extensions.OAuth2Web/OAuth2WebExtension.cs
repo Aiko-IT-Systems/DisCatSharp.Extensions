@@ -269,6 +269,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 	private Task OnAccessTokenRevokedAsync(DiscordOAuth2Client sender, AccessTokenRevokeEventArgs e)
 	{
 		this.UserIdAccessTokenMapper.TryRemove(e.UserId, out _);
+		if (this.Client.UserCache.TryGetValue(e.UserId, out var user))
+			user.AccessToken = null;
 		e.Handled = false;
 		return Task.CompletedTask;
 	}
@@ -289,6 +291,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			old.TokenType = e.RefreshedDiscordAccessToken.TokenType;
 			return old;
 		});
+		if (this.Client.UserCache.TryGetValue(e.UserId, out var user))
+			user.AccessToken = e.RefreshedDiscordAccessToken;
 		e.Handled = false;
 		return Task.CompletedTask;
 	}
@@ -309,6 +313,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			old.TokenType = e.DiscordAccessToken.TokenType;
 			return old;
 		});
+		if (this.Client.UserCache.TryGetValue(e.UserId, out var user))
+			user.AccessToken = e.DiscordAccessToken;
 		e.Handled = false;
 		return Task.CompletedTask;
 	}
