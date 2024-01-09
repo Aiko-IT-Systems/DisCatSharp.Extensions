@@ -24,4 +24,4 @@ See [OAuth2 Web Requirements](xref:extensions_oauth2_web_requirements).
 
 ## Usage
 
-See [OAuth2 Web Usage](xref:extensions_oauth2_web_usage) and [OAuth2 Web Usage (Sharded)](xref:extensions_oauth2_web_usage_sharded).
+See [OAuth2 Web Usage](xref:extensions_oauth2_web_usage).
