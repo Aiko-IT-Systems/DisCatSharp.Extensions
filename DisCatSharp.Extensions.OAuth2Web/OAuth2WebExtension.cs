@@ -494,7 +494,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 			context.Response.StatusCode = 200;
 			context.Response.ContentType = "application/json";
-			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false }");
+			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false, \"message\": \"You can close this tab now\" }");
 		}
 		catch (SecurityException ex)
 		{
