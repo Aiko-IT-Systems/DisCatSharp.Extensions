@@ -1,28 +1,27 @@
 ---
 uid: extensions_oauth2_web_intro
 title: OAuth2 Web Introduction
+description: Introduction to OAuth2 Web
 ---
 
 # Introduction to OAuth2 Web
 
-## Using OAuth2 Web
+You might encounter a situation where you need more than the normal api information about users.
 
-### Installation
+For example, you might want to know the user's email address or their guilds. This is where OAuth2 Web comes in.
 
-Install the NuGet package `DisCatSharp.Extensions.OAuth2Web` into your project.
+You can simply request the information through the oauth2 flow.
 
-Enable the extension by calling [UseOAuth2Web](xref:DisCatSharp.Extensions.OAuth2Web.ExtensionMethods.UseOAuth2Web*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
+## Installation
 
-```cs
-using DisCatSharp.Extensions.OAuth2Web;
+Simply install the NuGet package `DisCatSharp.Extensions.OAuth2Web` into your project.
 
-// ...
+![NuGet Package Search](/images/oauth2web_nuget.png)
 
-client.UseOAuth2Web(new OAuth2WebConfiguration
-{
-    ClientId = 1234567890, // Your application's client ID
-    ClientSecret = "your_client_secret", // Your application's client secret
-    RedirectUri = "http(s)://(sub).domain.tld/oauth/" // Your application's redirect URI
-	// ... other options
-});
-```
+## Requirements
+
+See [OAuth2 Web Requirements](xref:extensions_oauth2_web_requirements).
+
+## Usage
+
+See [OAuth2 Web Usage](xref:extensions_oauth2_web_usage) and [OAuth2 Web Usage (Sharded)](xref:extensions_oauth2_web_usage_sharded).

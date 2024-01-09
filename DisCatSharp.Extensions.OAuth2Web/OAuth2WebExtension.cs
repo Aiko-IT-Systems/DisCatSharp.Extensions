@@ -424,6 +424,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Handles the OAuth2 authorization code exchange.
 	/// </summary>
 	/// <param name="context">The http context.</param>
+	/// <param name="shard">The shard id.</param>
 	private async Task HandleOAuth2Async(HttpContext context, string? shard = null)
 	{
 		try

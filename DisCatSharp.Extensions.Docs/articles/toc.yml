@@ -11,6 +11,12 @@ items:
             items:
                 - name: Introduction
                   uid: extensions_oauth2_web_intro
+                - name: Requirements
+                  uid: extensions_oauth2_web_requirements
+                - name: Usage
+                  uid: extensions_oauth2_web_usage
+                - name: Usage (Sharded)
+                  uid: extensions_oauth2_web_usage_sharded
     - name: Miscellaneous
       items:
           - name: Nightly Builds

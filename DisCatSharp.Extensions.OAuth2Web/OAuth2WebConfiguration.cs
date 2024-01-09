@@ -36,7 +36,7 @@ public class OAuth2WebConfiguration
 	/// <para>Objects in this provider are used when instantiating command modules. This allows passing data around without resorting to static members.</para>
 	/// <para>Defaults to an empty service provider.</para>
 	/// </summary>
-	public IServiceProvider ServiceProvider { internal get; set; }
+	public IServiceProvider ServiceProvider { internal get; set; } = new ServiceCollection().BuildServiceProvider();
 
 	/// <summary>
 	/// Sets the client id for the OAuth2 client.
@@ -55,8 +55,8 @@ public class OAuth2WebConfiguration
 	/// <para>If used in sharding, the redirect uri internally appends <see cref="DisCatSharp.DiscordClient.ShardId"/></para>
 	/// <example>
 	/// Example: Sharded redirect uri:
-	/// <para>Shard 1 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort</see>/oauth/s1/</c>.</para>
-	/// <para>Shard 2 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort+1</see>/oauth/s2/</c>.</para>
+	/// <para>Shard 1 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort</see>/oauth/s0/</c>.</para>
+	/// <para>Shard 2 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort+1</see>/oauth/s1/</c>.</para>
 	/// </example>
 	/// </summary>
 	public string RedirectUri { internal get; init; }

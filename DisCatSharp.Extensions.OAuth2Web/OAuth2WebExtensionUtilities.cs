@@ -44,6 +44,8 @@ public static class OAuth2WebExtensionUtilities
 	public static async Task GenerateApache2ProxyFileAsync(this DiscordShardedClient client, CancellationToken? cancellationToken = null)
 	{
 		var extensions = await client.GetOAuth2WebAsync();
+		ArgumentNullException.ThrowIfNull(extensions);
+
 		var configurations = extensions.Values.Select(x => x.Configuration).ToList();
 		List<string> proxyStrings = ["\tProxyRequests Off", "\tProxyPreserveHost On"];
 
@@ -69,6 +71,8 @@ public static class OAuth2WebExtensionUtilities
 	public static async Task GenerateApache2ProxyFileAsync(this DiscordClient client, CancellationToken? cancellationToken = null)
 	{
 		var extensions = client.GetOAuth2Web();
+		ArgumentNullException.ThrowIfNull(extensions);
+
 		var configuration = extensions.Configuration;
 		List<string> proxyStrings = [];
 
