@@ -29,14 +29,14 @@ namespace DisCatSharp.Extensions.OAuth2Web;
 /// <summary>
 /// Represents a configuration for <see cref="OAuth2WebExtension"/>.
 /// </summary>
-public class OAuth2WebConfiguration
+public sealed class OAuth2WebConfiguration
 {
 	/// <summary>
 	/// <para>Sets the service provider for this OAuth2Web instance.</para>
 	/// <para>Objects in this provider are used when instantiating command modules. This allows passing data around without resorting to static members.</para>
 	/// <para>Defaults to an empty service provider.</para>
 	/// </summary>
-	public IServiceProvider ServiceProvider { internal get; set; } = new ServiceCollection().BuildServiceProvider();
+	public IServiceProvider ServiceProvider { internal get; set; } = new ServiceCollection().BuildServiceProvider(true);
 
 	/// <summary>
 	/// Sets the client id for the OAuth2 client.
