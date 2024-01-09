@@ -79,7 +79,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
-	internal TwoFactorExtension(TwoFactorConfiguration configuration = null)
+	internal TwoFactorExtension(TwoFactorConfiguration? configuration = null)
 	{
 		configuration ??= new();
 		this.Configuration = configuration;
