@@ -46,7 +46,7 @@ The generated file will be called `dcs_oauth2web_proxy_sharded.conf` and contain
     ProxyPassReverse /oauth/ http://127.0.0.1:42069/oauth/
 ```
 
-### Example generated configuration (sharded)
+### Example generated configuration (Sharded)
 
 ```apache
     ProxyRequests Off

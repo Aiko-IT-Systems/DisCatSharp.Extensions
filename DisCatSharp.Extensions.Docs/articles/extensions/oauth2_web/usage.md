@@ -40,7 +40,7 @@ To stop the oauth server call [StopAsync](xref:DisCatSharp.Extensions.OAuth2Web.
 await client.GetOAuth2WebExtension().StopAsync();
 ```
 
-# [Setup (sharded)](#tab/sharded)
+# [Setup (Sharded)](#tab/sharded)
 
 Enable the extension by calling [UseOAuth2WebAsync](xref:DisCatSharp.Extensions.OAuth2Web.ExtensionMethods.UseOAuth2WebAsync*) on your [DiscordShardedClient](xref:DisCatSharp.DiscordShardedClient) instance:
 
