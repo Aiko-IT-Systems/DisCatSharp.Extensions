@@ -82,7 +82,7 @@ await oauth2Extensions.StopAsync();
 This is an example of how to request an access token from a user and to access user connections.
 
 ```cs
-[SlashCommand("test_oauth2", "Tests OAuth2 Web")]
+[SlashCommand("test_oauth2", "Test OAuth2 Web")]
 public static async Task TestOAuth2Async(InteractionContext ctx)
 {
     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
@@ -104,25 +104,25 @@ public static async Task TestOAuth2Async(InteractionContext ctx)
 
     // Give them a minute to authorize
     // This method waits for the automatic handling of access token receiving and exchange
-    var res = await oauth2.WaitForAccessTokenAsync(ctx.User, uri, TimeSpan.FromMinutes(1));
+    var requestWaiterTask = await oauth2.WaitForAccessTokenAsync(ctx.User, uri, TimeSpan.FromMinutes(1));
 
     // Use the access token if the request hasn't timed out, otherwise respond with a timeout message
-    if (!res.TimedOut)
+    if (!requestWaiterTask.TimedOut)
     {
         // Get the user connections
-        var connections = await oauth2.OAuth2Client.GetCurrentUserConnectionsAsync(res.Result.DiscordAccessToken);
+        var connections = await oauth2.OAuth2Client.GetCurrentUserConnectionsAsync(requestWaiterTask.Result.DiscordAccessToken);
 
         // Respond with the connection count and the first connection's username
         await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent(
-            $"{connections.Count} total connections.\nFirst connection username: {connections.First().Name}"));
+            $"{connections.Count} total connections\n\nFirst connection username: {connections.First().Name}"));
 
         // Revoke the access token, we don't need it anymore for this example
         await oauth2.RevokeAccessTokenAsync(ctx.User);
 
         // Inform the user that we revoked the access token
-        await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder().WithContent("Revoked access token."));
+        await ctx.FollowUpAsync(new DiscordFollowupMessageBuilder().WithContent("Revoked access token"));
     }
     else
-        await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Timed out :("));
+        await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Timed out"));
 }
 ```
