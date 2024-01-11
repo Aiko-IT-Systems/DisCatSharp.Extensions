@@ -487,7 +487,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 			var targetPending = this.OAuth2RequestUrls.First(u => this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates));
 			this.OAuth2RequestUrls.Remove(targetPending);
 			if (info.User is not null)
+			{
 				this.UserIdAccessTokenMapper.TryAdd(info.User.Id, accessToken);
+				if (this.Client.UserCache.TryGetValue(info.User.Id, out var value))
+					value.AccessToken = accessToken;
+			}
 
 			_ = Task.Run(async () => await this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
