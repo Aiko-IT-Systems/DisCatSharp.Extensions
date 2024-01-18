@@ -9,7 +9,7 @@ Official extensions for [DisCatSharp](https://github.com/Aiko-IT-Systems/DisCatS
 
 ## Installing
 
-You can install the library from the following sources:
+You can install the extensions from the following sources:
 - [NuGet](https://www.nuget.org/profiles/DisCatSharp)
 - [GitHub](https://github.com/orgs/Aiko-IT-Systems/packages?tab=packages&q=DisCatSharp.Extensions)
 
