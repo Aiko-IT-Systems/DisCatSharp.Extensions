@@ -29,14 +29,14 @@ namespace DisCatSharp.Extensions.OAuth2Web;
 /// <summary>
 /// Represents a configuration for <see cref="OAuth2WebExtension"/>.
 /// </summary>
-public class OAuth2WebConfiguration
+public sealed class OAuth2WebConfiguration
 {
 	/// <summary>
 	/// <para>Sets the service provider for this OAuth2Web instance.</para>
 	/// <para>Objects in this provider are used when instantiating command modules. This allows passing data around without resorting to static members.</para>
 	/// <para>Defaults to an empty service provider.</para>
 	/// </summary>
-	public IServiceProvider ServiceProvider { internal get; set; }
+	public IServiceProvider ServiceProvider { internal get; set; } = new ServiceCollection().BuildServiceProvider(true);
 
 	/// <summary>
 	/// Sets the client id for the OAuth2 client.
@@ -55,8 +55,8 @@ public class OAuth2WebConfiguration
 	/// <para>If used in sharding, the redirect uri internally appends <see cref="DisCatSharp.DiscordClient.ShardId"/></para>
 	/// <example>
 	/// Example: Sharded redirect uri:
-	/// <para>Shard 1 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort</see>/oauth/s1/</c>.</para>
-	/// <para>Shard 2 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort+1</see>/oauth/s2/</c>.</para>
+	/// <para>Shard 1 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort</see>/oauth/s0/</c>.</para>
+	/// <para>Shard 2 will have the uri <c>http://<see cref="ProxyTargetIpOrHost">Host</see>:<see cref="StartPort">StartPort+1</see>/oauth/s1/</c>.</para>
 	/// </example>
 	/// </summary>
 	public string RedirectUri { internal get; init; }
@@ -65,13 +65,13 @@ public class OAuth2WebConfiguration
 	/// Whether <see cref="DiscordOAuth2Client.GenerateSecureState"/> and <see cref="DiscordOAuth2Client.ReadSecureState"/> will be used.
 	/// <para>Defaults to <see langword="false"/>.</para>
 	/// </summary>
-	public bool SecureStates { internal get; init; }
+	public bool SecureStates { internal get; init; } = false;
 
 	/// <summary>
 	/// Sets whether to listen on <c>*:<see cref="StartPort">StartPort</see></c> instead of <c>127.0.0.1:<see cref="StartPort">StartPort</see></c>.
 	/// <para>Defaults to <see langword="false"/>.</para>
 	/// </summary>
-	public bool ListenAll { internal get; init; }
+	public bool ListenAll { internal get; init; } = false;
 
 	/// <summary>
 	/// Sets the ip address the proxy will target.

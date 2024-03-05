@@ -10,11 +10,11 @@ title: TwoFactor Commands Introduction
 
 ### Installation
 
-Install the NuGet package `DisCatSharp.Extensions.TwoFactorCommands` into your project. Currently only available as prerelease.
+Install the NuGet package `DisCatSharp.Extensions.TwoFactorCommands` into your project.
 
 You'll also need `DiscordSharp.Interactivity`.
 
-Enable the extension by calling [UseTwoFactor](xref:DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods.UseTwoFactor(DisCatSharp.DiscordClient,DisCatSharp.Extensions.TwoFactorCommands.TwoFactorConfiguration)) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
+Enable the extension by calling [UseTwoFactor](xref:DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods.UseTwoFactor*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands;
@@ -28,7 +28,7 @@ client.UseTwoFactor();
 
 #### Enrolling a user in two factor
 
-To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.EnrollTwoFactor(DisCatSharp.DiscordClient,DisCatSharp.Entities.DiscordUser)) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.EnrollTwoFactor*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands;
@@ -38,7 +38,7 @@ using DisCatSharp.Extensions.TwoFactorCommands;
 public static async Task EnrollTwoFactor(InteractionContext ctx)
 {
     // ...
-	var (Secret, QrCode) = ctx.Client.EnrollTwoFactor(ctx.User);
+    var (Secret, QrCode) = ctx.Client.EnrollTwoFactor(ctx.User);
 
     // Either send the QR code to the user, or the secret.
     // QrCode is a MemoryStream you can use with DiscordWebhookBuilder.AddFile as example.
@@ -51,7 +51,7 @@ Example way to ask a user to register their two factor:
 
 #### Disenrolling a user in two factor
 
-To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.DisenrollTwoFactor(DisCatSharp.DiscordClient,System.UInt64)) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.DisenrollTwoFactor*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands;
@@ -61,13 +61,13 @@ using DisCatSharp.Extensions.TwoFactorCommands;
 public static async Task DisenrollTwoFactor(InteractionContext ctx)
 {
     // ...
-	ctx.Client.DisenrollTwoFactor(ctx.User.Id);
+    ctx.Client.DisenrollTwoFactor(ctx.User.Id);
 }
 ```
 
 #### Check if a user is enrolled in two factor
 
-To check the enrollment of a user, use the function [CheckTwoFactorEnrollmentFor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.CheckTwoFactorEnrollmentFor(DisCatSharp.DiscordClient,System.UInt64)) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To check the enrollment of a user, use the function [CheckTwoFactorEnrollmentFor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.CheckTwoFactorEnrollmentFor*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
 
 
 ```cs
@@ -88,7 +88,7 @@ To force a command to require two factor, use the [ApplicationCommandRequireEnro
 [SlashCommand("some_tfa_command", "This command can only be used with tfa"), ApplicationCommandRequireEnrolledTwoFactor]
 ```
 
-To ask a user to submit their two factor code, use the function [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension.RequestTwoFactorAsync(DisCatSharp.ApplicationCommands.Context.BaseContext)) on your [BaseContext](xref:DisCatSharp.ApplicationCommands.Context.BaseContext).
+To ask a user to submit their two factor code, use the function [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension.RequestTwoFactorAsync*) on your [BaseContext](xref:DisCatSharp.ApplicationCommands.Context.BaseContext).
 
 It returns a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Entities.TwoFactorResponse).
 
@@ -97,7 +97,7 @@ var tfa_result = await ctx.RequestTwoFactorAsync();
 
 if (tfa_result.Result != TwoFactorResult.ValidCode)
 {
-	// Handle incorrect code
+    // Handle incorrect code
     return;
 }
 
@@ -108,7 +108,7 @@ if (tfa_result.Result != TwoFactorResult.ValidCode)
 
 Using two factor authentication on buttons is pretty similar to slash commands but it'll need a DiscordClient to attach to.
 
-Run [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension.RequestTwoFactorAsync(DisCatSharp.EventArgs.ComponentInteractionCreateEventArgs,DisCatSharp.DiscordClient)) on your [ComponentInteractionCreateEventArgs](xref:DisCatSharp.EventArgs.ComponentInteractionCreateEventArgs) to ask the user for the two factor auth code.
+Run [RequestTwoFactorAsync()](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension.RequestTwoFactorAsync*) on your [ComponentInteractionCreateEventArgs](xref:DisCatSharp.EventArgs.ComponentInteractionCreateEventArgs) to ask the user for the two factor auth code.
 
 Same deal as for slash commands, it'll return a [TwoFactorResponse](xref:DisCatSharp.Extensions.TwoFactorCommands.Entities.TwoFactorResponse).
 

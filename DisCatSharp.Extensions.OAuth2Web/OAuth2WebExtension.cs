@@ -144,11 +144,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Initializes a new instance of the <see cref="OAuth2WebExtension"/> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
-	internal OAuth2WebExtension(OAuth2WebConfiguration configuration)
+	internal OAuth2WebExtension(OAuth2WebConfiguration configuration) // , DiscordClient discordClient)
 	{
 		this.Configuration = configuration;
 
-		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri);
+		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri); // , discordClient: discordClient);
 
 		this._authorizationCodeReceived = new("OAUTH2_AUTH_CODE_RECEIVED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._authorizationCodeExchanged = new("OAUTH2_AUTH_CODE_EXCHANGED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
@@ -269,6 +269,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 	private Task OnAccessTokenRevokedAsync(DiscordOAuth2Client sender, AccessTokenRevokeEventArgs e)
 	{
 		this.UserIdAccessTokenMapper.TryRemove(e.UserId, out _);
+		if (this.Client.UserCache.TryGetValue(e.UserId, out var user))
+			user.AccessToken = null;
 		e.Handled = false;
 		return Task.CompletedTask;
 	}
@@ -289,6 +291,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			old.TokenType = e.RefreshedDiscordAccessToken.TokenType;
 			return old;
 		});
+		if (this.Client.UserCache.TryGetValue(e.UserId, out var user))
+			user.AccessToken = e.RefreshedDiscordAccessToken;
 		e.Handled = false;
 		return Task.CompletedTask;
 	}
@@ -309,6 +313,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 			old.TokenType = e.DiscordAccessToken.TokenType;
 			return old;
 		});
+		if (this.Client.UserCache.TryGetValue(e.UserId, out var user))
+			user.AccessToken = e.DiscordAccessToken;
 		e.Handled = false;
 		return Task.CompletedTask;
 	}
@@ -362,11 +368,25 @@ public sealed class OAuth2WebExtension : BaseExtension
 		=> this.OAuth2RequestUrls.Add(uri.AbsoluteUri);
 
 	/// <summary>
+	/// Generates an OAuth2 url and ads it to the pending urls.
+	/// </summary>
+	/// <param name="userId">The user to generate the url for.</param>
+	/// <param name="scopes">The scopes to request.</param>
+	/// <param name="suppressPrompt">Whether to suppress the prompt. Works only if previously authorized with same scopes.</param>
+	/// <returns></returns>
+	public Uri GenerateOAuth2Url(ulong userId, IEnumerable<string> scopes, bool suppressPrompt = false)
+	{
+		var generatedUrl = this.OAuth2Client.GenerateOAuth2Url(string.Join(' ', scopes), this.Configuration.SecureStates ? this.OAuth2Client.GenerateSecureState(userId) : this.OAuth2Client.GenerateState(), suppressPrompt);
+		this.SubmitPendingOAuth2Url(generatedUrl);
+		return generatedUrl;
+	}
+
+	/// <summary>
 	/// Waits for an access token.
 	/// <para>Make sure to submit <paramref name="uri"/> to <see cref="SubmitPendingOAuth2Url"/> before calling.</para>
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
-	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
+	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> or <see cref="GenerateOAuth2Url"/> to wait for.</param>
 	/// <param name="token">A custom cancellation token that can be cancelled at any point.</param>
 	public async Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri uri, CancellationToken token)
 	{
@@ -424,6 +444,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// Handles the OAuth2 authorization code exchange.
 	/// </summary>
 	/// <param name="context">The http context.</param>
+	/// <param name="shard">The shard id.</param>
 	private async Task HandleOAuth2Async(HttpContext context, string? shard = null)
 	{
 		try
@@ -466,7 +487,11 @@ public sealed class OAuth2WebExtension : BaseExtension
 			var targetPending = this.OAuth2RequestUrls.First(u => this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates));
 			this.OAuth2RequestUrls.Remove(targetPending);
 			if (info.User is not null)
+			{
 				this.UserIdAccessTokenMapper.TryAdd(info.User.Id, accessToken);
+				if (this.Client.UserCache.TryGetValue(info.User.Id, out var value))
+					value.AccessToken = accessToken;
+			}
 
 			_ = Task.Run(async () => await this._authorizationCodeExchanged.InvokeAsync(this.OAuth2Client,
 				new(this.ServiceProvider)
@@ -479,7 +504,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 			context.Response.StatusCode = 200;
 			context.Response.ContentType = "application/json";
-			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false }");
+			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false, \"message\": \"You can close this tab now\" }");
 		}
 		catch (SecurityException ex)
 		{
