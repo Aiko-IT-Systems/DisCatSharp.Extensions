@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -56,7 +57,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	/// Gets the oauth2 client.
 	/// </summary>
-	public DiscordOAuth2Client OAuth2Client { get; private set; }
+	public DiscordOAuth2Client OAuth2Client { get; }
 
 	/// <summary>
 	/// Gets the web application.
@@ -459,9 +460,18 @@ public sealed class OAuth2WebExtension : BaseExtension
 				this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates)))
 			{
 				context.Response.StatusCode = 500;
-				context.Response.ContentType = "application/json";
-				await context.Response.WriteAsync(
-					"{ \"handled\": false, \"error\": true, \"message\": \"Invalid state\" }");
+				if (this.Configuration is { UseHtmlOutput: true, HtmlOutputInvalidState: not null })
+				{
+					context.Response.ContentType = "text/html";
+					await context.Response.WriteAsync(this.Configuration.HtmlOutputInvalidState, Encoding.UTF8);
+				}
+				else
+				{
+					context.Response.ContentType = "application/json";
+					await context.Response.WriteAsync(
+						"{ \"handled\": false, \"error\": true, \"message\": \"Invalid state\" }");
+				}
+
 				return;
 			}
 
@@ -503,8 +513,16 @@ public sealed class OAuth2WebExtension : BaseExtension
 				}));
 
 			context.Response.StatusCode = 200;
-			context.Response.ContentType = "application/json";
-			await context.Response.WriteAsync("{ \"handled\": true, \"error\": false, \"message\": \"You can close this tab now\" }");
+			if (this.Configuration is { UseHtmlOutput: true, HtmlOutputSuccess: not null })
+			{
+				context.Response.ContentType = "text/html";
+				await context.Response.WriteAsync(this.Configuration.HtmlOutputSuccess, Encoding.UTF8);
+			}
+			else
+			{
+				context.Response.ContentType = "application/json";
+				await context.Response.WriteAsync("{ \"handled\": true, \"error\": false, \"message\": \"You can close this tab now\" }");
+			}
 		}
 		catch (SecurityException ex)
 		{
@@ -515,8 +533,16 @@ public sealed class OAuth2WebExtension : BaseExtension
 					Exception = ex
 				}));
 			context.Response.StatusCode = 401;
-			context.Response.ContentType = "application/json";
-			await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Security Exception\" }");
+			if (this.Configuration is { UseHtmlOutput: true, HtmlOutputSecurityException: not null })
+			{
+				context.Response.ContentType = "text/html";
+				await context.Response.WriteAsync(this.Configuration.HtmlOutputSecurityException, Encoding.UTF8);
+			}
+			else
+			{
+				context.Response.ContentType = "application/json";
+				await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Security Exception\" }");
+			}
 		}
 		catch (Exception ex)
 		{
@@ -527,8 +553,16 @@ public sealed class OAuth2WebExtension : BaseExtension
 					Exception = ex
 				}));
 			context.Response.StatusCode = 500;
-			context.Response.ContentType = "application/json";
-			await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Something went wrong\" }");
+			if (this.Configuration is { UseHtmlOutput: true, HtmlOutputException: not null })
+			{
+				context.Response.ContentType = "text/html";
+				await context.Response.WriteAsync(this.Configuration.HtmlOutputException, Encoding.UTF8);
+			}
+			else
+			{
+				context.Response.ContentType = "application/json";
+				await context.Response.WriteAsync("{ \"handled\": false, \"error\": true, \"message\": \"Something went wrong\" }");
+			}
 		}
 	}
 

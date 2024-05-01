@@ -92,9 +92,33 @@ public sealed class OAuth2WebConfiguration
 	public int StartPort { internal get; init; } = 42069;
 
 	/// <summary>
+	/// Sets whether to use html output instead of json output for the OAuth2 flow.
+	/// </summary>
+	public bool UseHtmlOutput { internal get; init; } = false;
+
+	/// <summary>
+	/// This will show when the OAuth2 flow was successfully completed, instead of json output.
+	/// </summary>
+	public string? HtmlOutputSuccess { internal get; init; } = null;
+
+	/// <summary>
+	/// This will show when the state parameter is invalid during the OAuth2 flow, instead of json output.
+	/// </summary>
+	public string? HtmlOutputInvalidState { internal get; init; } = null;
+
+	/// <summary>
+	/// This will show when <see cref="SecureStates"/> is active and the state has a mismatch during the OAuth2 flow, instead of json output.
+	/// </summary>
+	public string? HtmlOutputSecurityException { internal get; init; } = null;
+
+	/// <summary>
+	/// This will show when any exception occured during the OAuth2 flow, instead of json output.
+	/// </summary>
+	public string? HtmlOutputException { internal get; init; } = null;
+
+	/// <summary>
 	/// Creates a new instance of <see cref="OAuth2WebConfiguration"/>.
 	/// </summary>
-	[ActivatorUtilitiesConstructor]
 	public OAuth2WebConfiguration()
 	{ }
 
@@ -122,5 +146,10 @@ public sealed class OAuth2WebConfiguration
 		this.StartPort = other.StartPort;
 		this.SecureStates = other.SecureStates;
 		this.ProxyTargetIpOrHost = other.ProxyTargetIpOrHost;
+		this.UseHtmlOutput = other.UseHtmlOutput;
+		this.HtmlOutputSuccess = other.HtmlOutputSuccess;
+		this.HtmlOutputInvalidState = other.HtmlOutputInvalidState;
+		this.HtmlOutputSecurityException = other.HtmlOutputSecurityException;
+		this.HtmlOutputException = other.HtmlOutputException;
 	}
 }
