@@ -138,6 +138,16 @@ public static class ExtensionMethods
 		=> extensions.Values.Select(extension => extension.Configuration.RedirectUri).All(client.CurrentApplication.RedirectUris.Contains);
 
 	/// <summary>
+	/// <para>Checks if the redirect uri is set for the application in the developer portal.</para>
+	/// <para>Use this function after you've executed <see cref="DiscordClient.ConnectAsync"/>.</para>
+	/// </summary>
+	/// <param name="extensions">The extensions.</param>
+	/// <param name="client">The <see cref="DiscordClient"/>.</param>
+	/// <returns>Whether the required redirect uris is set.</returns>
+	public static bool HasRequiredRedirectUriSet(this OAuth2WebExtension extensions, DiscordClient client)
+		=> client.CurrentApplication.RedirectUris.Contains(extensions.Configuration.RedirectUri);
+
+	/// <summary>
 	/// Gets the required redirect uris for the developer portal.
 	/// </summary>
 	/// <param name="extensions">The extensions.</param>

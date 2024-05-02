@@ -41,6 +41,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DisCatSharp.Extensions.OAuth2Web;
 
@@ -49,6 +50,11 @@ namespace DisCatSharp.Extensions.OAuth2Web;
 /// </summary>
 public sealed class OAuth2WebExtension : BaseExtension
 {
+	/// <summary>
+	/// Gets the logger for this extension.
+	/// </summary>
+	public ILogger<OAuth2WebExtension> Logger { get; private set; }
+
 	/// <summary>
 	/// Gets the OAuth2 Web configuration.
 	/// </summary>
@@ -67,8 +73,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	/// Gets the service provider this OAuth2 Web module was configured with.
 	/// </summary>
-	public IServiceProvider ServiceProvider
-		=> this.Configuration.ServiceProvider;
+	public IServiceProvider ServiceProvider { get; private set; }
 
 	/// <summary>
 	/// Gets the authorization code event waiter.
@@ -149,13 +154,17 @@ public sealed class OAuth2WebExtension : BaseExtension
 	{
 		this.Configuration = configuration;
 
-		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri, this.ServiceProvider, this.Configuration.Proxy, null, true, null, this.Configuration.MinimumLogLevel, this.Configuration.LogTimestampFormat); // , discordClient: discordClient);
+		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri, this.ServiceProvider, this.Configuration.Proxy, default, default, this.Configuration.LoggerFactory, this.Configuration.MinimumLogLevel, this.Configuration.LogTimestampFormat); // , discordClient: discordClient);
 
 		this._authorizationCodeReceived = new("OAUTH2_AUTH_CODE_RECEIVED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._authorizationCodeExchanged = new("OAUTH2_AUTH_CODE_EXCHANGED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._accessTokenRefreshed = new("OAUTH2_ACCESS_TOKEN_REFRESHED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._accessTokenRevoked = new("OAUTH2_ACCESS_TOKEN_REVOKED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._authorizationCodeWaiter = new(this, this.OAuth2Client);
+
+		this.AuthorizationCodeExchanged += this.OnAuthorizationCodeExchangedAsync;
+		this.AccessTokenRefreshed += this.OnAccessTokenRefreshedAsync;
+		this.AccessTokenRevoked += this.OnAccessTokenRevokedAsync;
 
 		var builder = WebApplication.CreateBuilder();
 
@@ -172,12 +181,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 		this.WEB_APP.UseAuthorization();
 
-		this.WEB_APP.MapGet("/oauth/{shard}", this.HandleOAuth2Async);
+		this.WEB_APP.MapGet("/oauth/{shard}/", this.HandleOAuth2Async);
 		this.WEB_APP.MapGet("/oauth/", this.HandleOAuth2Async);
-
-		this.AuthorizationCodeExchanged += this.OnAuthorizationCodeExchangedAsync;
-		this.AccessTokenRefreshed += this.OnAccessTokenRefreshedAsync;
-		this.AccessTokenRevoked += this.OnAccessTokenRevokedAsync;
 	}
 
 	/// <summary>
@@ -353,6 +358,9 @@ public sealed class OAuth2WebExtension : BaseExtension
 		this.Repository = "DisCatSharp.Extensions";
 
 		this.PackageId = "DisCatSharp.Extensions.OAuth2Web";
+
+		this.Logger = (this.Configuration.LoggerFactory ?? this.Client.Configuration.LoggerFactory).CreateLogger<OAuth2WebExtension>();
+		this.ServiceProvider = this.Configuration.ServiceProvider;
 	}
 
 	/// <summary>
@@ -491,7 +499,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 			{
 				var stateUserId = ulong.Parse(this.OAuth2Client.ReadSecureState(state).Split("::")[1]);
 				if (stateUserId != info.User?.Id)
+				{
+					this.Logger.LogCritical("OAuth2Web::SecurityException - Received user id {receivedUserId} does not matches authorized user id {authorizedUserId} or authorized is null.", stateUserId, info.User?.Id);
 					throw new SecurityException("State mismatch");
+				}
 			}
 
 			var targetPending = this.OAuth2RequestUrls.First(u => this.OAuth2Client.ValidateState(new(u), requestUrl, this.Configuration.SecureStates));

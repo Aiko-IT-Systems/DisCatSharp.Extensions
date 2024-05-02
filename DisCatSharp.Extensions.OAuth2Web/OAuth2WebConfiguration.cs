@@ -118,23 +118,30 @@ public sealed class OAuth2WebConfiguration
 	/// </summary>
 	public string? HtmlOutputException { internal get; init; } = null;
 
-        /// <summary>
-        /// <para>Sets the minimum logging level for messages.</para>
-        /// <para>Defaults to <see cref="LogLevel.Information"/>.</para>
-        /// </summary>
-        public LogLevel MinimumLogLevel { internal get; set; } = LogLevel.Information;
+	/// <summary>
+	/// <para>Sets the minimum logging level for messages.</para>
+	/// <para>Defaults to <see cref="LogLevel.Information"/>.</para>
+	/// </summary>
+	public LogLevel MinimumLogLevel { internal get; set; } = LogLevel.Information;
 
-        /// <summary>
-        /// <para>Allows you to overwrite the time format used by the internal debug logger.</para>
-        /// <para>Only applicable when <see cref="LoggerFactory"/> is set left at default value. Defaults to ISO 8601-like format.</para>
-        /// </summary>
-        public string LogTimestampFormat { internal get; set; } = "yyyy-MM-dd HH:mm:ss zzz";
+	/// <summary>
+	/// <para>Allows you to overwrite the time format used by the internal debug logger.</para>
+	/// <para>Only applicable when <see cref="LoggerFactory"/> is set left at default value. Defaults to ISO 8601-like format.</para>
+	/// </summary>
+	public string LogTimestampFormat { internal get; set; } = "yyyy-MM-dd HH:mm:ss zzz";
 
-        /// <summary>
-        /// <para>Sets the proxy to use for HTTP connections to Discord.</para>
-        /// <para>Defaults to <see langword="null"/>.</para>
-        /// </summary>
-        public IWebProxy? Proxy { internal get; set; } = null;
+	/// <summary>
+	/// <para>Sets the proxy to use for HTTP connections to Discord.</para>
+	/// <para>Defaults to <see langword="null"/>.</para>
+	/// </summary>
+	public IWebProxy? Proxy { internal get; set; } = null;
+
+	/// <summary>
+	/// <para>Sets the logger implementation to use.</para>
+	/// <para>To create your own logger, implement the <see cref="Microsoft.Extensions.Logging.ILoggerFactory"/> instance.</para>
+	/// <para>Defaults to built-in implementation.</para>
+	/// </summary>
+	public ILoggerFactory? LoggerFactory { internal get; set; } = null;
 
 	/// <summary>
 	/// Creates a new instance of <see cref="OAuth2WebConfiguration"/>.
@@ -174,5 +181,6 @@ public sealed class OAuth2WebConfiguration
 this.Proxy = other.Proxy;
 this.LogTimestampFormat = other.LogTimestampFormat;
 this.MinimumLogLevel = other.MinimumLogLevel;
+		this.LoggerFactory = other.LoggerFactory;
 	}
 }
