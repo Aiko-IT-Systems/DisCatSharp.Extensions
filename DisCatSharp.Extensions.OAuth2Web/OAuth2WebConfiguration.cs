@@ -21,8 +21,10 @@
 // SOFTWARE.
 
 using System;
+using System.Net;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DisCatSharp.Extensions.OAuth2Web;
 
