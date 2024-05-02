@@ -149,7 +149,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	{
 		this.Configuration = configuration;
 
-		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri); // , discordClient: discordClient);
+		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri, this.ServiceProvider, this.Configuration.Proxy, null, true, null, this.Configuration.MinimumLogLevel, this.Configuration.LogTimestampFormat); // , discordClient: discordClient);
 
 		this._authorizationCodeReceived = new("OAUTH2_AUTH_CODE_RECEIVED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._authorizationCodeExchanged = new("OAUTH2_AUTH_CODE_EXCHANGED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
