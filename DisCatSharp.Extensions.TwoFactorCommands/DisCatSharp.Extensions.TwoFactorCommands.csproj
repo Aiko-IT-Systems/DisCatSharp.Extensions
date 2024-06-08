@@ -30,7 +30,7 @@ Extension allowing to require two factor authentication for commands.
 	<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
   <PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.6.4,)" />
-  <PackageReference Include="DisCatSharp.Attributes" Version="10.4.*" />
+  <PackageReference Include="DisCatSharp.Attributes" Version="10.6.*" />
   <PackageReference Include="DisCatSharp.CommandsNext" Version="[10.6.4,)" />
   <PackageReference Include="DisCatSharp.Common" Version="[10.6.4,)" />
   <PackageReference Include="DisCatSharp.Interactivity" Version="[10.6.4,)" />
