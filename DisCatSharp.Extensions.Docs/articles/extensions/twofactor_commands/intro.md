@@ -1,6 +1,8 @@
 ---
 uid: extensions_twofactor_commands_intro
 title: TwoFactor Commands Introduction
+description: Introduction to TwoFactor Commands
+author: DisCatSharp Team
 ---
 
 # Introduction to TwoFactor Commands

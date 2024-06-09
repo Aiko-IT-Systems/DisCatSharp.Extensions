@@ -2,6 +2,7 @@
 uid: extensions_oauth2_web_usage
 title: OAuth2 Web Usage
 description: Using OAuth2 Web
+author: DisCatSharp Team
 ---
 
 # OAuth2 Web Usage

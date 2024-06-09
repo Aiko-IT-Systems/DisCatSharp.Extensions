@@ -2,6 +2,7 @@
 uid: preamble
 title: Article Preamble
 description: Introduction to DisCatSharp.Extensions
+author: DisCatSharp Team
 ---
 
 ## Prerequisites

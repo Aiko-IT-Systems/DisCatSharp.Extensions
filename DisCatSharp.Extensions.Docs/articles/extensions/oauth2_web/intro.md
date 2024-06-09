@@ -2,6 +2,7 @@
 uid: extensions_oauth2_web_intro
 title: OAuth2 Web Introduction
 description: Introduction to OAuth2 Web
+author: DisCatSharp Team
 ---
 
 # Introduction to OAuth2 Web

@@ -2,6 +2,7 @@
 uid: extensions_oauth2_web_requirements
 title: OAuth2 Web Requirements
 description: Requirements for OAuth2 Web
+author: DisCatSharp Team
 ---
 
 # OAuth2 Web Requirements

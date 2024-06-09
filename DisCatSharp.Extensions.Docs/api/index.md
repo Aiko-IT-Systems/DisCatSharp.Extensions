@@ -1,6 +1,7 @@
 ---
 uid: api_index
 title: DisCatSharp Extensions Global API
+author: DisCatSharp Team
 ---
 # API Reference
 
