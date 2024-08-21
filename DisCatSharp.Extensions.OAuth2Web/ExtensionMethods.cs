@@ -26,8 +26,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-using DisCatSharp.Entities;
-
 using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract
@@ -35,16 +33,16 @@ using Microsoft.Extensions.DependencyInjection;
 namespace DisCatSharp.Extensions.OAuth2Web;
 
 /// <summary>
-/// Defines various extensions specific to OAuth2Web.
+///     Defines various extensions specific to OAuth2Web.
 /// </summary>
 public static class ExtensionMethods
 {
 	/// <summary>
-	/// Enables OAuth2Web module on this <see cref="DiscordClient"/>.
+	///     Enables OAuth2Web module on this <see cref="DiscordClient" />.
 	/// </summary>
 	/// <param name="client">Client to enable OAuth2Web for.</param>
 	/// <param name="config">OAuth2Web configuration to use.</param>
-	/// <returns>Created <see cref="OAuth2WebExtension"/>.</returns>
+	/// <returns>Created <see cref="OAuth2WebExtension" />.</returns>
 	public static OAuth2WebExtension UseOAuth2Web(this DiscordClient client, OAuth2WebConfiguration config)
 	{
 		if (client.GetExtension<OAuth2WebExtension>() != null)
@@ -58,11 +56,11 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Enables OAuth2Web module on all shards in this <see cref="DiscordShardedClient"/>.
+	///     Enables OAuth2Web module on all shards in this <see cref="DiscordShardedClient" />.
 	/// </summary>
 	/// <param name="client">Client to enable OAuth2Web for.</param>
 	/// <param name="config">OAuth2Web configuration to use.</param>
-	/// <returns>A dictionary of created <see cref="OAuth2WebExtension"/>, indexed by shard id.</returns>
+	/// <returns>A dictionary of created <see cref="OAuth2WebExtension" />, indexed by shard id.</returns>
 	public static async Task<IReadOnlyDictionary<int, OAuth2WebExtension>> UseOAuth2WebAsync(this DiscordShardedClient client, OAuth2WebConfiguration config)
 	{
 		var modules = new Dictionary<int, OAuth2WebExtension>();
@@ -87,7 +85,7 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Gets the active OAuth2Web module for this client.
+	///     Gets the active OAuth2Web module for this client.
 	/// </summary>
 	/// <param name="client">Client to get OAuth2Web module from.</param>
 	/// <returns>The module, or null if not activated.</returns>
@@ -95,7 +93,7 @@ public static class ExtensionMethods
 		=> client.GetExtension<OAuth2WebExtension>();
 
 	/// <summary>
-	/// Gets the active OAuth2Web modules for all shards in this client.
+	///     Gets the active OAuth2Web modules for all shards in this client.
 	/// </summary>
 	/// <param name="client">Client to get OAuth2Web instances from.</param>
 	/// <returns>A dictionary of the modules, indexed by shard id.</returns>
@@ -108,7 +106,7 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Starts the oauth2 web server for all shards.
+	///     Starts the oauth2 web server for all shards.
 	/// </summary>
 	/// <param name="extensions">The extension dictionary.</param>
 	public static void Start(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions)
@@ -118,7 +116,7 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Stops the oauth2 web server for all shards.
+	///     Stops the oauth2 web server for all shards.
 	/// </summary>
 	/// <param name="extensions">The extension dictionary.</param>
 	public static async Task StopAsync(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions)
@@ -128,27 +126,27 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// <para>Checks if all redirect uris are set for the application in the developer portal.</para>
-	/// <para>Use this function after you've executed <see cref="DiscordShardedClient.StartAsync"/>.</para>
+	///     <para>Checks if all redirect uris are set for the application in the developer portal.</para>
+	///     <para>Use this function after you've executed <see cref="DiscordShardedClient.StartAsync" />.</para>
 	/// </summary>
 	/// <param name="extensions">The extensions.</param>
-	/// <param name="client">The <see cref="DiscordShardedClient"/>.</param>
+	/// <param name="client">The <see cref="DiscordShardedClient" />.</param>
 	/// <returns>Whether all required redirect uris are set.</returns>
 	public static bool HasAllRequiredRedirectUrisSet(this IReadOnlyDictionary<int, OAuth2WebExtension> extensions, DiscordShardedClient client)
 		=> extensions.Values.Select(extension => extension.Configuration.RedirectUri).All(client.CurrentApplication.RedirectUris.Contains);
 
 	/// <summary>
-	/// <para>Checks if the redirect uri is set for the application in the developer portal.</para>
-	/// <para>Use this function after you've executed <see cref="DiscordClient.ConnectAsync"/>.</para>
+	///     <para>Checks if the redirect uri is set for the application in the developer portal.</para>
+	///     <para>Use this function after you've executed <see cref="DiscordClient.ConnectAsync" />.</para>
 	/// </summary>
 	/// <param name="extensions">The extensions.</param>
-	/// <param name="client">The <see cref="DiscordClient"/>.</param>
+	/// <param name="client">The <see cref="DiscordClient" />.</param>
 	/// <returns>Whether the required redirect uris is set.</returns>
 	public static bool HasRequiredRedirectUriSet(this OAuth2WebExtension extensions, DiscordClient client)
 		=> client.CurrentApplication.RedirectUris.Contains(extensions.Configuration.RedirectUri);
 
 	/// <summary>
-	/// Gets the required redirect uris for the developer portal.
+	///     Gets the required redirect uris for the developer portal.
 	/// </summary>
 	/// <param name="extensions">The extensions.</param>
 	/// <returns>The required redirect uris.</returns>
@@ -156,8 +154,8 @@ public static class ExtensionMethods
 		=> extensions.Values.Select(extension => extension.Configuration.RedirectUri).ToList().AsReadOnly();
 
 	/// <summary>
-	/// <para>Checks if all redirect uris are set for the application in the developer portal.</para>
-	/// <para>Use this function after you've executed <see cref="DiscordClient.ConnectAsync"/>.</para>
+	///     <para>Checks if all redirect uris are set for the application in the developer portal.</para>
+	///     <para>Use this function after you've executed <see cref="DiscordClient.ConnectAsync" />.</para>
 	/// </summary>
 	/// <param name="extension">The extension.</param>
 	/// <returns>Whether the required redirect uri is set.</returns>

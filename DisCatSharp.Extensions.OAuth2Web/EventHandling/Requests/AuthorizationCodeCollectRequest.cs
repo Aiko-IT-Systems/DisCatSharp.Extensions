@@ -29,10 +29,10 @@ using DisCatSharp.Extensions.OAuth2Web.EventArgs;
 namespace DisCatSharp.Extensions.OAuth2Web.EventHandling.Requests;
 
 /// <summary>
-/// Represents a authorization code exchange event that is being waited for.
+///     Represents a authorization code exchange event that is being waited for.
 /// </summary>
 /// <remarks>
-/// Initializes a new instance of the <see cref="AuthorizationCodeCollectRequest"/> class.
+///     Initializes a new instance of the <see cref="AuthorizationCodeCollectRequest" /> class.
 /// </remarks>
 /// <param name="state">The state to wait for.</param>
 /// <param name="predicate">The predicate.</param>
@@ -41,7 +41,7 @@ internal sealed class AuthorizationCodeCollectRequest(string state, Func<Authori
 	: AuthorizationCodeMatchRequest(state, predicate, cancellation)
 {
 	/// <summary>
-	/// Gets the collected.
+	///     Gets the collected.
 	/// </summary>
 	public ConcurrentBag<AuthorizationCodeExchangeEventArgs> Collected { get; private set; } = [];
 }

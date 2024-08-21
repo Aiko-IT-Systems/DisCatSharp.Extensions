@@ -46,108 +46,37 @@ using Microsoft.Extensions.Logging;
 namespace DisCatSharp.Extensions.OAuth2Web;
 
 /// <summary>
-/// Represents a <see cref="OAuth2WebExtension"/>.
+///     Represents a <see cref="OAuth2WebExtension" />.
 /// </summary>
 public sealed class OAuth2WebExtension : BaseExtension
 {
 	/// <summary>
-	/// Gets the logger for this extension.
-	/// </summary>
-	public ILogger<OAuth2WebExtension> Logger { get; private set; }
-
-	/// <summary>
-	/// Gets the OAuth2 Web configuration.
-	/// </summary>
-	internal OAuth2WebConfiguration Configuration { get; }
-
-	/// <summary>
-	/// Gets the oauth2 client.
-	/// </summary>
-	public DiscordOAuth2Client OAuth2Client { get; }
-
-	/// <summary>
-	/// Gets the web application.
-	/// </summary>
-	private WebApplication WEB_APP { get; }
-
-	/// <summary>
-	/// Gets the service provider this OAuth2 Web module was configured with.
-	/// </summary>
-	public IServiceProvider ServiceProvider { get; private set; }
-
-	/// <summary>
-	/// Gets the authorization code event waiter.
-	/// </summary>
-	private readonly AuthorizationCodeEventWaiter _authorizationCodeWaiter;
-
-	/// <summary>
-	/// Triggered when an authorizaton code was received.
-	/// </summary>
-	public event AsyncEventHandler<DiscordOAuth2Client, AuthorizationCodeReceiveEventArgs> AuthorizationCodeReceived
-	{
-		add => this._authorizationCodeReceived.Register(value);
-		remove => this._authorizationCodeReceived.Unregister(value);
-	}
-
-	/// <summary>
-	/// Fired when an authorizaton code was received.
-	/// </summary>
-	private readonly AsyncEvent<DiscordOAuth2Client, AuthorizationCodeReceiveEventArgs> _authorizationCodeReceived;
-
-	/// <summary>
-	/// Triggered when an authorizaton code was exchanged.
-	/// </summary>
-	public event AsyncEventHandler<DiscordOAuth2Client, AuthorizationCodeExchangeEventArgs> AuthorizationCodeExchanged
-	{
-		add => this._authorizationCodeExchanged.Register(value);
-		remove => this._authorizationCodeExchanged.Unregister(value);
-	}
-
-	/// <summary>
-	/// Fired when an authorizaton code was exchanged.
-	/// </summary>
-	private readonly AsyncEvent<DiscordOAuth2Client, AuthorizationCodeExchangeEventArgs> _authorizationCodeExchanged;
-
-	/// <summary>
-	/// Triggered when an access token was refreshed.
-	/// </summary>
-	public event AsyncEventHandler<DiscordOAuth2Client, AccessTokenRefreshEventArgs> AccessTokenRefreshed
-	{
-		add => this._accessTokenRefreshed.Register(value);
-		remove => this._accessTokenRefreshed.Unregister(value);
-	}
-
-	/// <summary>
-	/// Fired when an access token was refreshed.
+	///     Fired when an access token was refreshed.
 	/// </summary>
 	private readonly AsyncEvent<DiscordOAuth2Client, AccessTokenRefreshEventArgs> _accessTokenRefreshed;
 
 	/// <summary>
-	/// Triggered when an access token was revoked.
-	/// </summary>
-	public event AsyncEventHandler<DiscordOAuth2Client, AccessTokenRevokeEventArgs> AccessTokenRevoked
-	{
-		add => this._accessTokenRevoked.Register(value);
-		remove => this._accessTokenRevoked.Unregister(value);
-	}
-
-	/// <summary>
-	/// Fired when an access token was revoked.
+	///     Fired when an access token was revoked.
 	/// </summary>
 	private readonly AsyncEvent<DiscordOAuth2Client, AccessTokenRevokeEventArgs> _accessTokenRevoked;
 
 	/// <summary>
-	/// All pending OAuth2 request urls.
+	///     Fired when an authorizaton code was exchanged.
 	/// </summary>
-	internal List<string> OAuth2RequestUrls { get; } = [];
+	private readonly AsyncEvent<DiscordOAuth2Client, AuthorizationCodeExchangeEventArgs> _authorizationCodeExchanged;
 
 	/// <summary>
-	/// Gets all access tokens mapped to user id.
+	///     Fired when an authorizaton code was received.
 	/// </summary>
-	internal ConcurrentDictionary<ulong, DiscordAccessToken> UserIdAccessTokenMapper { get; } = new();
+	private readonly AsyncEvent<DiscordOAuth2Client, AuthorizationCodeReceiveEventArgs> _authorizationCodeReceived;
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="OAuth2WebExtension"/> class.
+	///     Gets the authorization code event waiter.
+	/// </summary>
+	private readonly AuthorizationCodeEventWaiter _authorizationCodeWaiter;
+
+	/// <summary>
+	///     Initializes a new instance of the <see cref="OAuth2WebExtension" /> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
 	internal OAuth2WebExtension(OAuth2WebConfiguration configuration) // , DiscordClient discordClient)
@@ -186,7 +115,78 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Gets an access token for <paramref name="user"/>.
+	///     Gets the logger for this extension.
+	/// </summary>
+	public ILogger<OAuth2WebExtension> Logger { get; private set; }
+
+	/// <summary>
+	///     Gets the OAuth2 Web configuration.
+	/// </summary>
+	internal OAuth2WebConfiguration Configuration { get; }
+
+	/// <summary>
+	///     Gets the oauth2 client.
+	/// </summary>
+	public DiscordOAuth2Client OAuth2Client { get; }
+
+	/// <summary>
+	///     Gets the web application.
+	/// </summary>
+	private WebApplication WEB_APP { get; }
+
+	/// <summary>
+	///     Gets the service provider this OAuth2 Web module was configured with.
+	/// </summary>
+	public IServiceProvider ServiceProvider { get; private set; }
+
+	/// <summary>
+	///     All pending OAuth2 request urls.
+	/// </summary>
+	internal List<string> OAuth2RequestUrls { get; } = [];
+
+	/// <summary>
+	///     Gets all access tokens mapped to user id.
+	/// </summary>
+	internal ConcurrentDictionary<ulong, DiscordAccessToken> UserIdAccessTokenMapper { get; } = new();
+
+	/// <summary>
+	///     Triggered when an authorizaton code was received.
+	/// </summary>
+	public event AsyncEventHandler<DiscordOAuth2Client, AuthorizationCodeReceiveEventArgs> AuthorizationCodeReceived
+	{
+		add => this._authorizationCodeReceived.Register(value);
+		remove => this._authorizationCodeReceived.Unregister(value);
+	}
+
+	/// <summary>
+	///     Triggered when an authorizaton code was exchanged.
+	/// </summary>
+	public event AsyncEventHandler<DiscordOAuth2Client, AuthorizationCodeExchangeEventArgs> AuthorizationCodeExchanged
+	{
+		add => this._authorizationCodeExchanged.Register(value);
+		remove => this._authorizationCodeExchanged.Unregister(value);
+	}
+
+	/// <summary>
+	///     Triggered when an access token was refreshed.
+	/// </summary>
+	public event AsyncEventHandler<DiscordOAuth2Client, AccessTokenRefreshEventArgs> AccessTokenRefreshed
+	{
+		add => this._accessTokenRefreshed.Register(value);
+		remove => this._accessTokenRefreshed.Unregister(value);
+	}
+
+	/// <summary>
+	///     Triggered when an access token was revoked.
+	/// </summary>
+	public event AsyncEventHandler<DiscordOAuth2Client, AccessTokenRevokeEventArgs> AccessTokenRevoked
+	{
+		add => this._accessTokenRevoked.Register(value);
+		remove => this._accessTokenRevoked.Unregister(value);
+	}
+
+	/// <summary>
+	///     Gets an access token for <paramref name="user" />.
 	/// </summary>
 	/// <param name="user">The user to get the token from.</param>
 	/// <param name="token">The found access token.</param>
@@ -195,7 +195,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 		=> this.TryGetAccessToken(user.Id, out token);
 
 	/// <summary>
-	/// Gets an access token for <paramref name="userId"/>.
+	///     Gets an access token for <paramref name="userId" />.
 	/// </summary>
 	/// <param name="userId">The user id to get the token from.</param>
 	/// <param name="token">The found access token.</param>
@@ -204,24 +204,24 @@ public sealed class OAuth2WebExtension : BaseExtension
 		=> this.UserIdAccessTokenMapper.TryGetValue(userId, out token);
 
 	/// <summary>
-	/// Refreshes an access token for <paramref name="user"/>.
-	/// <para>Fires an <see cref="AccessTokenRefreshed"/> event.</para>
+	///     Refreshes an access token for <paramref name="user" />.
+	///     <para>Fires an <see cref="AccessTokenRefreshed" /> event.</para>
 	/// </summary>
 	/// <param name="user">The user to revoke their token from.</param>
 	public Task<bool> RefreshAccessTokenAsync(DiscordUser user)
 		=> this.RefreshAccessTokenAsync(user.Id);
 
 	/// <summary>
-	/// Revokes an access token for <paramref name="user"/>.
-	/// <para>Fires an <see cref="AccessTokenRevoked"/> event.</para>
+	///     Revokes an access token for <paramref name="user" />.
+	///     <para>Fires an <see cref="AccessTokenRevoked" /> event.</para>
 	/// </summary>
 	/// <param name="user">The user to revoke their token from.</param>
 	public Task<bool> RevokeAccessTokenAsync(DiscordUser user)
 		=> this.RevokeAccessTokenAsync(user.Id);
 
 	/// <summary>
-	/// Refreshes an access token for <paramref name="userId"/>.
-	/// <para>Fires an <see cref="AccessTokenRefreshed"/> event.</para>
+	///     Refreshes an access token for <paramref name="userId" />.
+	///     <para>Fires an <see cref="AccessTokenRefreshed" /> event.</para>
 	/// </summary>
 	/// <param name="userId">The user id to revoke their token from.</param>
 	public async Task<bool> RefreshAccessTokenAsync(ulong userId)
@@ -234,8 +234,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Revokes an access token for <paramref name="userId"/>.
-	/// <para>Fires an <see cref="AccessTokenRevoked"/> event.</para>
+	///     Revokes an access token for <paramref name="userId" />.
+	///     <para>Fires an <see cref="AccessTokenRevoked" /> event.</para>
 	/// </summary>
 	/// <param name="userId">The user id to revoke their token from.</param>
 	public async Task<bool> RevokeAccessTokenAsync(ulong userId)
@@ -248,8 +248,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Refreshes all access tokens.
-	/// <para>Fires an <see cref="AccessTokenRefreshed"/> event for every refreshed token.</para>
+	///     Refreshes all access tokens.
+	///     <para>Fires an <see cref="AccessTokenRefreshed" /> event for every refreshed token.</para>
 	/// </summary>
 	public async Task RefreshAllAccessTokensAsync()
 	{
@@ -258,8 +258,8 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Revokes all access tokens.
-	/// <para>Fires an <see cref="AccessTokenRevoked"/> event for every refreshed token.</para>
+	///     Revokes all access tokens.
+	///     <para>Fires an <see cref="AccessTokenRevoked" /> event for every refreshed token.</para>
 	/// </summary>
 	public async Task RevokeAllAccessTokensAsync()
 	{
@@ -268,7 +268,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Handles access token revokes.
+	///     Handles access token revokes.
 	/// </summary>
 	/// <param name="sender">The sender.</param>
 	/// <param name="e">The event args.</param>
@@ -282,7 +282,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Handles access token refreshes.
+	///     Handles access token refreshes.
 	/// </summary>
 	/// <param name="sender">The sender.</param>
 	/// <param name="e">The event args.</param>
@@ -304,7 +304,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Handles authorization code exchanges.
+	///     Handles authorization code exchanges.
 	/// </summary>
 	/// <param name="sender">The sender.</param>
 	/// <param name="e">The event args.</param>
@@ -326,10 +326,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// DO NOT USE THIS MANUALLY.
+	///     DO NOT USE THIS MANUALLY.
 	/// </summary>
 	/// <param name="client">DO NOT USE THIS MANUALLY.</param>
-	/// <exception cref="InvalidOperationException"/>
+	/// <exception cref="InvalidOperationException" />
 	protected internal override void Setup(DiscordClient client)
 	{
 		if (this.Client != null)
@@ -364,20 +364,20 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Starts the web server.
+	///     Starts the web server.
 	/// </summary>
 	public void Start()
 		=> Task.Run(() => this.WEB_APP.RunAsync());
 
 	/// <summary>
-	/// Adds a url to pending urls.
+	///     Adds a url to pending urls.
 	/// </summary>
 	/// <param name="uri">The url to add.</param>
 	public void SubmitPendingOAuth2Url(Uri uri)
 		=> this.OAuth2RequestUrls.Add(uri.AbsoluteUri);
 
 	/// <summary>
-	/// Generates an OAuth2 url and ads it to the pending urls.
+	///     Generates an OAuth2 url and ads it to the pending urls.
 	/// </summary>
 	/// <param name="userId">The user to generate the url for.</param>
 	/// <param name="scopes">The scopes to request.</param>
@@ -391,11 +391,14 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Waits for an access token.
-	/// <para>Make sure to submit <paramref name="uri"/> to <see cref="SubmitPendingOAuth2Url"/> before calling.</para>
+	///     Waits for an access token.
+	///     <para>Make sure to submit <paramref name="uri" /> to <see cref="SubmitPendingOAuth2Url" /> before calling.</para>
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
-	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> or <see cref="GenerateOAuth2Url"/> to wait for.</param>
+	/// <param name="uri">
+	///     The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url" /> or
+	///     <see cref="GenerateOAuth2Url" /> to wait for.
+	/// </param>
 	/// <param name="token">A custom cancellation token that can be cancelled at any point.</param>
 	public async Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri uri, CancellationToken token)
 	{
@@ -409,17 +412,17 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Waits for an access token.
-	/// <para>Make sure to submit <paramref name="uri"/> to <see cref="SubmitPendingOAuth2Url"/> before calling.</para>
+	///     Waits for an access token.
+	///     <para>Make sure to submit <paramref name="uri" /> to <see cref="SubmitPendingOAuth2Url" /> before calling.</para>
 	/// </summary>
 	/// <param name="user">The user to wait for.</param>
-	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url"/> to wait for.</param>
+	/// <param name="uri">The oauth url generated from <see cref="DiscordOAuth2Client.GenerateOAuth2Url" /> to wait for.</param>
 	/// <param name="timeoutOverride">Override the timeout period of one minute.</param>
 	public Task<OAuth2Result<AuthorizationCodeExchangeEventArgs>> WaitForAccessTokenAsync(DiscordUser user, Uri uri, TimeSpan? timeoutOverride = null)
 		=> this.WaitForAccessTokenAsync(user, uri, GetCancellationToken(timeoutOverride));
 
 	/// <summary>
-	/// Refreshes an access token.
+	///     Refreshes an access token.
 	/// </summary>
 	/// <param name="accessToken">The access token to refresh.</param>
 	/// <param name="userId">The user id the access token belongs to.</param>
@@ -434,7 +437,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Revokes an access token.
+	///     Revokes an access token.
 	/// </summary>
 	/// <param name="accessToken">The access token to revoke.</param>
 	/// <param name="userId">The user id the access token belongs to.</param>
@@ -450,7 +453,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Handles the OAuth2 authorization code exchange.
+	///     Handles the OAuth2 authorization code exchange.
 	/// </summary>
 	/// <param name="context">The http context.</param>
 	/// <param name="shard">The shard id.</param>
@@ -578,14 +581,14 @@ public sealed class OAuth2WebExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Gets the cancellation token.
+	///     Gets the cancellation token.
 	/// </summary>
 	/// <param name="timeout">The timeout.</param>
 	private static CancellationToken GetCancellationToken(TimeSpan? timeout = null)
 		=> new CancellationTokenSource(timeout ?? DiscordOAuth2Client.EventExecutionLimit).Token;
 
 	/// <summary>
-	/// Stops the web server.
+	///     Stops the web server.
 	/// </summary>
 	public Task StopAsync()
 		=> this.WEB_APP.StopAsync();

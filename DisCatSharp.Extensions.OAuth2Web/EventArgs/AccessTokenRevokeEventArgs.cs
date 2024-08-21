@@ -28,11 +28,11 @@ namespace DisCatSharp.Extensions.OAuth2Web.EventArgs;
 
 public class AccessTokenRevokeEventArgs : DiscordOAuth2EventArgs
 {
-	public DiscordAccessToken RevokedDiscordAccessToken { get; internal set; }
-
-	public ulong UserId { get; internal set; }
-
 	internal AccessTokenRevokeEventArgs(IServiceProvider provider)
 		: base(provider)
 	{ }
+
+	public DiscordAccessToken RevokedDiscordAccessToken { get; internal set; }
+
+	public ulong UserId { get; internal set; }
 }

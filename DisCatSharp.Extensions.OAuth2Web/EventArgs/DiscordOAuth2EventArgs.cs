@@ -29,23 +29,23 @@ using Microsoft.Extensions.DependencyInjection;
 namespace DisCatSharp.Extensions.OAuth2Web.EventArgs;
 
 /// <summary>
-/// Common base for all other <see cref="DiscordOAuth2Client"/>-related event argument classes.
+///     Common base for all other <see cref="DiscordOAuth2Client" />-related event argument classes.
 /// </summary>
 public abstract class DiscordOAuth2EventArgs : AsyncEventArgs
 {
 	/// <summary>
-	/// <para>Gets the service provider.</para>
-	/// <para>This allows passing data around without resorting to static members.</para>
-	/// <para>Defaults to an empty service provider.</para>
-	/// </summary>
-	public IServiceProvider ServiceProvider { get; internal set; } = new ServiceCollection().BuildServiceProvider(true);
-
-	/// <summary>
-	/// Initializes a new instance of the <see cref="DiscordOAuth2EventArgs"/> class.
+	///     Initializes a new instance of the <see cref="DiscordOAuth2EventArgs" /> class.
 	/// </summary>
 	protected DiscordOAuth2EventArgs(IServiceProvider provider)
 	{
 		if (provider != null)
 			this.ServiceProvider = provider.CreateScope().ServiceProvider;
 	}
+
+	/// <summary>
+	///     <para>Gets the service provider.</para>
+	///     <para>This allows passing data around without resorting to static members.</para>
+	///     <para>Defaults to an empty service provider.</para>
+	/// </summary>
+	public IServiceProvider ServiceProvider { get; internal set; } = new ServiceCollection().BuildServiceProvider(true);
 }

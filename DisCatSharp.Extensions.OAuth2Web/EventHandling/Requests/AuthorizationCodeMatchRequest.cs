@@ -29,22 +29,15 @@ using DisCatSharp.Extensions.OAuth2Web.EventArgs;
 namespace DisCatSharp.Extensions.OAuth2Web.EventHandling.Requests;
 
 /// <summary>
-/// Represents a match that is being waited for.
+///     Represents a match that is being waited for.
 /// </summary>
 internal class AuthorizationCodeMatchRequest
 {
-	public string State { get; private set; }
-
-	/// <summary>
-	/// The completion source that represents the result of the match.
-	/// </summary>
-	public TaskCompletionSource<AuthorizationCodeExchangeEventArgs> Tcs { get; private set; } = new();
-
 	protected readonly CancellationToken Cancellation;
 	protected readonly Func<AuthorizationCodeExchangeEventArgs, bool> Predicate;
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="AuthorizationCodeMatchRequest"/> class.
+	///     Initializes a new instance of the <see cref="AuthorizationCodeMatchRequest" /> class.
 	/// </summary>
 	/// <param name="state">The state to wait for.</param>
 	/// <param name="predicate">The predicate.</param>
@@ -57,8 +50,15 @@ internal class AuthorizationCodeMatchRequest
 		this.Cancellation.Register(() => this.Tcs.TrySetResult(null));
 	}
 
+	public string State { get; private set; }
+
 	/// <summary>
-	/// Whether it is a match.
+	///     The completion source that represents the result of the match.
+	/// </summary>
+	public TaskCompletionSource<AuthorizationCodeExchangeEventArgs> Tcs { get; } = new();
+
+	/// <summary>
+	///     Whether it is a match.
 	/// </summary>
 	/// <param name="args">The arguments.</param>
 	public bool IsMatch(AuthorizationCodeExchangeEventArgs args)

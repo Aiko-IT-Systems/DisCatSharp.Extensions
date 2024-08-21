@@ -26,11 +26,11 @@ namespace DisCatSharp.Extensions.OAuth2Web.EventArgs;
 
 public class AuthorizationCodeReceiveEventArgs : DiscordOAuth2EventArgs
 {
-	public string ReceivedCode { get; internal set; }
-
-	public string ReceivedState { get; internal set; }
-
 	internal AuthorizationCodeReceiveEventArgs(IServiceProvider provider)
 		: base(provider)
 	{ }
+
+	public string ReceivedCode { get; internal set; }
+
+	public string ReceivedState { get; internal set; }
 }

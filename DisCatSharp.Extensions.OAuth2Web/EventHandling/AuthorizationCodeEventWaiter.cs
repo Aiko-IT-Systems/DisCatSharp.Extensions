@@ -36,17 +36,17 @@ using Microsoft.Extensions.Logging;
 namespace DisCatSharp.Extensions.OAuth2Web.EventHandling;
 
 /// <summary>
-/// A <see cref="AuthorizationCodeEventWaiter"/>.
+///     A <see cref="AuthorizationCodeEventWaiter" />.
 /// </summary>
 internal class AuthorizationCodeEventWaiter : IDisposable
 {
 	private readonly DiscordOAuth2Client _client;
+	private readonly ConcurrentHashSet<AuthorizationCodeCollectRequest> _collectRequests = [];
 	private readonly OAuth2WebExtension _extension;
 	private readonly ConcurrentHashSet<AuthorizationCodeMatchRequest> _matchRequests = [];
-	private readonly ConcurrentHashSet<AuthorizationCodeCollectRequest> _collectRequests = [];
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="AuthorizationCodeEventWaiter"/> class.
+	///     Initializes a new instance of the <see cref="AuthorizationCodeEventWaiter" /> class.
 	/// </summary>
 	/// <param name="extension">The OAuth2 web extension.</param>
 	/// <param name="client">The client.</param>
@@ -58,7 +58,17 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 	}
 
 	/// <summary>
-	/// Waits for a specified <see cref="AuthorizationCodeMatchRequest"/>'s predicate to be fulfilled.
+	///     Disposes the waiter.
+	/// </summary>
+	public void Dispose()
+	{
+		this._matchRequests.Clear();
+		this._collectRequests.Clear();
+		this._extension.AuthorizationCodeExchanged -= this.HandleAsync;
+	}
+
+	/// <summary>
+	///     Waits for a specified <see cref="AuthorizationCodeMatchRequest" />'s predicate to be fulfilled.
 	/// </summary>
 	/// <param name="request">The request to wait for.</param>
 	/// <returns>The returned args, or null if it timed out.</returns>
@@ -82,7 +92,8 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 	}
 
 	/// <summary>
-	/// Collects requests and returns the result when the <see cref="AuthorizationCodeMatchRequest"/>'s cancellation token is canceled.
+	///     Collects requests and returns the result when the <see cref="AuthorizationCodeMatchRequest" />'s cancellation token
+	///     is canceled.
 	/// </summary>
 	/// <param name="request">The request to wait on.</param>
 	/// <returns>The result from request's predicate over the period of time leading up to the token's cancellation.</returns>
@@ -106,7 +117,7 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 	}
 
 	/// <summary>
-	/// Handles the waiter.
+	///     Handles the waiter.
 	/// </summary>
 	/// <param name="_">The client.</param>
 	/// <param name="args">The args.</param>
@@ -119,15 +130,5 @@ internal class AuthorizationCodeEventWaiter : IDisposable
 			creq.Collected.Add(args);
 
 		return Task.CompletedTask;
-	}
-
-	/// <summary>
-	/// Disposes the waiter.
-	/// </summary>
-	public void Dispose()
-	{
-		this._matchRequests.Clear();
-		this._collectRequests.Clear();
-		this._extension.AuthorizationCodeExchanged -= this.HandleAsync;
 	}
 }

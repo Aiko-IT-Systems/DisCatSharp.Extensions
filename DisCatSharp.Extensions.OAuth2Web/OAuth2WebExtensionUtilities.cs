@@ -31,12 +31,12 @@ using System.Threading.Tasks;
 namespace DisCatSharp.Extensions.OAuth2Web;
 
 /// <summary>
-/// Provides extension methods for OAuth2Web.
+///     Provides extension methods for OAuth2Web.
 /// </summary>
 public static class OAuth2WebExtensionUtilities
 {
 	/// <summary>
-	/// Generates the proxy configuration for apache2 hosts for use with a <see cref="DiscordShardedClient"/>.
+	///     Generates the proxy configuration for apache2 hosts for use with a <see cref="DiscordShardedClient" />.
 	/// </summary>
 	/// <param name="client">The client.</param>
 	/// <param name="cancellationToken">The optional cancellation token.</param>
@@ -63,7 +63,7 @@ public static class OAuth2WebExtensionUtilities
 	}
 
 	/// <summary>
-	/// Generates the proxy configuration for apache2 hosts for use with a single <see cref="DiscordClient"/>.
+	///     Generates the proxy configuration for apache2 hosts for use with a single <see cref="DiscordClient" />.
 	/// </summary>
 	/// <param name="client">The client.</param>
 	/// <param name="cancellationToken">The optional cancellation token.</param>

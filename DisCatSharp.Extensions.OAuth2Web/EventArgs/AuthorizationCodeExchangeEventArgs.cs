@@ -28,6 +28,10 @@ namespace DisCatSharp.Extensions.OAuth2Web.EventArgs;
 
 public class AuthorizationCodeExchangeEventArgs : DiscordOAuth2EventArgs
 {
+	internal AuthorizationCodeExchangeEventArgs(IServiceProvider provider)
+		: base(provider)
+	{ }
+
 	public string ExchangedCode { get; internal init; }
 
 	public string ReceivedState { get; internal init; }
@@ -35,8 +39,4 @@ public class AuthorizationCodeExchangeEventArgs : DiscordOAuth2EventArgs
 	public ulong UserId { get; internal init; }
 
 	public DiscordAccessToken DiscordAccessToken { get; internal init; }
-
-	internal AuthorizationCodeExchangeEventArgs(IServiceProvider provider)
-		: base(provider)
-	{ }
 }
