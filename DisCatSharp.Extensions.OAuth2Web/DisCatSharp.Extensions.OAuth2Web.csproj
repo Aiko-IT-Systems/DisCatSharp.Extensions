@@ -6,17 +6,21 @@
 	<Import Project="../Targets/NuGet.targets" />
 	<Import Project="../Targets/Library.targets" />
 
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
-	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	<PropertyGroup Label="Configuration"
+	               Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
 	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
-	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	<PropertyGroup Label="Configuration"
+	               Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
 	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	<PropertyGroup Label="Configuration"
+	               Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
 	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
-	  <TypeScriptTarget>ESNext</TypeScriptTarget>
+	<PropertyGroup Label="Configuration"
+	               Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -27,9 +31,9 @@
 	<PropertyGroup>
 		<PackageId>DisCatSharp.Extensions.OAuth2Web</PackageId>
 		<Description>
-		  DisCatSharp.Extensions.OAuth2Web
+			DisCatSharp.Extensions.OAuth2Web
 
-		  Extension providing a web server for the DiscordOAuth2Client.
+			Extension providing a web server for the DiscordOAuth2Client.
 		</Description>
 		<PackageTags>DisCatSharp,DisCatSharp Extension,OAuth2,OAuth,Discord OAuth2,Discord,Bots,Discord Bots,AITSYS,Net7,Net8,Webserver</PackageTags>
 		<TypeScriptJSXEmit>none</TypeScriptJSXEmit>
@@ -47,7 +51,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
 	</ItemGroup>
 
 </Project>

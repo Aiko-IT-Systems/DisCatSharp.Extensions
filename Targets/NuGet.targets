@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -11,18 +12,18 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    	<DefineConstants>$(DefineConstants);CI_BUILD</DefineConstants>
-    	<Deterministic>true</Deterministic>
+		<DefineConstants>$(DefineConstants);CI_BUILD</DefineConstants>
+		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(CI)' == 'True'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    	<DefineConstants>$(DefineConstants);CI_BUILD</DefineConstants>
-    	<Deterministic>true</Deterministic>
+		<DefineConstants>$(DefineConstants);CI_BUILD</DefineConstants>
+		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    	<DefineConstants>$(DefineConstants);CI_BUILD</DefineConstants>
-    	<Deterministic>true</Deterministic>
+		<DefineConstants>$(DefineConstants);CI_BUILD</DefineConstants>
+		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' != 'true' And '$(TF_BUILD)' != 'true' And '$(CI)' != 'True'">
 		<ContinuousIntegrationBuild>false</ContinuousIntegrationBuild>
