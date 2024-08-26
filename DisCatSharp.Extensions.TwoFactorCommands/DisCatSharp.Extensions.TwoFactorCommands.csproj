@@ -25,16 +25,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.0.7" />
-		<PackageReference Include="DisCatSharp" Version="[10.6.6-nightly-008,)" />
+		<PackageReference Include="DisCatSharp" Version="[10.6.6-nightly-010,)" />
 		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.6.6-nightly-008,)" />
+		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.6.6-nightly-010,)" />
 		<PackageReference Include="DisCatSharp.Attributes" Version="10.6.*" />
-		<PackageReference Include="DisCatSharp.CommandsNext" Version="[10.6.6-nightly-008,)" />
-		<PackageReference Include="DisCatSharp.Common" Version="[10.6.6-nightly-008,)" />
-		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.6.6-nightly-008,)" />
+		<PackageReference Include="DisCatSharp.CommandsNext" Version="[10.6.6-nightly-010,)" />
+		<PackageReference Include="DisCatSharp.Common" Version="[10.6.6-nightly-010,)" />
+		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.6.6-nightly-010,)" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
