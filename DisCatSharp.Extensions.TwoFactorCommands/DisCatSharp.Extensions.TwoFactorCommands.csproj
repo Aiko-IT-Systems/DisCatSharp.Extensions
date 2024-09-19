@@ -24,7 +24,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.0.7" />
+		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.1.0" />
 		<PackageReference Include="DisCatSharp" Version="10.6.6-nightly-018" />
 		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
 			<PrivateAssets>all</PrivateAssets>
