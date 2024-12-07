@@ -31,7 +31,7 @@
 
 			Extension providing a web server for the DiscordOAuth2Client.
 		</Description>
-		<PackageTags>DisCatSharp,DisCatSharp Extension,OAuth2,OAuth,Discord OAuth2,Discord,Bots,Discord Bots,AITSYS,Net7,Net8,Webserver</PackageTags>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,OAuth2,OAuth,Discord OAuth2,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Webserver</PackageTags>
 		<TypeScriptJSXEmit>none</TypeScriptJSXEmit>
 		<TypeScriptModuleKind>none</TypeScriptModuleKind>
 	</PropertyGroup>
