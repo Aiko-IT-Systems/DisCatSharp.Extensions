@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Targets/Version.targets" />
+	<Import Project="../Targets/DisCatSharp.targets" />
+	<Import Project="../Targets/Package.targets" />
+	<Import Project="../Targets/NuGet.targets" />
+	<Import Project="../Targets/Library.targets" />
+
+	<PropertyGroup>
+		<AssemblyName>DisCatSharp.Extensions.SimpleMusicCommands</AssemblyName>
+		<RootNamespace>DisCatSharp.Extensions.SimpleMusicCommands</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>DisCatSharp.Extensions.SimpleMusicCommands</PackageId>
+		<Description>
+			DisCatSharp.Extensions.SimpleMusicCommands
+
+			Extension allowing you to turn your bot into a music bot pretty easy.
+		</Description>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Music, Music Bot, Lavalink,Discord,Bots,Discord Bots,AITSYS,Net8,Net9</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp\DisCatSharp.csproj" />
+		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.1" />
+		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.ApplicationCommands\DisCatSharp.ApplicationCommands.csproj" />
+		<PackageReference Include="DisCatSharp.Attributes" Version="10.6.*" />
+		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.Lavalink\DisCatSharp.Lavalink.csproj" />
+		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.Common\DisCatSharp.Common.csproj" />
+		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Memory" Version="4.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>

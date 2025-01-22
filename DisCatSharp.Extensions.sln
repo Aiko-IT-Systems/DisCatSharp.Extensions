@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{0C70
 		Targets\Version.targets = Targets\Version.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisCatSharp.Extensions.SimpleMusicCommands", "DisCatSharp.Extensions.SimpleMusicCommands\DisCatSharp.Extensions.SimpleMusicCommands.csproj", "{2B87CDFB-16FC-4558-914B-4671887B8C11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{6BD242EC-89DD-4026-80E0-29E176F317FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BD242EC-89DD-4026-80E0-29E176F317FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BD242EC-89DD-4026-80E0-29E176F317FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B87CDFB-16FC-4558-914B-4671887B8C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B87CDFB-16FC-4558-914B-4671887B8C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B87CDFB-16FC-4558-914B-4671887B8C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B87CDFB-16FC-4558-914B-4671887B8C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
