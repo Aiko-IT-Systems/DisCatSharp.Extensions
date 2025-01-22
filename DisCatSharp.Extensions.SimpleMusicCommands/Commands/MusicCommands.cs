@@ -90,7 +90,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 		[SlashCommand("pause", "Pauses the playback")]
 		public async Task PauseAsync(InteractionContext ctx)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Pausing.."));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -112,7 +112,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 		[SlashCommand("resume", "Resumes the playback")]
 		public async Task ResumeAsync(InteractionContext ctx)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Resuming.."));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -204,7 +204,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 			}
 			catch (ArgumentNullException)
 			{
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel and are playing a song currently."));
 			}
 			catch (Exception ex)
 			{
@@ -226,7 +226,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 				var player = ctx.Client.GetLavalink().GetGuildPlayer(ctx.Guild);
 				ArgumentNullException.ThrowIfNull(player);
 				await player.SetVolumeAsync(volume);
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Success!"));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Success! Set volume to {volume}%"));
 			}
 			catch (ArgumentNullException)
 			{
@@ -247,12 +247,13 @@ public sealed class MusicCommands : ApplicationCommandsModule
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
 				var player = ctx.Client.GetLavalink().GetGuildPlayer(ctx.Guild);
 				ArgumentNullException.ThrowIfNull(player);
-				await player.SeekAsync(TimeSpan.FromSeconds(seconds));
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Success!"));
+				var ts = TimeSpan.FromSeconds(seconds);
+				await player.SeekAsync(ts);
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Success! Seeked to {ts}"));
 			}
 			catch (ArgumentNullException)
 			{
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel and are currently playing a song."));
 			}
 			catch (Exception ex)
 			{
@@ -274,10 +275,12 @@ public sealed class MusicCommands : ApplicationCommandsModule
 				var player = ctx.Client.GetLavalink().GetGuildPlayer(ctx.Guild);
 				ArgumentNullException.ThrowIfNull(player);
 				player.PlayQueue();
+				player = ctx.Client.GetLavalink().GetGuildPlayer(ctx.Guild);
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Playing {player!.CurrentTrack!.Info.Title.Bold} from {player.CurrentTrack.Info.Author.Italic}"));
 			}
 			catch (ArgumentNullException)
 			{
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel. And you added songs to the queue."));
 			}
 			catch (Exception ex)
 			{
@@ -383,7 +386,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 			}
 			catch (ArgumentNullException)
 			{
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel and have songs in the queue."));
 			}
 			catch (Exception ex)
 			{
@@ -405,7 +408,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 			}
 			catch (ArgumentNullException)
 			{
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel and have songs in the queue."));
 			}
 			catch (Exception ex)
 			{
@@ -427,7 +430,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 			}
 			catch (ArgumentNullException)
 			{
-				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel and have songs in the queue."));
 			}
 			catch (Exception ex)
 			{
