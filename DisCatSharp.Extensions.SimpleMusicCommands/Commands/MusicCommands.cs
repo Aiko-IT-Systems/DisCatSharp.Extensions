@@ -134,7 +134,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 		[SlashCommand("skip", "Skips the current song")]
 		public async Task SkipAsync(InteractionContext ctx)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Skipping song.."));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -156,7 +156,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 		[SlashCommand("stop", "Stops the playback and clears the queue")]
 		public async Task StopAsync(InteractionContext ctx)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Stopping.."));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -165,6 +165,42 @@ public sealed class MusicCommands : ApplicationCommandsModule
 				player.ClearQueue();
 				await player.StopAsync();
 				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Success!"));
+			}
+			catch (ArgumentNullException)
+			{
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+			}
+			catch (Exception ex)
+			{
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent(ex.Message ?? "No message"));
+			}
+		}
+
+		[SlashCommand("now_playing", "Gets the now playing information")]
+		public async Task NowPlayingAsync(InteractionContext ctx)
+		{
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Getting info.."));
+			try
+			{
+				ArgumentNullException.ThrowIfNull(ctx.Guild);
+				var player = ctx.Client.GetLavalink().GetGuildPlayer(ctx.Guild);
+				ArgumentNullException.ThrowIfNull(player);
+				ArgumentNullException.ThrowIfNull(player.CurrentTrack);
+				var builder = new DiscordEmbedBuilder
+				{
+					Title = "Now Playing",
+					Color = DiscordColor.Goldenrod,
+					Thumbnail = player.CurrentTrack.Info.ArtworkUrl is not null
+						? new()
+						{
+							Url = player.CurrentTrack.Info.ArtworkUrl.AbsoluteUri
+						}
+						: null!,
+					Description = $"[{player.CurrentTrack.Info.Title}]({player.CurrentTrack.Info.Uri}) by {player.CurrentTrack.Info.Author}"
+				};
+				builder.AddField(new("In queue", player.Queue.Count.ToString()));
+				builder.AddField(new("Next song", player.TryPeekQueue(out var track) ? $"[{track.Info.Title}]({track.Info.Uri}) by {track.Info.Author}" : "None"));
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(builder.Build()));
 			}
 			catch (ArgumentNullException)
 			{
