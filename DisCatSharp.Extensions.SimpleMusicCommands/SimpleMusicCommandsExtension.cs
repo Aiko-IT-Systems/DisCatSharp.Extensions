@@ -115,7 +115,7 @@ public sealed class SimpleMusicCommandsExtension : BaseExtension
 	/// </summary>
 	public async Task ConnectAsync()
 	{
-		var ex = this.Client.UseLavalink();
+		var ex = this.Client.GetLavalink();
 		await ex.ConnectAsync(this.Configuration);
 	}
 }

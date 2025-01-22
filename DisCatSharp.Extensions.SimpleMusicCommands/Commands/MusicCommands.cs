@@ -23,7 +23,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 		[SlashCommand("connect", "Connects to a channel")]
 		public async Task ConnectAsync(InteractionContext ctx, [Option("channel", "Channel to connect to"), ChannelTypes(ChannelType.Voice, ChannelType.Stage)] DiscordChannel voiceChannel)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent($"Trying to switch to {voiceChannel.Mention}"));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent($"Trying to connect to {voiceChannel.Mention}"));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -228,10 +228,31 @@ public sealed class MusicCommands : ApplicationCommandsModule
 	[SlashCommandGroup("queue", "Music queue commands")]
 	public sealed class QueueCommands : ApplicationCommandsModule
 	{
+		[SlashCommand("play", "Starts the queue playback")]
+		public async Task PlayQueueAsync(InteractionContext ctx)
+		{
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Trying to play.."));
+			try
+			{
+				ArgumentNullException.ThrowIfNull(ctx.Guild);
+				var player = ctx.Client.GetLavalink().GetGuildPlayer(ctx.Guild);
+				ArgumentNullException.ThrowIfNull(player);
+				player.PlayQueue();
+			}
+			catch (ArgumentNullException)
+			{
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Make sure you're connected to a channel."));
+			}
+			catch (Exception ex)
+			{
+				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent(ex.Message ?? "No message"));
+			}
+		}
+
 		[SlashCommand("add_playlist", "Adds a playlist to the queue (youtube.com/playlist?list=XYZ)")]
 		public async Task QueuePlaylistAsync(InteractionContext ctx, [Option("url", "The url to play")] string url)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Adding playlist.."));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -257,8 +278,6 @@ public sealed class MusicCommands : ApplicationCommandsModule
 
 				player.AddToQueue(playlist);
 				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Added {playlist.Tracks.Count.ToString().Bold()} songs from {playlist.Info.Name.Bold()} to the queue."));
-				if (player.Player.Paused)
-					player.PlayQueue();
 			}
 			catch (ArgumentNullException)
 			{
@@ -273,7 +292,7 @@ public sealed class MusicCommands : ApplicationCommandsModule
 		[SlashCommand("add_song", "Adds a song to the queue")]
 		public async Task QueueSongAsync(InteractionContext ctx, [Option("url", "The url to play")] string url)
 		{
-			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Please wait.."));
+			await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Adding song.."));
 			try
 			{
 				ArgumentNullException.ThrowIfNull(ctx.Guild);
@@ -303,8 +322,6 @@ public sealed class MusicCommands : ApplicationCommandsModule
 
 				player.AddToQueue(track);
 				await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"Added {track.Info.Title.Bold()} by {track.Info.Author.Italic()} to the queue."));
-				if (player.Player.Paused)
-					player.PlayQueue();
 			}
 			catch (ArgumentNullException)
 			{

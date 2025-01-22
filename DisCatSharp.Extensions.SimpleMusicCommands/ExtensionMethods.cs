@@ -49,6 +49,7 @@ public static class ExtensionMethods
 		cfg ??= new();
 
 		var smc = new SimpleMusicCommandsExtension(cfg);
+		client.UseLavalink();
 		client.AddExtension(smc);
 		return smc;
 	}
