@@ -24,17 +24,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp\DisCatSharp.csproj" />
+		<PackageReference Include="DisCatSharp" Version="10.6.6-nightly-024" />
 		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
 		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.1" />
-		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.ApplicationCommands\DisCatSharp.ApplicationCommands.csproj" />
+		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.6.6-nightly-024" />
 		<PackageReference Include="DisCatSharp.Attributes" Version="10.6.*" />
-		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.Lavalink\DisCatSharp.Lavalink.csproj" />
-		<ProjectReference Include="..\..\DisCatSharp\DisCatSharp.Common\DisCatSharp.Common.csproj" />
+		<PackageReference Include="DisCatSharp.Lavalink" Version="10.6.6-nightly-024" />
+		<PackageReference Include="DisCatSharp.Common" Version="10.6.6-nightly-024" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.1" />
