@@ -25,7 +25,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Backport.System.Threading.Lock" Version="3.1.4" />
-		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.1.0" />
+		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.1.4" />
 		<PackageReference Include="DisCatSharp" Version="10.6.6-nightly-025" />
 		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
 			<PrivateAssets>all</PrivateAssets>
