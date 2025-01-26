@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
 
 using DatabaseWrapper.Core;
 using DatabaseWrapper.Sqlite;
@@ -35,48 +34,27 @@ using TwoFactorAuthNet;
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
 /// <summary>
-/// Represents a <see cref="TwoFactorExtension"/>.
+///     Represents a <see cref="TwoFactorExtension" />.
 /// </summary>
 public sealed class TwoFactorExtension : BaseExtension
 {
 	/// <summary>
-	/// Gets the two factor configuration.
-	/// </summary>
-	internal TwoFactorConfiguration Configuration { get; private set; }
-
-	/// <summary>
-	/// Gets the database client.
-	/// </summary>
-	internal DatabaseClient DatabaseClient { get; private set; }
-
-	/// <summary>
-	/// Gets the tfa client.
-	/// </summary>
-	internal TwoFactorAuth TwoFactorClient { get; private set; }
-
-	/// <summary>
-	/// Gets the table name.
-	/// </summary>
-	private readonly string _tableName = "twofactor_mapper";
-
-	/// <summary>
-	/// Gets the user field name.
-	/// </summary>
-	private readonly string _userField = "user";
-
-	/// <summary>
-	/// Gets the secret field name.
+	///     Gets the secret field name.
 	/// </summary>
 	private readonly string _secretField = "secret";
 
 	/// <summary>
-	/// Gets the service provider this TwoFactor module was configured with.
+	///     Gets the table name.
 	/// </summary>
-	public IServiceProvider Services
-		=> this.Configuration.ServiceProvider;
+	private readonly string _tableName = "twofactor_mapper";
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="TwoFactorExtension"/> class.
+	///     Gets the user field name.
+	/// </summary>
+	private readonly string _userField = "user";
+
+	/// <summary>
+	///     Initializes a new instance of the <see cref="TwoFactorExtension" /> class.
 	/// </summary>
 	/// <param name="configuration">The config.</param>
 	internal TwoFactorExtension(TwoFactorConfiguration? configuration = null)
@@ -98,10 +76,31 @@ public sealed class TwoFactorExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// DO NOT USE THIS MANUALLY.
+	///     Gets the two factor configuration.
+	/// </summary>
+	internal TwoFactorConfiguration Configuration { get; }
+
+	/// <summary>
+	///     Gets the database client.
+	/// </summary>
+	internal DatabaseClient DatabaseClient { get; }
+
+	/// <summary>
+	///     Gets the tfa client.
+	/// </summary>
+	internal TwoFactorAuth TwoFactorClient { get; }
+
+	/// <summary>
+	///     Gets the service provider this TwoFactor module was configured with.
+	/// </summary>
+	public IServiceProvider Services
+		=> this.Configuration.ServiceProvider;
+
+	/// <summary>
+	///     DO NOT USE THIS MANUALLY.
 	/// </summary>
 	/// <param name="client">DO NOT USE THIS MANUALLY.</param>
-	/// <exception cref="InvalidOperationException"/>
+	/// <exception cref="InvalidOperationException" />
 	protected internal override void Setup(DiscordClient client)
 	{
 		if (this.Client != null)
@@ -133,7 +132,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Checks whether the database has info about the given user id.
+	///     Checks whether the database has info about the given user id.
 	/// </summary>
 	/// <param name="user">The user id to check.</param>
 	/// <returns></returns>
@@ -141,14 +140,14 @@ public sealed class TwoFactorExtension : BaseExtension
 		=> this.DatabaseClient.Exists(this._tableName, new(this._userField, OperatorEnum.Equals, user.ToString()));
 
 	/// <summary>
-	/// Gets the secret for the given user id from the database.
+	///     Gets the secret for the given user id from the database.
 	/// </summary>
 	/// <param name="user">The user id to get data for.</param>
 	private string GetSecretFor(ulong user)
 		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1].ToString();
 
 	/// <summary>
-	/// Adds a secret for the given user id to the database.
+	///     Adds a secret for the given user id to the database.
 	/// </summary>
 	/// <param name="user">The user id to add data for.</param>
 	/// <param name="secret">The secret to add.</param>
@@ -163,14 +162,14 @@ public sealed class TwoFactorExtension : BaseExtension
 	}
 
 	/// <summary>
-	/// Removes a secret for the given user id in the database.
+	///     Removes a secret for the given user id in the database.
 	/// </summary>
 	/// <param name="user">The user id to remove data for.</param>
 	private void RemoveSecret(ulong user)
 		=> this.DatabaseClient.Delete(this._tableName, new(this._userField, OperatorEnum.Equals, user.ToString()));
 
 	/// <summary>
-	/// Checks whether the two factor auth code is valid for given user id.
+	///     Checks whether the two factor auth code is valid for given user id.
 	/// </summary>
 	/// <param name="user">The user id entering the code.</param>
 	/// <param name="code">The code to check.</param>
@@ -179,7 +178,7 @@ public sealed class TwoFactorExtension : BaseExtension
 		=> this.HasData(user) && this.TwoFactorClient.VerifyCode(this.GetSecretFor(user), code);
 
 	/// <summary>
-	/// Checks whether given user id is enrolled in two factor auth.
+	///     Checks whether given user id is enrolled in two factor auth.
 	/// </summary>
 	/// <param name="user">User id to check for enrollment.</param>
 	/// <returns>Whether the user is enrolled.</returns>
@@ -187,7 +186,7 @@ public sealed class TwoFactorExtension : BaseExtension
 		=> this.HasData(user);
 
 	/// <summary>
-	/// Enrolls given user id with two factor auth.
+	///     Enrolls given user id with two factor auth.
 	/// </summary>
 	/// <param name="user">User id to enroll.</param>
 	/// <param name="secret">Secret to use.</param>
@@ -195,7 +194,7 @@ public sealed class TwoFactorExtension : BaseExtension
 		=> this.AddSecretFor(user, secret);
 
 	/// <summary>
-	/// Unenrolls given user id from two factor auth.
+	///     Unenrolls given user id from two factor auth.
 	/// </summary>
 	/// <param name="user">User id to unenroll.</param>
 	internal void DisenrollUser(ulong user)

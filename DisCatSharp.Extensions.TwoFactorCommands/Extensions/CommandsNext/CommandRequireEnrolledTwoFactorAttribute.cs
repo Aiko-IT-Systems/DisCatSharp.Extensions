@@ -29,19 +29,19 @@ using DisCatSharp.Extensions.TwoFactorCommands;
 namespace DisCatSharp.CommandsNext.Attributes;
 
 /// <summary>
-/// Defines that this command can only be executed if the user is enrolled in two factor auth.
+///     Defines that this command can only be executed if the user is enrolled in two factor auth.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false), Experimental("No support for this yet")]
 public sealed class CommandRequireEnrolledTwoFactorAttribute : CheckBaseAttribute
 {
 	/// <summary>
-	/// Defines that this command can only be executed if the user is enrolled in two factor auth.
+	///     Defines that this command can only be executed if the user is enrolled in two factor auth.
 	/// </summary>
 	public CommandRequireEnrolledTwoFactorAttribute()
 	{ }
 
 	/// <summary>
-	/// Runs checks.
+	///     Runs checks.
 	/// </summary>
 	public override Task<bool> ExecuteCheckAsync(CommandContext ctx, bool help)
 		=> Task.FromResult(ctx.Client.GetTwoFactor().IsEnrolled(ctx.User.Id));

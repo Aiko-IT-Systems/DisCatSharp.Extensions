@@ -23,32 +23,32 @@
 namespace DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
 /// <summary>
-/// Represents two factor responses.
+///     Represents two factor responses.
 /// </summary>
-public enum TwoFactorResult : int
+public enum TwoFactorResult
 {
 	/// <summary>
-	/// Code is invalid.
+	///     Code is invalid.
 	/// </summary>
 	InvalidCode = 1,
 
 	/// <summary>
-	/// Code is valid.
+	///     Code is valid.
 	/// </summary>
 	ValidCode = 2,
 
 	/// <summary>
-	/// User is not enrolled.
+	///     User is not enrolled.
 	/// </summary>
 	NotEnrolled = 3,
 
 	/// <summary>
-	/// Two factor input timed out.
+	///     Two factor input timed out.
 	/// </summary>
 	TimedOut = 4,
 
 	/// <summary>
-	/// This function is not implemented.
+	///     This function is not implemented.
 	/// </summary>
 	NotImplemented = int.MaxValue
 }

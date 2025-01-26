@@ -24,8 +24,8 @@ using System.Threading.Tasks;
 
 using DisCatSharp.Attributes;
 using DisCatSharp.CommandsNext;
-using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 using DisCatSharp.Extensions.TwoFactorCommands.Entities;
+using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.CommandsNext;
 
@@ -33,16 +33,18 @@ public static class TwoFactorCommandsNextExtension
 {
 	// TODO: Implement
 	/// <summary>
-	/// <para>Asks the user via private for the two factor code.</para>
-	/// <para>This uses DisCatSharp.Interactivity.</para>
-	/// <para>To be used for commands next.</para>
-	/// <para><note type="caution">Not implemented yet. Returns <see cref="TwoFactorResult.NotImplemented"/>.</note></para>
+	///     <para>Asks the user via private for the two factor code.</para>
+	///     <para>This uses DisCatSharp.Interactivity.</para>
+	///     <para>To be used for commands next.</para>
+	///     <para>
+	///         <note type="caution">Not implemented yet. Returns <see cref="TwoFactorResult.NotImplemented" />.</note>
+	///     </para>
 	/// </summary>
 	/// <param name="ctx">The command context.</param>
-	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
+	/// <returns>A <see cref="TwoFactorResponse" />.</returns>
 	[Experimental("No support for this yet. Not implemented")]
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(CommandContext ctx)
-		=> await Task.FromResult(new TwoFactorResponse()
+		=> await Task.FromResult(new TwoFactorResponse
 		{
 			Result = TwoFactorResult.NotImplemented
 		});
