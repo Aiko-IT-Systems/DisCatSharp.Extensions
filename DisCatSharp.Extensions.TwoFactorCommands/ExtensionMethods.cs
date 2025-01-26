@@ -31,16 +31,16 @@ using Microsoft.Extensions.DependencyInjection;
 namespace DisCatSharp.Extensions.TwoFactorCommands;
 
 /// <summary>
-/// Defines various extensions specific to TwoFactor.
+///     Defines various extensions specific to TwoFactor.
 /// </summary>
 public static class ExtensionMethods
 {
 	/// <summary>
-	/// Enables TwoFactor module on this <see cref="DiscordClient"/>.
+	///     Enables TwoFactor module on this <see cref="DiscordClient" />.
 	/// </summary>
 	/// <param name="client">Client to enable TwoFactor for.</param>
 	/// <param name="cfg">TwoFactor configuration to use.</param>
-	/// <returns>Created <see cref="TwoFactorExtension"/>.</returns>
+	/// <returns>Created <see cref="TwoFactorExtension" />.</returns>
 	public static TwoFactorExtension UseTwoFactor(this DiscordClient client, TwoFactorConfiguration? cfg = null)
 	{
 		if (client.GetExtension<TwoFactorExtension>() != null)
@@ -55,11 +55,11 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Enables TwoFactor module on all shards in this <see cref="DiscordShardedClient"/>.
+	///     Enables TwoFactor module on all shards in this <see cref="DiscordShardedClient" />.
 	/// </summary>
 	/// <param name="client">Client to enable TwoFactor for.</param>
 	/// <param name="cfg">TwoFactor configuration to use.</param>
-	/// <returns>A dictionary of created <see cref="TwoFactorExtension"/>, indexed by shard id.</returns>
+	/// <returns>A dictionary of created <see cref="TwoFactorExtension" />, indexed by shard id.</returns>
 	public static async Task<IReadOnlyDictionary<int, TwoFactorExtension>> UseTwoFactorAsync(this DiscordShardedClient client, TwoFactorConfiguration? cfg = null)
 	{
 		var modules = new Dictionary<int, TwoFactorExtension>();
@@ -77,7 +77,7 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Gets the active TwoFactor module for this client.
+	///     Gets the active TwoFactor module for this client.
 	/// </summary>
 	/// <param name="client">Client to get TwoFactor module from.</param>
 	/// <returns>The module, or null if not activated.</returns>
@@ -85,7 +85,7 @@ public static class ExtensionMethods
 		=> client.GetExtension<TwoFactorExtension>();
 
 	/// <summary>
-	/// Gets the active TwoFactor modules for all shards in this client.
+	///     Gets the active TwoFactor modules for all shards in this client.
 	/// </summary>
 	/// <param name="client">Client to get TwoFactor instances from.</param>
 	/// <returns>A dictionary of the modules, indexed by shard id.</returns>

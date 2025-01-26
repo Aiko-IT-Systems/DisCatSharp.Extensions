@@ -31,16 +31,16 @@ using DisCatSharp.Lavalink;
 namespace DisCatSharp.Extensions.SimpleMusicCommands;
 
 /// <summary>
-/// Defines various extensions specific to SimpleMusicCommandsExtension.
+///     Defines various extensions specific to SimpleMusicCommandsExtension.
 /// </summary>
 public static class ExtensionMethods
 {
 	/// <summary>
-	/// Enables SimpleMusicCommandsExtension module on this <see cref="DiscordClient"/>.
+	///     Enables SimpleMusicCommandsExtension module on this <see cref="DiscordClient" />.
 	/// </summary>
 	/// <param name="client">Client to enable SimpleMusicCommandsExtension for.</param>
 	/// <param name="cfg">Lavalink configuration to use.</param>
-	/// <returns>Created <see cref="SimpleMusicCommandsExtension"/>.</returns>
+	/// <returns>Created <see cref="SimpleMusicCommandsExtension" />.</returns>
 	public static SimpleMusicCommandsExtension UseSimpleMusicCommands(this DiscordClient client, LavalinkConfiguration? cfg = null)
 	{
 		if (client.GetExtension<SimpleMusicCommandsExtension>() != null)
@@ -55,11 +55,11 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Enables SimpleMusicCommandsExtension module on all shards in this <see cref="DiscordShardedClient"/>.
+	///     Enables SimpleMusicCommandsExtension module on all shards in this <see cref="DiscordShardedClient" />.
 	/// </summary>
 	/// <param name="client">Client to enable SimpleMusicCommandsExtension for.</param>
 	/// <param name="cfg">Lavalink configuration to use.</param>
-	/// <returns>A dictionary of created <see cref="SimpleMusicCommandsExtension"/>, indexed by shard id.</returns>
+	/// <returns>A dictionary of created <see cref="SimpleMusicCommandsExtension" />, indexed by shard id.</returns>
 	public static async Task<IReadOnlyDictionary<int, SimpleMusicCommandsExtension>> UseSimpleMusicCommandsAsync(this DiscordShardedClient client, LavalinkConfiguration? cfg = null)
 	{
 		var modules = new Dictionary<int, SimpleMusicCommandsExtension>();
@@ -77,7 +77,7 @@ public static class ExtensionMethods
 	}
 
 	/// <summary>
-	/// Gets the active SimpleMusicCommandsExtension module for this client.
+	///     Gets the active SimpleMusicCommandsExtension module for this client.
 	/// </summary>
 	/// <param name="client">Client to get SimpleMusicCommandsExtension module from.</param>
 	/// <returns>The module, or null if not activated.</returns>
@@ -85,7 +85,7 @@ public static class ExtensionMethods
 		=> client.GetExtension<SimpleMusicCommandsExtension>();
 
 	/// <summary>
-	/// Gets the active SimpleMusicCommandsExtension modules for all shards in this client.
+	///     Gets the active SimpleMusicCommandsExtension modules for all shards in this client.
 	/// </summary>
 	/// <param name="client">Client to get SimpleMusicCommandsExtension instances from.</param>
 	/// <returns>A dictionary of the modules, indexed by shard id.</returns>

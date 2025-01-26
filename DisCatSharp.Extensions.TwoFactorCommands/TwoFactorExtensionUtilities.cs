@@ -32,7 +32,7 @@ namespace DisCatSharp.Extensions.TwoFactorCommands;
 public static class TwoFactorExtensionUtilities
 {
 	/// <summary>
-	/// Checks two factor registration for the given user id.
+	///     Checks two factor registration for the given user id.
 	/// </summary>
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user id to check.</param>
@@ -41,7 +41,7 @@ public static class TwoFactorExtensionUtilities
 		=> client.GetTwoFactor().IsEnrolled(user);
 
 	/// <summary>
-	/// Removes the two factor registration for the given user id.
+	///     Removes the two factor registration for the given user id.
 	/// </summary>
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user id to check.</param>
@@ -49,11 +49,14 @@ public static class TwoFactorExtensionUtilities
 		=> client.GetTwoFactor().DisenrollUser(user);
 
 	/// <summary>
-	/// Registers two factor for the given user.
+	///     Registers two factor for the given user.
 	/// </summary>
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user to check.</param>
-	/// <returns>A <see cref="System.Tuple{T1, T2}"/> where <c>Secret</c> is a <see cref="System.String">string</see> with the secret itself and <c>QrCode</c> a <see cref="System.IO.MemoryStream">MemoryStream</see> with the qr code image.</returns>
+	/// <returns>
+	///     A <see cref="System.Tuple{T1, T2}" /> where <c>Secret</c> is a <see cref="System.String">string</see> with the
+	///     secret itself and <c>QrCode</c> a <see cref="System.IO.MemoryStream">MemoryStream</see> with the qr code image.
+	/// </returns>
 	public static (string Secret, MemoryStream QrCode) EnrollTwoFactor(this DiscordClient client, DiscordUser user)
 	{
 		var ext = client.GetTwoFactor();

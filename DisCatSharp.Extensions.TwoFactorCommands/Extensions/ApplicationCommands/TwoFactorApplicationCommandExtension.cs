@@ -27,8 +27,8 @@ using DisCatSharp.ApplicationCommands.Context;
 using DisCatSharp.Entities;
 using DisCatSharp.Enums;
 using DisCatSharp.EventArgs;
-using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 using DisCatSharp.Extensions.TwoFactorCommands.Entities;
+using DisCatSharp.Extensions.TwoFactorCommands.Enums;
 using DisCatSharp.Interactivity.Extensions;
 
 namespace DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
@@ -36,12 +36,12 @@ namespace DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
 public static class TwoFactorApplicationCommandExtension
 {
 	/// <summary>
-	/// <para>Asks the user via modal input for the two factor code.</para>
-	/// <para>This uses DisCatSharp.Interactivity.</para>
-	/// <para>To be used as first action for application commands.</para>
+	///     <para>Asks the user via modal input for the two factor code.</para>
+	///     <para>This uses DisCatSharp.Interactivity.</para>
+	///     <para>To be used as first action for application commands.</para>
 	/// </summary>
 	/// <param name="ctx">The base context.</param>
-	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
+	/// <returns>A <see cref="TwoFactorResponse" />.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this BaseContext ctx)
 	{
 		var ext = ctx.Client.GetTwoFactor();
@@ -62,7 +62,7 @@ public static class TwoFactorApplicationCommandExtension
 		builder.AddTextComponent(new(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await ctx.CreateModalResponseAsync(builder);
 
-		var response = new TwoFactorResponse()
+		var response = new TwoFactorResponse
 		{
 			Client = ctx.Client
 		};
@@ -99,13 +99,13 @@ public static class TwoFactorApplicationCommandExtension
 	}
 
 	/// <summary>
-	/// <para>Asks the user via modal input for the two factor code.</para>
-	/// <para>This uses DisCatSharp.Interactivity.</para>
-	/// <para>To be used as first action for button.</para>
+	///     <para>Asks the user via modal input for the two factor code.</para>
+	///     <para>This uses DisCatSharp.Interactivity.</para>
+	///     <para>To be used as first action for button.</para>
 	/// </summary>
 	/// <param name="evt">The interaction context.</param>
 	/// <param name="client">The discord client to use.</param>
-	/// <returns>A <see cref="TwoFactorResponse"/>.</returns>
+	/// <returns>A <see cref="TwoFactorResponse" />.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs evt, DiscordClient client)
 	{
 		var ext = client.GetTwoFactor();
@@ -126,7 +126,7 @@ public static class TwoFactorApplicationCommandExtension
 		builder.AddTextComponent(new(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
 		await evt.Interaction.CreateInteractionModalResponseAsync(builder);
 
-		var response = new TwoFactorResponse()
+		var response = new TwoFactorResponse
 		{
 			Client = client
 		};
