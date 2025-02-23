@@ -83,12 +83,13 @@ public sealed class OAuth2WebExtension : BaseExtension
 	{
 		this.Configuration = configuration;
 
-		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri, this.ServiceProvider, this.Configuration.Proxy, default, default, this.Configuration.LoggerFactory, this.Configuration.MinimumLogLevel, this.Configuration.LogTimestampFormat); // , discordClient: discordClient);
+		this.OAuth2Client = new(this.Configuration.ClientId, this.Configuration.ClientSecret, this.Configuration.RedirectUri, this.ServiceProvider, this.Configuration.Proxy, default, default, default, this.Configuration.MinimumLogLevel, this.Configuration.LogTimestampFormat); // , discordClient: discordClient);
 
 		this._authorizationCodeReceived = new("OAUTH2_AUTH_CODE_RECEIVED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._authorizationCodeExchanged = new("OAUTH2_AUTH_CODE_EXCHANGED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._accessTokenRefreshed = new("OAUTH2_ACCESS_TOKEN_REFRESHED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
 		this._accessTokenRevoked = new("OAUTH2_ACCESS_TOKEN_REVOKED", TimeSpan.Zero, this.OAuth2Client.EventErrorHandler);
+		this.ServiceProvider = configuration.ServiceProvider;
 		this._authorizationCodeWaiter = new(this, this.OAuth2Client);
 
 		this.AuthorizationCodeExchanged += this.OnAuthorizationCodeExchangedAsync;
@@ -117,7 +118,7 @@ public sealed class OAuth2WebExtension : BaseExtension
 	/// <summary>
 	///     Gets the logger for this extension.
 	/// </summary>
-	public ILogger<OAuth2WebExtension> Logger { get; private set; }
+	public ILogger<BaseDiscordClient> Logger { get; set; }
 
 	/// <summary>
 	///     Gets the OAuth2 Web configuration.
@@ -359,7 +360,10 @@ public sealed class OAuth2WebExtension : BaseExtension
 
 		this.PackageId = "DisCatSharp.Extensions.OAuth2Web";
 
-		this.Logger = (this.Configuration.LoggerFactory ?? this.Client.Configuration.LoggerFactory).CreateLogger<OAuth2WebExtension>();
+		this.Logger = client.Logger;
+
+		this.OAuth2Client.DiscordConfiguration = client.Configuration;
+
 		this.ServiceProvider = this.Configuration.ServiceProvider;
 	}
 

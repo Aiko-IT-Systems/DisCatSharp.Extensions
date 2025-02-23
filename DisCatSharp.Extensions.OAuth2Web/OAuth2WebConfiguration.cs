@@ -71,7 +71,6 @@ public sealed class OAuth2WebConfiguration
 		this.Proxy = other.Proxy;
 		this.LogTimestampFormat = other.LogTimestampFormat;
 		this.MinimumLogLevel = other.MinimumLogLevel;
-		this.LoggerFactory = other.LoggerFactory;
 	}
 
 	/// <summary>
@@ -193,11 +192,4 @@ public sealed class OAuth2WebConfiguration
 	///     <para>Defaults to <see langword="null" />.</para>
 	/// </summary>
 	public IWebProxy? Proxy { internal get; set; } = null;
-
-	/// <summary>
-	///     <para>Sets the logger implementation to use.</para>
-	///     <para>To create your own logger, implement the <see cref="Microsoft.Extensions.Logging.ILoggerFactory" /> instance.</para>
-	///     <para>Defaults to built-in implementation.</para>
-	/// </summary>
-	public ILoggerFactory? LoggerFactory { internal get; set; } = null;
 }
