@@ -4,7 +4,4 @@
 	<ItemGroup>
 		<SourceRoot Include="$(MSBuildThisFileDirectory)/" />
 	</ItemGroup>
-	<PropertyGroup>
-		<RestoreEnablePackagePruning>false</RestoreEnablePackagePruning>
-	</PropertyGroup>
 </Project>
