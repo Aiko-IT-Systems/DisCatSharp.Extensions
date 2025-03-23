@@ -37,7 +37,9 @@ jobs:
           10.0.100-preview.1.25120.13
           9.x
           8.x
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+    - name: Restore dependencies
+      run: dotnet restore --no-cache -f -v minimal
+    - name: Build
+      run: dotnet build -c Release -v minimal --no-restore --no-self-contained
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
