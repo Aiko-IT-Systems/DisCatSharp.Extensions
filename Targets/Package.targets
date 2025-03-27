@@ -8,6 +8,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<NuGetAuditSuppress>true</NuGetAuditSuppress>
 		<NuGetAudit>false</NuGetAudit>
+		<CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\DisCatSharp.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
 		<Optimize>False</Optimize>

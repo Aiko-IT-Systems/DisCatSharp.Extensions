@@ -20,19 +20,22 @@
 
 			Extension allowing to require two factor authentication for commands.
 		</Description>
-		<PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net8,Net9</PackageTags>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Net10</PackageTags>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net9.0'))">
 		<PackageReference Include="Backport.System.Threading.Lock" Version="3.1.4" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.1.5" />
 		<PackageReference Include="DisCatSharp" Version="10.7.0-nightly-*" />
-		<PackageReference Include="DisCatSharp.Analyzer.Roselyn" Version="6.2.*">
+		<PackageReference Include="DisCatSharp.Analyzer" Version="1.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="10.7.0-nightly-*" />
-		<PackageReference Include="DisCatSharp.Attributes" Version="10.6.*" />
+		<PackageReference Include="DisCatSharp.Attributes" Version="2025.3.27" />
 		<PackageReference Include="DisCatSharp.CommandsNext" Version="10.7.0-nightly-*" />
 		<PackageReference Include="DisCatSharp.Common" Version="10.7.0-nightly-*" />
 		<PackageReference Include="DisCatSharp.Interactivity" Version="10.7.0-nightly-*" />
@@ -40,7 +43,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.Memory" Version="4.6.1" />
+		<PackageReference Include="System.Memory" Version="4.6.2" />
 		<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 	</ItemGroup>
 

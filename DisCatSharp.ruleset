@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="DisCatSharp Ruleset" Description="DisCatSharp's own ruleset" ToolsVersion="17.0">
+  <Rules AnalyzerId="DisCatSharp.Analyzer" RuleNamespace="DisCatSharp.Analyzer">
+    <Rule Id="DCS0001" Action="Hidden" />
+    <Rule Id="DCS0002" Action="Hidden" />
+    <Rule Id="DCS0101" Action="Hidden" />
+    <Rule Id="DCS0102" Action="Hidden" />
+    <Rule Id="DCS0103" Action="Hidden" />
+    <Rule Id="DCS0200" Action="Hidden" />
+    <Rule Id="DCS0201" Action="Hidden" />
+  </Rules>
+</RuleSet>
