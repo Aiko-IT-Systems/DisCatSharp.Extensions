@@ -1,43 +1,32 @@
 {
-	"metadata":[
+	"metadata": [
 		{
-			"src":[
+			"src": [
 				{
-					"src":"../DisCatSharp.Extensions.TwoFactorCommands/",
-					"files":[
-						"**.csproj"
-					],
-					"exclude":[
-						"**/obj/**",
-						"**/bin/**"
-					]
+					"src": "../DisCatSharp.Extensions.TwoFactorCommands/",
+					"files": ["**.csproj"],
+					"exclude": ["**/obj/**", "**/bin/**"]
 				}
 			],
-			"dest":"api/DisCatSharp.Extensions.TwoFactorCommands",
-			"filter":"filter_config.yml",
-			"disableDefaultFilter":false,
+			"dest": "api/DisCatSharp.Extensions.TwoFactorCommands",
+			"filter": "filter_config.yml",
+			"disableDefaultFilter": false,
 			"memberLayout": "separatePages",
 			"namespaceLayout": "flattened",
 			"enumSortOrder": "declaringOrder",
 			"includeExplicitInterfaceImplementations": true
-
 		},
 		{
-			"src":[
+			"src": [
 				{
-					"src":"../DisCatSharp.Extensions.OAuth2Web/",
-					"files":[
-						"**.csproj"
-					],
-					"exclude":[
-						"**/obj/**",
-						"**/bin/**"
-					]
+					"src": "../DisCatSharp.Extensions.OAuth2Web/",
+					"files": ["**.csproj"],
+					"exclude": ["**/obj/**", "**/bin/**"]
 				}
 			],
-			"dest":"api/DisCatSharp.Extensions.OAuth2Web",
-			"filter":"filter_config.yml",
-			"disableDefaultFilter":false,
+			"dest": "api/DisCatSharp.Extensions.OAuth2Web",
+			"filter": "filter_config.yml",
+			"disableDefaultFilter": false,
 			"memberLayout": "separatePages",
 			"namespaceLayout": "flattened",
 			"enumSortOrder": "declaringOrder",
@@ -45,9 +34,7 @@
 		}
 	],
 	"build": {
-		"xrefService": [
-			"https://xref.docs.microsoft.com/query?uid={uid}"
-		],
+		"xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"],
 		"xref": [
 			"xrefmap-dcs.yml",
 			"https://learn.microsoft.com/en-us/dotnet/.xrefmap.json"
@@ -60,9 +47,7 @@
 					"api/**.yml",
 					"api/**.md"
 				],
-				"exclude": [
-					"**/node_modules/**"
-				]
+				"exclude": ["**/node_modules/**"]
 			},
 			{
 				"files": [
@@ -84,11 +69,7 @@
 		],
 		"resource": [
 			{
-				"files": [
-					"images/**",
-					"./.htaccess",
-					"snippets/**"
-				],
+				"files": ["images/**", "./.htaccess", "snippets/**"],
 				"exclude": [
 					"**/bin/**",
 					"**/obj/**",
@@ -101,15 +82,14 @@
 		"overwrite": [],
 		"dest": "_site",
 		"globalMetadata": {
-      		"pdf": true,
+			"pdf": true,
 			"pdfTocPage": true,
 			"pdfFileName": "dcs-ext-docs.pdf",
 			"pdfCoverPage": "pdf/cover.html",
 			"pdfFooterTemplate": "pdf/footer.html",
 			"_appTitle": "DisCatSharp Extensions Docs",
 			"_appName": "DisCatSharp Extensions",
-			"_appFooter": "<strong>Made with ❤️ by AITSYS</strong>",
-			"_appLogoPath": "logo.svg",
+			"_appFooter": "Made with ❤️ by AITSYS",
 			"_enableSearch": true,
 			"_disableNextArticle": false,
 			"_disableSideFilter": false,
@@ -117,6 +97,7 @@
 			"_disableNewTab": false,
 			"_disableContribution": false,
 			"_disableBreadcrumb": false,
+			"_disableThemeSwitcher": true,
 			"_gitUrlPattern": "git",
 			"_gitContribute": {
 				"repo": "https://github.com/Aiko-IT-Systems/DisCatSharp.Extensions",
@@ -152,21 +133,17 @@
 				"api/DisCatSharp.Extensions.TwoFactorCommands/toc.yml": "dcs-ext-docs-api-twofactorcommands.pdf"
 			}
 		},
-		"template": [
-			"default",
-			"modern",
-			"dcs"
-		],
-		"postProcessors": [
-			"ExtractSearchIndex",
-			"DescriptionGenerator"
-		],
+		"template": ["default", "modern", "dcs"],
+		"postProcessors": ["ExtractSearchIndex"],
 		"noLangKeyword": false,
 		"keepFileLink": true,
 		"sitemap": {
 			"baseUrl": "https://ext-docs.dcs.aitsys.dev/",
 			"changefreq": "daily",
 			"priority": 1.0
+		},
+		"markdownEngineProperties": {
+			"markdigExtensions": ["attributes"]
 		}
 	}
 }
