@@ -42,8 +42,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="ConcurrentHashSet" Version="1.3.0" />
-		<PackageReference Include="DisCatSharp" Version="10.7.0-nightly-*" />
-		<PackageReference Include="DisCatSharp.Analyzer" Version="1.*">
+		<PackageReference Include="DisCatSharp" Version="[10.7.0-nightly-006,)" />
+		<PackageReference Include="DisCatSharp.Analyzer" Version="1.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
