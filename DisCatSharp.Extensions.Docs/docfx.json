@@ -82,7 +82,7 @@
 		"overwrite": [],
 		"dest": "_site",
 		"globalMetadata": {
-			"pdf": true,
+			"pdf": false,
 			"pdfTocPage": true,
 			"pdfFileName": "dcs-ext-docs.pdf",
 			"pdfCoverPage": "pdf/cover.html",
