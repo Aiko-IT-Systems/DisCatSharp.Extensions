@@ -14,9 +14,9 @@ jobs:
     name: Build documentation
     steps:
     - name: Checkout current project
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4.3.1
+      uses: actions/setup-dotnet@v5.0.0
       with:
         dotnet-version: |
           10.0.100-preview.1.25120.13
@@ -48,7 +48,7 @@ jobs:
     needs: build
     steps:
     - name: Checkout docs repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: Aiko-IT-Systems/DisCatSharp.Extensions.Docs
         token: ${{ secrets.NYUW_TOKEN_GH }}
