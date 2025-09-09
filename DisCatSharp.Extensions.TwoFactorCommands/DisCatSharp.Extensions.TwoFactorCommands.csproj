@@ -40,8 +40,8 @@
 		<PackageReference Include="DisCatSharp.Common" Version="[10.7.0-nightly-012,)" />
 		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.7.0-nightly-012,)" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.7" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.9" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
 		<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
