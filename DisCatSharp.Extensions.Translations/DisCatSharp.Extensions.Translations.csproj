@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Targets/Version.targets" />
+	<Import Project="../Targets/DisCatSharp.targets" />
+	<Import Project="../Targets/Package.targets" />
+	<Import Project="../Targets/NuGet.targets" />
+	<Import Project="../Targets/Library.targets" />
+	<Import Project="InternalsVisibleTo.targets" />
+
+	<PropertyGroup>
+		<AssemblyName>DisCatSharp.Extensions.Translations</AssemblyName>
+		<RootNamespace>DisCatSharp.Extensions.Translations</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>DisCatSharp.Extensions.Translations</PackageId>
+		<Description>
+			DisCatSharp.Extensions.Translations
+
+			Core extension for DisCatSharp making it easy to use localizations in your bot.
+		</Description>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Translations,Localization,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Net10</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DisCatSharp" Version="[10.7.0-nightly-049,)" />
+		<PackageReference Include="DisCatSharp.Analyzer" Version="1.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.1" />
+		<PackageReference Include="DisCatSharp.Attributes" Version="2025.3.27" />
+		<PackageReference Include="DisCatSharp.Common" Version="[10.7.0-nightly-049,)" />
+		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>

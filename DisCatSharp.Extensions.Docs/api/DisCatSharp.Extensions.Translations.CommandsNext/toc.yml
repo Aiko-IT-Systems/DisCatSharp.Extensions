@@ -1,0 +1,10 @@
+### YamlMime:TableOfContent
+items:
+- uid: DisCatSharp.Extensions.Translations.CommandsNext
+  name: DisCatSharp.Extensions.Translations.CommandsNext
+  type: Namespace
+  items:
+  - uid: DisCatSharp.Extensions.Translations.CommandsNext.ExtensionMethods
+    name: ExtensionMethods
+    type: Class
+memberLayout: SeparatePages
