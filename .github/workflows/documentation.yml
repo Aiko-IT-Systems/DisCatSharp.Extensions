@@ -14,7 +14,7 @@ jobs:
     name: Build documentation
     steps:
     - name: Checkout current project
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Setup .NET
       uses: actions/setup-dotnet@v5.0.1
       with:
@@ -37,7 +37,7 @@ jobs:
       shell: pwsh
       run: ./pack-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -OutputPath "./" -PackageName "dcs-ext-docs"
     - name: Upload packed docs
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: dcs-ext-docs.zip
         path: dcs-ext-docs.zip
@@ -48,7 +48,7 @@ jobs:
     needs: build
     steps:
     - name: Checkout docs repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: Aiko-IT-Systems/DisCatSharp.Extensions.Docs
         token: ${{ secrets.NYUW_TOKEN_GH }}
@@ -56,7 +56,7 @@ jobs:
       shell: pwsh
       run: Get-ChildItem -Exclude .git* | Remove-Item -Recurse -Force
     - name: Download packed docs
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v7
       with:
         name: dcs-ext-docs.zip
     - name: Extract new docs
