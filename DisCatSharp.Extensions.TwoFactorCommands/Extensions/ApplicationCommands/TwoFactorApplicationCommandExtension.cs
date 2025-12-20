@@ -79,7 +79,7 @@ public static class TwoFactorApplicationCommandExtension
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(ctx.User.Id, inter.Result.Interaction.Data.Components[0].Value);
+		var res = ext.IsValidCode(ctx.User.Id, (inter.Result.Interaction.Data.ModalComponents[0] as DiscordTextInputComponent)!.Value!);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
@@ -143,7 +143,7 @@ public static class TwoFactorApplicationCommandExtension
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
 			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(evt.User.Id, inter.Result.Interaction.Data.Components[0].Value);
+		var res = ext.IsValidCode(evt.User.Id, (inter.Result.Interaction.Data.ModalComponents[0] as DiscordTextInputComponent)!.Value!);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
