@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "terser": "^5.16.1"
+  },
+  "scripts": {
+    "build:ts": "npx tsc -p wwwroot/tsconfig.json",
+    "build:minify": "npx terser wwwroot/app.js -b --rename -c -m --source-map \"content=wwwroot/app.js.map,url=app.js.map\" -o wwwroot/app.js",
+    "build": "npm run build:ts && npm run build:minify"
+  }
+}
