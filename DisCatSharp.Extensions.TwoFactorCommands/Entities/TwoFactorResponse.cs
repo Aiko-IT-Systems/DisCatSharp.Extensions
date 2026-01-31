@@ -37,12 +37,12 @@ public class TwoFactorResponse
 	///     The modal response <see cref="ComponentInteractionCreateEventArgs" />. Null if <see cref="Result" /> is
 	///     <see cref="TwoFactorResult.NotEnrolled" /> or <see cref="TwoFactorResult.TimedOut" />.
 	/// </summary>
-	public ComponentInteractionCreateEventArgs ComponentInteraction { get; internal set; } = null;
+	public ComponentInteractionCreateEventArgs? ComponentInteraction { get; internal set; } = null;
 
 	/// <summary>
 	///     The <see cref="DiscordClient" /> this interaction took place with.
 	/// </summary>
-	public DiscordClient Client { get; internal set; } = null;
+	public DiscordClient? Client { get; internal set; } = null;
 
 	/// <summary>
 	///     The <see cref="TwoFactorResult" /> of the two factor authentication.
