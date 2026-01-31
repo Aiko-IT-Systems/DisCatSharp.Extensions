@@ -30,7 +30,7 @@ client.UseTwoFactor();
 
 #### Enrolling a user in two factor
 
-To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.EnrollTwoFactorAsync*) on your [InteractionContext](xref:DisCatSharp.ApplicationCommands.Context.InteractionContext).
+To enroll a user in two factor, call [EnrollTwoFactorAsync](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension.EnrollTwoFactorAsync(DisCatSharp.ApplicationCommands.Context.BaseContext)) on your [InteractionContext](xref:DisCatSharp.ApplicationCommands.Context.InteractionContext).
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
@@ -47,7 +47,7 @@ Example way to ask a user to register their two factor:
 
 #### Disenrolling a user in two factor
 
-To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.UnenrollTwoFactorAsync*) on your [InteractionContext](xref:DisCatSharp.ApplicationCommands.Context.InteractionContext) instance.
+To disenroll a user from two factor, call [UnenrollTwoFactorAsync](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension.UnenrollTwoFactorAsync(DisCatSharp.ApplicationCommands.Context.BaseContext)) on your [InteractionContext](xref:DisCatSharp.ApplicationCommands.Context.InteractionContext) instance.
 
 ```cs
 using DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;

@@ -2,45 +2,63 @@
 items:
 - uid: DisCatSharp.ApplicationCommands.Attributes
   name: DisCatSharp.ApplicationCommands.Attributes
+  type: Namespace
   items:
   - uid: DisCatSharp.ApplicationCommands.Attributes.ApplicationCommandRequireEnrolledTwoFactorAttribute
     name: ApplicationCommandRequireEnrolledTwoFactorAttribute
+    type: Class
 - uid: DisCatSharp.CommandsNext.Attributes
   name: DisCatSharp.CommandsNext.Attributes
+  type: Namespace
   items:
   - uid: DisCatSharp.CommandsNext.Attributes.CommandRequireEnrolledTwoFactorAttribute
     name: CommandRequireEnrolledTwoFactorAttribute
+    type: Class
 - uid: DisCatSharp.Extensions.TwoFactorCommands
   name: DisCatSharp.Extensions.TwoFactorCommands
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.TwoFactorCommands.ExtensionMethods
     name: ExtensionMethods
+    type: Class
   - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorConfiguration
     name: TwoFactorConfiguration
+    type: Class
   - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtension
     name: TwoFactorExtension
+    type: Class
   - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities
     name: TwoFactorExtensionUtilities
+    type: Class
   - uid: DisCatSharp.Extensions.TwoFactorCommands.TwoFactorResponseConfiguration
     name: TwoFactorResponseConfiguration
+    type: Class
 - uid: DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands
   name: DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.TwoFactorApplicationCommandExtension
     name: TwoFactorApplicationCommandExtension
+    type: Class
 - uid: DisCatSharp.Extensions.TwoFactorCommands.CommandsNext
   name: DisCatSharp.Extensions.TwoFactorCommands.CommandsNext
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.TwoFactorCommands.CommandsNext.TwoFactorCommandsNextExtension
     name: TwoFactorCommandsNextExtension
+    type: Class
 - uid: DisCatSharp.Extensions.TwoFactorCommands.Entities
   name: DisCatSharp.Extensions.TwoFactorCommands.Entities
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.TwoFactorCommands.Entities.TwoFactorResponse
     name: TwoFactorResponse
+    type: Class
 - uid: DisCatSharp.Extensions.TwoFactorCommands.Enums
   name: DisCatSharp.Extensions.TwoFactorCommands.Enums
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.TwoFactorCommands.Enums.TwoFactorResult
     name: TwoFactorResult
+    type: Enum
 memberLayout: SeparatePages

@@ -2,28 +2,40 @@
 items:
 - uid: DisCatSharp.Extensions.OAuth2Web
   name: DisCatSharp.Extensions.OAuth2Web
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.OAuth2Web.ExtensionMethods
     name: ExtensionMethods
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2Result`1
     name: OAuth2Result<T>
+    type: Struct
   - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2WebConfiguration
     name: OAuth2WebConfiguration
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtension
     name: OAuth2WebExtension
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtensionUtilities
     name: OAuth2WebExtensionUtilities
+    type: Class
 - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs
   name: DisCatSharp.Extensions.OAuth2Web.EventArgs
+  type: Namespace
   items:
   - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AccessTokenRefreshEventArgs
     name: AccessTokenRefreshEventArgs
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AccessTokenRevokeEventArgs
     name: AccessTokenRevokeEventArgs
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AuthorizationCodeExchangeEventArgs
     name: AuthorizationCodeExchangeEventArgs
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.AuthorizationCodeReceiveEventArgs
     name: AuthorizationCodeReceiveEventArgs
+    type: Class
   - uid: DisCatSharp.Extensions.OAuth2Web.EventArgs.DiscordOAuth2EventArgs
     name: DiscordOAuth2EventArgs
+    type: Class
 memberLayout: SeparatePages
