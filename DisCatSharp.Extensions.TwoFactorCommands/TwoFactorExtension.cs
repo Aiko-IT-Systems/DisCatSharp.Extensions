@@ -116,7 +116,7 @@ public sealed class TwoFactorExtension : BaseExtension
 		else
 		{
 			var v = a.GetName().Version;
-			var vs = v.ToString(3);
+			var vs = v!.ToString(3);
 
 			if (v.Revision > 0)
 				this.VersionString = $"{vs}, CI build {v.Revision}";
@@ -144,7 +144,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">The user id to get data for.</param>
 	private string GetSecretFor(ulong user)
-		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1].ToString();
+		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1]!.ToString()!;
 
 	/// <summary>
 	///     Adds a secret for the given user id to the database.
@@ -174,7 +174,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// <param name="user">The user id entering the code.</param>
 	/// <param name="code">The code to check.</param>
 	/// <returns>Whether the code is valid.</returns>
-	internal bool IsValidCode(ulong user, string code)
+	public bool IsValidCode(ulong user, string code)
 		=> this.HasData(user) && this.TwoFactorClient.VerifyCode(this.GetSecretFor(user), code);
 
 	/// <summary>
@@ -182,7 +182,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">User id to check for enrollment.</param>
 	/// <returns>Whether the user is enrolled.</returns>
-	internal bool IsEnrolled(ulong user)
+	public bool IsEnrolled(ulong user)
 		=> this.HasData(user);
 
 	/// <summary>
@@ -190,13 +190,13 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">User id to enroll.</param>
 	/// <param name="secret">Secret to use.</param>
-	internal void EnrollUser(ulong user, string secret)
+	public void EnrollUser(ulong user, string secret)
 		=> this.AddSecretFor(user, secret);
 
 	/// <summary>
 	///     Unenrolls given user id from two factor auth.
 	/// </summary>
 	/// <param name="user">User id to unenroll.</param>
-	internal void DisenrollUser(ulong user)
+	public void DisenrollUser(ulong user)
 		=> this.RemoveSecret(user);
 }

@@ -48,6 +48,16 @@ public enum TwoFactorResult
 	TimedOut = 4,
 
 	/// <summary>
+	///		Indicates that the enrollment process has been completed successfully.
+	/// </summary>
+	Enrolled = 5,
+
+	/// <summary>
+	///		Indicates that the unenrollment process has been completed successfully.
+	/// </summary>
+	Unenrolled = 6,
+
+	/// <summary>
 	///     This function is not implemented.
 	/// </summary>
 	NotImplemented = int.MaxValue
