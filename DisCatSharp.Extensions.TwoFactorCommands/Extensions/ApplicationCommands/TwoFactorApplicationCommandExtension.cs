@@ -56,7 +56,7 @@ public static class TwoFactorApplicationCommandExtension
 		var qrBlockText = otpauth.ToBlockText();
 
 		DiscordInteractionModalBuilder builder = new("Register Two Factor");
-		builder.AddTextDisplayComponent(new DiscordTextDisplayComponent($"Scan this QR code with your authenticator app:\n{qrBlockText.BlockCode()}\nCan't scan it? Enter this secret key instead: {secret.InlineCode()}"));
+		builder.AddTextDisplayComponent(new DiscordTextDisplayComponent($"## Scan this QR code with your authenticator app:\n{qrBlockText.BlockCode()}\n## Can't scan it? Enter this secret key instead:\n{secret.BlockCode()}"));
 		builder.AddLabelComponent(new("Enter Code", "Enter the code given by your authenticator app.", new DiscordTextInputComponent(TextComponentStyle.Small, customId: "code", minLength: ext.Configuration.Digits, maxLength: ext.Configuration.Digits)));
 		await ctx.CreateModalResponseAsync(builder);
 
@@ -134,7 +134,7 @@ public static class TwoFactorApplicationCommandExtension
 		}
 
 		DiscordInteractionModalBuilder builder = new("Remove Two Factor");
-		builder.AddTextDisplayComponent(new DiscordTextDisplayComponent("To confirm removal, please enter your two factor authentication code below:"));
+		builder.AddTextDisplayComponent(new DiscordTextDisplayComponent("## To confirm removal, please enter your two factor authentication code below:"));
 		builder.AddLabelComponent(new("Two Factor Code", "The code displayed in your authenticator app.", new DiscordTextInputComponent(TextComponentStyle.Small, customId: "code", minLength: ext.Configuration.Digits, maxLength: ext.Configuration.Digits)));
 		await ctx.CreateModalResponseAsync(builder);
 
