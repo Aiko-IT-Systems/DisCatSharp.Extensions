@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Translation Tool</title>
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="icon" href="favicon.ico" />
+</head>
+
+<body>
+	<header class="topbar">
+		<div class="title">Translation Tool</div>
+		<div class="summary" id="summary"></div>
+		<select id="scheme" title="VS Code scheme">
+			<option value="vscode">Editor: VS Code</option>
+			<option value="vscode-insiders">Editor: VS Code Insiders</option>
+		</select>
+		<button id="downloadStrings" class="ghost">Download strings.json</button>
+		<button id="refresh" class="ghost">Refresh</button>
+		<button id="beautify" class="warn">Beautify</button>
+		<button id="addKey">Add key</button>
+	</header>
+
+	<main class="layout">
+		<section class="panel">
+			<div class="panel-header">
+				<input id="search" type="search" placeholder="Search keys or text" />
+				<select title="Filter" id="filter">
+					<option value="all">All</option>
+					<option value="missing">Missing locale text</option>
+					<option value="unused">Unused</option>
+					<option value="dynamic">Dynamic only</option>
+				</select>
+			</div>
+			<div id="keyList" class="list"></div>
+		</section>
+
+		<section class="panel" id="details">
+			<div id="detailsBody" class="details-empty">Select a key to edit</div>
+		</section>
+	</main>
+
+	<template id="key-item-template">
+		<div class="key-item">
+			<div class="key-text"></div>
+			<div class="badges"></div>
+		</div>
+	</template>
+
+	<template id="usage-row-template">
+		<div class="usage-row">
+			<div class="usage-file"></div>
+			<div class="usage-actions">
+				<button class="usage-open">Open in VS Code</button>
+				<button class="usage-copy">Copy Git</button>
+			</div>
+		</div>
+	</template>
+
+	<div id="modalHost"></div>
+
+	<script src="app.js"></script>
+</body>
+
+</html>

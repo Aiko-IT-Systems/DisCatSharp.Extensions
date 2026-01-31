@@ -47,6 +47,70 @@
 			"namespaceLayout": "flattened",
 			"enumSortOrder": "declaringOrder",
 			"includeExplicitInterfaceImplementations": true
+		},
+		{
+			"src": [
+				{
+					"src": "../DisCatSharp.Extensions.Translations/",
+					"files": ["**.csproj"],
+					"exclude": ["**/obj/**", "**/bin/**"]
+				}
+			],
+			"dest": "api/DisCatSharp.Extensions.Translations",
+			"filter": "filter_config.yml",
+			"disableDefaultFilter": false,
+			"memberLayout": "separatePages",
+			"namespaceLayout": "flattened",
+			"enumSortOrder": "declaringOrder",
+			"includeExplicitInterfaceImplementations": true
+		},
+		{
+			"src": [
+				{
+					"src": "../DisCatSharp.Extensions.Translations.ApplicationCommands/",
+					"files": ["**.csproj"],
+					"exclude": ["**/obj/**", "**/bin/**"]
+				}
+			],
+			"dest": "api/DisCatSharp.Extensions.Translations.ApplicationCommands",
+			"filter": "filter_config.yml",
+			"disableDefaultFilter": false,
+			"memberLayout": "separatePages",
+			"namespaceLayout": "flattened",
+			"enumSortOrder": "declaringOrder",
+			"includeExplicitInterfaceImplementations": true
+		},
+		{
+			"src": [
+				{
+					"src": "../DisCatSharp.Extensions.Translations.CommandsNext/",
+					"files": ["**.csproj"],
+					"exclude": ["**/obj/**", "**/bin/**"]
+				}
+			],
+			"dest": "api/DisCatSharp.Extensions.Translations.CommandsNext",
+			"filter": "filter_config.yml",
+			"disableDefaultFilter": false,
+			"memberLayout": "separatePages",
+			"namespaceLayout": "flattened",
+			"enumSortOrder": "declaringOrder",
+			"includeExplicitInterfaceImplementations": true
+		},
+		{
+			"src": [
+				{
+					"src": "../DisCatSharp.Extensions.Translations.Manager/",
+					"files": ["**.csproj"],
+					"exclude": ["**/obj/**", "**/bin/**"]
+				}
+			],
+			"dest": "api/DisCatSharp.Extensions.Translations.Manager",
+			"filter": "filter_config.yml",
+			"disableDefaultFilter": false,
+			"memberLayout": "separatePages",
+			"namespaceLayout": "flattened",
+			"enumSortOrder": "declaringOrder",
+			"includeExplicitInterfaceImplementations": true
 		}
 	],
 	"build": {

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Targets/Version.targets" />
+	<Import Project="../Targets/DisCatSharp.targets" />
+	<Import Project="../Targets/Package.targets" />
+	<Import Project="../Targets/NuGet.targets" />
+	<Import Project="../Targets/Library.targets" />
+
+	<PropertyGroup>
+		<AssemblyName>DisCatSharp.Extensions.Translations.ApplicationCommands</AssemblyName>
+		<RootNamespace>DisCatSharp.Extensions.Translations.ApplicationCommands</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>DisCatSharp.Extensions.Translations.ApplicationCommands</PackageId>
+		<Description>
+			DisCatSharp.Extensions.Translations.ApplicationCommands
+
+			Extension making it easy to use localizations in ApplicationCommands commands.
+		</Description>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Translations,Localization,ApplicationCommands,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Net10</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.7.0-nightly-049,)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DisCatSharp.Extensions.Translations/DisCatSharp.Extensions.Translations.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>

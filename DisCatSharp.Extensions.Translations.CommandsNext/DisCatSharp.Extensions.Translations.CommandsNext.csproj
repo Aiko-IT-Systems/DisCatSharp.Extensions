@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Targets/Version.targets" />
+	<Import Project="../Targets/DisCatSharp.targets" />
+	<Import Project="../Targets/Package.targets" />
+	<Import Project="../Targets/NuGet.targets" />
+	<Import Project="../Targets/Library.targets" />
+
+	<PropertyGroup>
+		<AssemblyName>DisCatSharp.Extensions.Translations.CommandsNext</AssemblyName>
+		<RootNamespace>DisCatSharp.Extensions.Translations.CommandsNext</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>DisCatSharp.Extensions.Translations.CommandsNext</PackageId>
+		<Description>
+			DisCatSharp.Extensions.Translations.CommandsNext
+
+			Extension making it easy to use localizations in CommandsNext commands.
+		</Description>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Translations,Localization,CommandsNext,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Net10</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DisCatSharp" Version="[10.7.0-nightly-049,)" />
+		<PackageReference Include="DisCatSharp.CommandsNext" Version="[10.7.0-nightly-049,)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DisCatSharp.Extensions.Translations/DisCatSharp.Extensions.Translations.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>
