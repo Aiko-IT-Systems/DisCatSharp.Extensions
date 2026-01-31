@@ -144,6 +144,18 @@ public sealed class TwoFactorResponseConfiguration
 	public string AuthenticationFailureMessage { internal get; set; } = "Code invalid..";
 
 	/// <summary>
+	///		<para>Sets the message when an user successfully enrolled into two factor auth.</para>
+	///		<para>Defaults to: You successfully enrolled in two factor.</para>
+	/// </summary>
+	public string AuthenticationEnrolledMessage { internal get; set; } = "You successfully enrolled in two factor.";
+
+	/// <summary>
+	///		<para>Sets the message when an user successfully unenrolled from two factor auth.</para>
+	///		<para>Defaults to: You successfully unenrolled from two factor.</para>
+	/// </summary>
+	public string AuthenticationUnenrolledMessage { internal get; set; } = "You successfully unenrolled from two factor.";
+
+	/// <summary>
 	///     <para>Sets the message when an user is not yet enrolled into two factor auth.</para>
 	///     <para>Defaults to: You are not enrolled in two factor.</para>
 	/// </summary>

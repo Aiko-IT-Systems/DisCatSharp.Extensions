@@ -174,7 +174,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// <param name="user">The user id entering the code.</param>
 	/// <param name="code">The code to check.</param>
 	/// <returns>Whether the code is valid.</returns>
-	internal bool IsValidCode(ulong user, string code)
+	public bool IsValidCode(ulong user, string code)
 		=> this.HasData(user) && this.TwoFactorClient.VerifyCode(this.GetSecretFor(user), code);
 
 	/// <summary>
@@ -182,7 +182,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">User id to check for enrollment.</param>
 	/// <returns>Whether the user is enrolled.</returns>
-	internal bool IsEnrolled(ulong user)
+	public bool IsEnrolled(ulong user)
 		=> this.HasData(user);
 
 	/// <summary>
@@ -190,13 +190,13 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">User id to enroll.</param>
 	/// <param name="secret">Secret to use.</param>
-	internal void EnrollUser(ulong user, string secret)
+	public void EnrollUser(ulong user, string secret)
 		=> this.AddSecretFor(user, secret);
 
 	/// <summary>
 	///     Unenrolls given user id from two factor auth.
 	/// </summary>
 	/// <param name="user">User id to unenroll.</param>
-	internal void DisenrollUser(ulong user)
+	public void DisenrollUser(ulong user)
 		=> this.RemoveSecret(user);
 }

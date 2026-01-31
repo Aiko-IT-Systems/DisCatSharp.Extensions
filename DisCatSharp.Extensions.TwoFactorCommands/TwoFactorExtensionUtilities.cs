@@ -22,9 +22,13 @@
 
 using System;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Web;
 
 using DisCatSharp.Entities;
+
+using QRCoder;
 
 using TwoFactorAuthNet;
 
@@ -71,5 +75,100 @@ public static class TwoFactorExtensionUtilities
 			Position = 0
 		};
 		return (secret, ms);
+	}
+
+	/// <summary>
+	///     Converts the specified payload into a QR code represented as block text.
+	/// </summary>
+	/// <param name="payload">The payload to encode.</param>
+	/// <param name="quietZoneModules">Number of quiet-zone modules.</param>
+	/// <returns>A string representing the QR code.</returns>
+	public static string ToBlockText(this string payload, int quietZoneModules = 4)
+    {
+        using var generator = new QRCodeGenerator();
+        using var data = generator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.M);
+
+        var modules = data.ModuleMatrix;
+        var size = modules.Count;
+
+        var total = size + (quietZoneModules * 2);
+
+        bool Get(int x, int y)
+        {
+            x -= quietZoneModules;
+            y -= quietZoneModules;
+
+            return x >= 0 && x < size &&
+                   y >= 0 && y < size &&
+                   modules[y][x];
+        }
+
+        var sb = new StringBuilder();
+
+        for (var y = 0; y < total; y += 2)
+        {
+            for (var x = 0; x < total; x++)
+            {
+                var top = Get(x, y);
+                var bottom = Get(x, y + 1);
+
+                sb.Append((top, bottom) switch
+                {
+                    (true,  true)  => '█',
+                    (true,  false) => '▀',
+                    (false, true)  => '▄',
+                    _              => ' '
+                });
+            }
+
+            sb.AppendLine();
+        }
+
+        return TrimHorizontalWhitespace(sb.ToString());
+    }
+
+	/// <summary>
+	///		Trims horizontal whitespace from each line of the input string, preserving a specified minimum padding on both sides.
+	/// </summary>
+	/// <param name="input">The input string containing one or more lines to be trimmed of horizontal whitespace.</param>
+	/// <param name="minPadding">The minimum number of characters to retain as padding on both the left and right sides of each trimmed line. Must
+	/// be zero or greater.</param>
+	/// <returns>A string in which each line has been trimmed of leading and trailing horizontal whitespace, with the specified
+	/// minimum padding preserved. Returns the original input if no lines are present.</returns>
+	private static string TrimHorizontalWhitespace(string input, int minPadding = 2)
+	{
+		var lines = input.Replace("\r", "").Split('\n');
+		if (lines.Length == 0)
+			return input;
+
+		var width = lines.Max(l => l.Length);
+
+		bool IsEmptyColumn(int col)
+		{
+			foreach (var line in lines)
+			{
+				if (col < line.Length && line[col] != ' ')
+					return false;
+			}
+			return true;
+		}
+
+		var left = 0;
+		while (left < width && IsEmptyColumn(left)) left++;
+
+		var right = width - 1;
+		while (right >= 0 && IsEmptyColumn(right)) right--;
+
+		left = Math.Max(0, left - minPadding);
+		right = Math.Min(width - 1, right + minPadding);
+
+		var trimmed = lines.Select(line =>
+		{
+			if (line.Length <= left) return "";
+			var len = Math.Min(right - left + 1, line.Length - left);
+			return line.Substring(left, len).TrimEnd();
+		});
+
+		return string.Join("\n", trimmed);
 	}
 }
