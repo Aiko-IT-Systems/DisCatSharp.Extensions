@@ -1,2 +1,29 @@
 ### YamlMime:TableOfContent
 items:
+- uid: DisCatSharp.Extensions.SimpleMusicCommands
+  name: DisCatSharp.Extensions.SimpleMusicCommands
+  type: Namespace
+  items:
+  - uid: DisCatSharp.Extensions.SimpleMusicCommands.ExtensionMethods
+    name: ExtensionMethods
+    type: Class
+  - uid: DisCatSharp.Extensions.SimpleMusicCommands.SimpleMusicCommandsExtension
+    name: SimpleMusicCommandsExtension
+    type: Class
+- uid: DisCatSharp.Extensions.SimpleMusicCommands.Commands
+  name: DisCatSharp.Extensions.SimpleMusicCommands.Commands
+  type: Namespace
+  items:
+  - uid: DisCatSharp.Extensions.SimpleMusicCommands.Commands.MusicCommands
+    name: MusicCommands
+    type: Class
+  - uid: DisCatSharp.Extensions.SimpleMusicCommands.Commands.MusicCommands.ControlCommands
+    name: MusicCommands.ControlCommands
+    type: Class
+  - uid: DisCatSharp.Extensions.SimpleMusicCommands.Commands.MusicCommands.OptionCommands
+    name: MusicCommands.OptionCommands
+    type: Class
+  - uid: DisCatSharp.Extensions.SimpleMusicCommands.Commands.MusicCommands.QueueCommands
+    name: MusicCommands.QueueCommands
+    type: Class
+memberLayout: SeparatePages
