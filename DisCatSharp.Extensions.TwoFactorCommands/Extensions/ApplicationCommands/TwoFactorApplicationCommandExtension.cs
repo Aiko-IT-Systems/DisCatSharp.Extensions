@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using DisCatSharp.ApplicationCommands.Context;
@@ -49,7 +50,7 @@ public static class TwoFactorApplicationCommandExtension
 		if (!ext.IsEnrolled(ctx.User.Id))
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
-				await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
+				await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage)], accentColor: DiscordColor.Orange)));
 
 			return new()
 			{
@@ -59,7 +60,8 @@ public static class TwoFactorApplicationCommandExtension
 		}
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
-		builder.AddTextComponent(new(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
+		builder.AddTextDisplayComponent(new DiscordTextDisplayComponent("Please enter your two factor authentication code below:"));
+		builder.AddLabelComponent(new("Two Factor Code", "The code displayed in your authenticator app.", new DiscordTextInputComponent(TextComponentStyle.Small, customId: "code", minLength: ext.Configuration.Digits, maxLength: ext.Configuration.Digits)));
 		await ctx.CreateModalResponseAsync(builder);
 
 		var response = new TwoFactorResponse
@@ -78,12 +80,21 @@ public static class TwoFactorApplicationCommandExtension
 		response.ComponentInteraction = inter.Result;
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
-			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(ctx.User.Id, (inter.Result.Interaction.Data.ModalComponents[0] as DiscordTextInputComponent)!.Value!);
+			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent("Checking..")], accentColor: DiscordColor.Blurple)));
+		var codeResult = (inter.Result.Interaction.Data.ModalComponents.OfType<DiscordLabelComponent>().First().Component as DiscordTextInputComponent)!.Value!;
+		if (codeResult.Any(dig => !char.IsDigit(dig)))
+		{
+			if (ext.Configuration.ResponseConfiguration.ShowResponse)
+				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage)], accentColor: DiscordColor.Red)));
+			response.Result = TwoFactorResult.InvalidCode;
+			return response;
+		}
+
+		var res = ext.IsValidCode(ctx.User.Id, codeResult);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
-				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage));
+				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage)], accentColor: DiscordColor.Green)));
 
 			response.Result = TwoFactorResult.ValidCode;
 
@@ -91,7 +102,7 @@ public static class TwoFactorApplicationCommandExtension
 		}
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
-			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage));
+			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage)], accentColor: DiscordColor.Red)));
 
 		response.Result = TwoFactorResult.InvalidCode;
 
@@ -113,7 +124,7 @@ public static class TwoFactorApplicationCommandExtension
 		if (!ext.IsEnrolled(evt.User.Id))
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
-				await evt.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage));
+				await evt.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationNotEnrolledMessage)], accentColor: DiscordColor.Orange)));
 
 			return new()
 			{
@@ -123,7 +134,8 @@ public static class TwoFactorApplicationCommandExtension
 		}
 
 		DiscordInteractionModalBuilder builder = new(ext.Configuration.ResponseConfiguration.AuthenticationModalRequestTitle);
-		builder.AddTextComponent(new(TextComponentStyle.Small, "code", "Code", "123456", ext.Configuration.Digits, ext.Configuration.Digits));
+		builder.AddTextDisplayComponent(new DiscordTextDisplayComponent("Please enter your two factor authentication code below:"));
+		builder.AddLabelComponent(new("Two Factor Code", "The code displayed in your authenticator app.", new DiscordTextInputComponent(TextComponentStyle.Small, customId: "code", minLength: ext.Configuration.Digits, maxLength: ext.Configuration.Digits)));
 		await evt.Interaction.CreateInteractionModalResponseAsync(builder);
 
 		var response = new TwoFactorResponse
@@ -142,12 +154,21 @@ public static class TwoFactorApplicationCommandExtension
 		response.ComponentInteraction = inter.Result;
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
-			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithContent("Checking.."));
-		var res = ext.IsValidCode(evt.User.Id, (inter.Result.Interaction.Data.ModalComponents[0] as DiscordTextInputComponent)!.Value!);
+			await inter.Result.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent("Checking..")], accentColor: DiscordColor.Blurple)));
+		var codeResult = (inter.Result.Interaction.Data.ModalComponents.OfType<DiscordLabelComponent>().First().Component as DiscordTextInputComponent)!.Value!;
+		if (codeResult.Any(dig => !char.IsDigit(dig)))
+		{
+			if (ext.Configuration.ResponseConfiguration.ShowResponse)
+				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage)], accentColor: DiscordColor.Red)));
+			response.Result = TwoFactorResult.InvalidCode;
+			return response;
+		}
+
+		var res = ext.IsValidCode(evt.User.Id, codeResult);
 		if (res)
 		{
 			if (ext.Configuration.ResponseConfiguration.ShowResponse)
-				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage));
+				await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationSuccessMessage)], accentColor: DiscordColor.Green)));
 
 			response.Result = TwoFactorResult.ValidCode;
 
@@ -155,7 +176,7 @@ public static class TwoFactorApplicationCommandExtension
 		}
 
 		if (ext.Configuration.ResponseConfiguration.ShowResponse)
-			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithContent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage));
+			await inter.Result.Interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder().WithV2Components().AddComponents(new DiscordContainerComponent([new DiscordTextDisplayComponent("Two Factor"), new DiscordTextDisplayComponent(ext.Configuration.ResponseConfiguration.AuthenticationFailureMessage)], accentColor: DiscordColor.Red)));
 
 		response.Result = TwoFactorResult.InvalidCode;
 
