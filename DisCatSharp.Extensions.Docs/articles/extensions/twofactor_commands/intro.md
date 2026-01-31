@@ -30,41 +30,32 @@ client.UseTwoFactor();
 
 #### Enrolling a user in two factor
 
-To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.EnrollTwoFactor*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To enroll a user in two factor, call [EnrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.EnrollTwoFactorAsync*) on your [InteractionContext](xref:DisCatSharp.ApplicationCommands.Context.InteractionContext).
 
 ```cs
-using DisCatSharp.Extensions.TwoFactorCommands;
+using DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
 
 // ...
-[SlashCommand("enroll", "Enroll in two factor")]
-public static async Task EnrollTwoFactor(InteractionContext ctx)
-{
-    // ...
-    var (Secret, QrCode) = ctx.Client.EnrollTwoFactor(ctx.User);
-
-    // Either send the QR code to the user, or the secret.
-    // QrCode is a MemoryStream you can use with DiscordWebhookBuilder.AddFile as example.
-}
+[SlashCommand("setup_two_factor", "Setup 2FA")]
+public static async Task SetupTwoFactorAsync(InteractionContext ctx)
+    => await ctx.EnrollTwoFactorAsync();
 ```
 
 Example way to ask a user to register their two factor:
 
-![Example Enroll](/images/two_factor_enrollment_message_example.png)
+![Example Enroll (outdated)](/images/two_factor_enrollment_message_example.png)
 
 #### Disenrolling a user in two factor
 
-To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.TwoFactorExtensionUtilities.DisenrollTwoFactor*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance.
+To disenroll a user from two factor, call [DisenrollTwoFactor(DiscordUser.Id)](xref:DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands.UnenrollTwoFactorAsync*) on your [InteractionContext](xref:DisCatSharp.ApplicationCommands.Context.InteractionContext) instance.
 
 ```cs
-using DisCatSharp.Extensions.TwoFactorCommands;
+using DisCatSharp.Extensions.TwoFactorCommands.ApplicationCommands;
 
 // ...
-[SlashCommand("disenroll", "Disenroll from two factor"), ApplicationCommandRequireEnrolledTwoFactor]
-public static async Task DisenrollTwoFactor(InteractionContext ctx)
-{
-    // ...
-    ctx.Client.DisenrollTwoFactor(ctx.User.Id);
-}
+[SlashCommand("remove_two_factor", "Remove 2FA"), ApplicationCommandRequireEnrolledTwoFactor]
+public static async Task RemoveTwoFactorAsync(InteractionContext ctx)
+	=> await ctx.UnenrollTwoFactorAsync();
 ```
 
 #### Check if a user is enrolled in two factor
