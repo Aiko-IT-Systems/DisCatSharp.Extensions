@@ -44,5 +44,5 @@ public sealed class ApplicationCommandRequireEnrolledTwoFactorAttribute : Applic
 	///     Runs checks.
 	/// </summary>
 	public override Task<bool> ExecuteChecksAsync(BaseContext ctx)
-		=> Task.FromResult(ctx.Client.GetTwoFactor().IsEnrolled(ctx.User.Id));
+		=> Task.FromResult(ctx.Client.GetTwoFactor()?.IsEnrolled(ctx.User.Id) ?? false);
 }

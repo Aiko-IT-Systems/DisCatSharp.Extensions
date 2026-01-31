@@ -45,7 +45,7 @@ public static class TwoFactorApplicationCommandExtension
 	/// <returns>A <see cref="TwoFactorResponse" />.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this BaseContext ctx)
 	{
-		var ext = ctx.Client.GetTwoFactor();
+		var ext = ctx.Client.GetTwoFactor() ?? throw new InvalidOperationException("Two factor extension is not registered on this client.");
 
 		if (!ext.IsEnrolled(ctx.User.Id))
 		{
@@ -119,7 +119,7 @@ public static class TwoFactorApplicationCommandExtension
 	/// <returns>A <see cref="TwoFactorResponse" />.</returns>
 	public static async Task<TwoFactorResponse> RequestTwoFactorAsync(this ComponentInteractionCreateEventArgs evt, DiscordClient client)
 	{
-		var ext = client.GetTwoFactor();
+		var ext = client.GetTwoFactor() ?? throw new InvalidOperationException("Two factor extension is not registered on this client.");
 
 		if (!ext.IsEnrolled(evt.User.Id))
 		{

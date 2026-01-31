@@ -116,7 +116,7 @@ public sealed class TwoFactorExtension : BaseExtension
 		else
 		{
 			var v = a.GetName().Version;
-			var vs = v.ToString(3);
+			var vs = v!.ToString(3);
 
 			if (v.Revision > 0)
 				this.VersionString = $"{vs}, CI build {v.Revision}";
@@ -144,7 +144,7 @@ public sealed class TwoFactorExtension : BaseExtension
 	/// </summary>
 	/// <param name="user">The user id to get data for.</param>
 	private string GetSecretFor(ulong user)
-		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1].ToString();
+		=> this.DatabaseClient.Select(this._tableName, null, 1, null, new(this._userField, OperatorEnum.Equals, user.ToString())).Rows[0].ItemArray[1]!.ToString()!;
 
 	/// <summary>
 	///     Adds a secret for the given user id to the database.

@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.IO;
 using System.Web;
 
@@ -38,7 +39,7 @@ public static class TwoFactorExtensionUtilities
 	/// <param name="user">The user id to check.</param>
 	/// <returns>Whether the user is enrolled.</returns>
 	public static bool CheckTwoFactorEnrollmentFor(this DiscordClient client, ulong user)
-		=> client.GetTwoFactor().IsEnrolled(user);
+		=> client.GetTwoFactor()?.IsEnrolled(user) ?? false;
 
 	/// <summary>
 	///     Removes the two factor registration for the given user id.
@@ -46,7 +47,7 @@ public static class TwoFactorExtensionUtilities
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user id to check.</param>
 	public static void DisenrollTwoFactor(this DiscordClient client, ulong user)
-		=> client.GetTwoFactor().DisenrollUser(user);
+		=> client.GetTwoFactor()?.DisenrollUser(user);
 
 	/// <summary>
 	///     Registers two factor for the given user.
@@ -54,12 +55,12 @@ public static class TwoFactorExtensionUtilities
 	/// <param name="client">The discord client.</param>
 	/// <param name="user">The user to check.</param>
 	/// <returns>
-	///     A <see cref="System.Tuple{T1, T2}" /> where <c>Secret</c> is a <see cref="System.String">string</see> with the
+	///     A <see cref="System.Tuple{T1, T2}" /> where <c>Secret</c> is a <see cref="string">string</see> with the
 	///     secret itself and <c>QrCode</c> a <see cref="System.IO.MemoryStream">MemoryStream</see> with the qr code image.
 	/// </returns>
 	public static (string Secret, MemoryStream QrCode) EnrollTwoFactor(this DiscordClient client, DiscordUser user)
 	{
-		var ext = client.GetTwoFactor();
+		var ext = client.GetTwoFactor() ?? throw new InvalidOperationException("Two factor extension is not registered on this client.");
 		var secret = ext.TwoFactorClient.CreateSecret(160, CryptoSecureRequirement.RequireSecure);
 		ext.EnrollUser(user.Id, secret);
 		var label = $"{ext.Configuration.ResponseConfiguration.AuthenticatorAccountPrefix}: {HttpUtility.UrlEncode(user.UsernameWithDiscriminator)}";
