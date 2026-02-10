@@ -40,8 +40,8 @@
 		<PackageReference Include="DisCatSharp.Common" Version="[10.7.0-nightly-063,)" />
 		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.7.0-nightly-063,)" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="QRCoder" Version="1.7.0" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
@@ -49,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.102" />
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.103" />
 	</ItemGroup>
 
 </Project>
