@@ -24,7 +24,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.7.0-nightly-049,)" />
+		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.7.0-nightly-068,)" />
 	</ItemGroup>
 
 	<ItemGroup>
