@@ -35,4 +35,9 @@
   <Project Path="DisCatSharp.Extensions.OAuth2Web/DisCatSharp.Extensions.OAuth2Web.csproj" />
   <Project Path="DisCatSharp.Extensions.SimpleMusicCommands/DisCatSharp.Extensions.SimpleMusicCommands.csproj" />
   <Project Path="DisCatSharp.Extensions.TwoFactorCommands/DisCatSharp.Extensions.TwoFactorCommands.csproj" />
+  <Folder Name="/DisCatSharp.Extensions.Translations/">
+	<Project Path="DisCatSharp.Extensions.Translations/DisCatSharp.Extensions.Translations.csproj" />
+	<Project Path="DisCatSharp.Extensions.Translations.ApplicationCommands/DisCatSharp.Extensions.Translations.ApplicationCommands.csproj" />
+	<Project Path="DisCatSharp.Extensions.Translations.CommandsNext/DisCatSharp.Extensions.Translations.CommandsNext.csproj" />
+  </Folder>
 </Solution>

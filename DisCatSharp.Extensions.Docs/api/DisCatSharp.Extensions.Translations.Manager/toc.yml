@@ -1,0 +1,13 @@
+### YamlMime:TableOfContent
+items:
+- uid: DisCatSharp.Extensions.Translations.Manager
+  name: DisCatSharp.Extensions.Translations.Manager
+  type: Namespace
+  items:
+  - uid: DisCatSharp.Extensions.Translations.Manager.TranslationManager
+    name: TranslationManager
+    type: Class
+  - uid: DisCatSharp.Extensions.Translations.Manager.TranslationsManagerConfiguration
+    name: TranslationsManagerConfiguration
+    type: Class
+memberLayout: SeparatePages
