@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -24,7 +24,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net9.0'))">
-		<PackageReference Include="Backport.System.Threading.Lock" Version="3.1.5" />
+		<PackageReference Include="Backport.System.Threading.Lock" Version="3.1.6" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -40,8 +40,8 @@
 		<PackageReference Include="DisCatSharp.Common" Version="[10.7.0-nightly-068,)" />
 		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.7.0-nightly-068,)" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="QRCoder" Version="1.7.0" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
