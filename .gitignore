@@ -309,6 +309,7 @@ dcs-docs-preview.zip
 docfx.zip
 DisCatSharp.Docs/_site/
 _site
+dcs-artifacts/
 
 #Ignore thumbnails created by Windows
 Thumbs.db
