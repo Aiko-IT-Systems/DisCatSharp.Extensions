@@ -5,7 +5,7 @@
 
 # DisCatSharp.Extensions
 
-Official extensions for [DisCatSharp](https://github.com/Aiko-IT-Systems/DisCatSharp). 
+Official extensions for [DisCatSharp](https://github.com/Aiko-IT-Systems/DisCatSharp).
 
 ## Installing
 
@@ -21,7 +21,7 @@ The documentation is available at [ext-docs.dcs.aitsys.dev](https://ext-docs.dcs
 
 ## NuGet Packages
 
-| Package                                    | LTS                                                                                                                      | Stable                                                                                                                                        |
+| Package                                    | LTS                                                                                                                         | Latest                                                                                                                                         |
 | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | DisCatSharp.Extensions.TwoFactorCommands   | ![NuGet](https://img.shields.io/nuget/v/DisCatSharp.Extensions.TwoFactorCommands.svg?label=&logo=nuget&style=flat-square)   | ![NuGet](https://img.shields.io/nuget/vpre/DisCatSharp.Extensions.TwoFactorCommands.svg?label=&logo=nuget&style=flat-square&color=%23ff1493)   |
 | DisCatSharp.Extensions.OAuth2Web           | ![NuGet](https://img.shields.io/nuget/v/DisCatSharp.Extensions.OAuth2Web.svg?label=&logo=nuget&style=flat-square)           | ![NuGet](https://img.shields.io/nuget/vpre/DisCatSharp.Extensions.OAuth2Web.svg?label=&logo=nuget&style=flat-square&color=%23ff1493)           |
