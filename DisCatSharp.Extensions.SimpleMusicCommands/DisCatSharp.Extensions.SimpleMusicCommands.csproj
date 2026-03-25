@@ -20,7 +20,7 @@
 
 			Extension allowing you to turn your bot into a music bot pretty easy.
 		</Description>
-		<PackageTags>DisCatSharp,DisCatSharp Extension,Music, Music Bot, Lavalink,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Net10,Net11</PackageTags>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Music, Music Bot, Lavalink,Discord,Bots,Discord Bots,AITSYS,Net9,Net10,Net11</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

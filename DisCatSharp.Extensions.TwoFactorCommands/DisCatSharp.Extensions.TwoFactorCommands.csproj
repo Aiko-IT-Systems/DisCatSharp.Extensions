@@ -20,12 +20,9 @@
 
 			Extension allowing to require two factor authentication for commands.
 		</Description>
-		<PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net8,Net9,Net10,Net11</PackageTags>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,Mfa,2Fa,Two Factor Authentication,Discord,Bots,Discord Bots,AITSYS,Net9,Net10,Net11</PackageTags>
 	</PropertyGroup>
 
-	<ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net9.0'))">
-		<PackageReference Include="Backport.System.Threading.Lock" Version="3.1.8" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.1.5" />
