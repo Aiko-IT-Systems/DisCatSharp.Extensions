@@ -26,28 +26,28 @@
 
 	<ItemGroup>
 		<PackageReference Include="DatabaseWrapper.Sqlite" Version="6.1.5" />
-		<PackageReference Include="DisCatSharp" Version="[10.7.1-nightly-001,)" />
-		<PackageReference Include="DisCatSharp.Analyzer" Version="1.0.6">
+		<PackageReference Include="DisCatSharp" Version="[10.7.1-nightly-011,)" />
+		<PackageReference Include="DisCatSharp.Analyzer" Version="1.0.6.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.7.1-nightly-001,)" />
+		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.7.1-nightly-011,)" />
 		<PackageReference Include="DisCatSharp.Attributes" Version="2026.03.26" />
-		<PackageReference Include="DisCatSharp.CommandsNext" Version="[10.7.1-nightly-001,)" />
-		<PackageReference Include="DisCatSharp.Common" Version="[10.7.1-nightly-001,)" />
-		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.7.1-nightly-001,)" />
+		<PackageReference Include="DisCatSharp.CommandsNext" Version="[10.7.1-nightly-011,)" />
+		<PackageReference Include="DisCatSharp.Common" Version="[10.7.1-nightly-011,)" />
+		<PackageReference Include="DisCatSharp.Interactivity" Version="[10.7.1-nightly-011,)" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.5" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.6" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="QRCoder" Version="1.7.0" />
+		<PackageReference Include="QRCoder" Version="1.8.0" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
 		<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.201" />
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.202" />
 	</ItemGroup>
 
 </Project>
