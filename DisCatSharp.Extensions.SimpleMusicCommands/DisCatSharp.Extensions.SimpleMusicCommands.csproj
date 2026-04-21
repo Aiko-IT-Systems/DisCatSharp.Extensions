@@ -29,21 +29,21 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.6" />
-		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.7" />
 		<PackageReference Include="DisCatSharp.ApplicationCommands" Version="[10.7.1-nightly-011,)" />
 		<PackageReference Include="DisCatSharp.Attributes" Version="2026.03.26" />
 		<PackageReference Include="DisCatSharp.Lavalink" Version="[10.7.1-nightly-011,)" />
 		<PackageReference Include="DisCatSharp.Common" Version="[10.7.1-nightly-011,)" />
 		<PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.202" />
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.203" />
 	</ItemGroup>
 
 </Project>
