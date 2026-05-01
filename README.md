@@ -10,6 +10,7 @@ Official extensions for [DisCatSharp](https://github.com/Aiko-IT-Systems/DisCatS
 > [!IMPORTANT]
 > `DisCatSharp.Extensions.OAuth2Web` is deprecated in favor of the first-party `DisCatSharp.Hosting.AspNetCore` package in the main DisCatSharp repository.
 > New OAuth callback, interaction ingress, webhook event ingress, proxy helper, and validation work now lives there.
+> The package is also intended to be marked deprecated on NuGet with the new package as the migration target.
 
 ## Installing
 

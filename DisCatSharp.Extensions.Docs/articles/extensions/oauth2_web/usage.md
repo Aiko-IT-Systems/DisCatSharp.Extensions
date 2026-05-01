@@ -16,8 +16,12 @@ author: DisCatSharp Team
 > - replace manual `Start()` / `StopAsync()` with `app.MapDisCatSharpIngress()` or `AddDisCatSharpAspNetCoreSelfHost(...)`
 > - replace Apache-only proxy helpers with the new NGINX/Apache/Docker proxy helpers in `DisCatSharp.Hosting.AspNetCore`
 > - replace the old redirect/proxy checks with the new ingress validation helpers
+> - see [OAuth2 Web Migration](xref:extensions_oauth2_web_migration) before adding this package to a new app
 
 ## Legacy setup
+
+This page documents the **legacy** extension behavior.
+If you are starting a new app, stop here and migrate instead of adopting this package fresh.
 
 # [Setup](#tab/single)
 
@@ -133,3 +137,18 @@ public static async Task TestOAuth2Async(InteractionContext ctx)
 ### Visual Example
 
 ![OAuth2 Web Example](/images/oauth2web_example.gif)
+
+## Recommended replacement
+
+For new applications, the modern split is:
+
+1. keep using `DiscordOAuth2Client` for OAuth URL generation, state, and token exchange concerns
+2. use `DisCatSharp.Hosting.AspNetCore` for callback hosting and related ingress features
+
+This gives you a supported path for:
+
+- OAuth callbacks
+- signed HTTP interactions
+- signed webhook events
+- proxy generation
+- public URL validation

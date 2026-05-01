@@ -19,6 +19,8 @@ items:
                   uid: extensions_oauth2_web_requirements
                 - name: Usage
                   uid: extensions_oauth2_web_usage
+                - name: Migration
+                  uid: extensions_oauth2_web_migration
     - name: Miscellaneous
       items:
           - name: Nightly Builds

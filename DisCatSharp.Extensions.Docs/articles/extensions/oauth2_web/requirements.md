@@ -16,6 +16,7 @@ author: DisCatSharp Team
 > - signed webhook event ingress
 > - proxy helpers for NGINX, Apache, and common Docker reverse proxies
 > - application/public URL validation helpers
+> - a first-party package location in the main DisCatSharp repository
 
 To use OAuth2 Web, you will need a few things:
 
@@ -25,6 +26,8 @@ To use OAuth2 Web, you will need a few things:
 - A Discord application with a redirect URI set to your web server's domain or IP address
 - Your application's client ID and client secret
 - Free ports on your host (Especially if you are using OAuth2Web with shards)
+
+If you are building a new app, the same operational requirements generally still apply, but the recommended package is now `DisCatSharp.Hosting.AspNetCore`.
 
 ## Legacy web server requirements
 
@@ -101,3 +104,14 @@ bool hasRequiredUri = client.GetOAuth2Web().HasRequiredRedirectUriSet();
 var oauth2web = await shardedClient.GetOAuth2WebAsync();
 bool hasRequiredUris = oauth2web.HasAllRequiredRedirectUrisSet();
 ```
+
+## Modern replacement
+
+The replacement package moves these concerns into:
+
+- ASP.NET Core route configuration
+- public URL computation
+- proxy generation helpers
+- ingress validation against the Discord application state
+
+See [OAuth2 Web Migration](xref:extensions_oauth2_web_migration).
