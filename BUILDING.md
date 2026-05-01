@@ -63,3 +63,18 @@ When all necessary prerequisites are installed, you can proceed to building. The
 1. Open PowerShell (`pwsh`) and navigate to the directory which you cloned DisCatSharp to.
 2. Execute `.\s_oneclick-rebuild-all.ps1 -configuration Release` and wait for the script to finish execution.
 3. Once it's done, the artifacts will be available in *dcs-artifacts* directory, next to the directory to which the repository is cloned.
+
+## NuGet deprecation follow-up for OAuth2 Web
+
+`DisCatSharp.Extensions.OAuth2Web` is a legacy package. Its package metadata and documentation already point users at `DisCatSharp.Hosting.AspNetCore` in the main DisCatSharp repository.
+
+After publishing the package, a package owner should also mark the published `DisCatSharp.Extensions.OAuth2Web` versions deprecated on nuget.org:
+
+1. Sign in to [nuget.org](https://www.nuget.org/) with an owner account for `DisCatSharp.Extensions.OAuth2Web`.
+2. Open **Manage Packages** for `DisCatSharp.Extensions.OAuth2Web`.
+3. Open **Deprecation** and select all versions that should remain deprecated.
+4. Use the `Legacy` reason.
+5. Set the alternate package to `DisCatSharp.Hosting.AspNetCore`.
+6. Optionally add a short custom message that points maintainers at the migration guidance in the main DisCatSharp repository.
+
+This follow-up currently requires nuget.org owner access in the website. The release workflow can publish packages, but this deprecation step does not have a documented `dotnet` CLI or public NuGet API flow that this repository can rely on.

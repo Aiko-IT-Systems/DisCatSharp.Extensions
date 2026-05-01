@@ -56,3 +56,19 @@ jobs:
         shell: pwsh
         run: dotnet nuget push --source https://nuget.pkg.github.com/Aiko-IT-Systems/index.json -k ${{secrets.GITHUB_TOKEN}} *
         working-directory: ./dcs-artifacts
+      - name: Summarize OAuth2Web NuGet deprecation follow-up
+        if: ${{ success() }}
+        shell: pwsh
+        run: |
+          @"
+          ## OAuth2Web NuGet deprecation follow-up
+
+          If this release published `DisCatSharp.Extensions.OAuth2Web`, sign in to nuget.org as a package owner and open **Manage Packages** -> **Deprecation** for `DisCatSharp.Extensions.OAuth2Web`.
+
+          - Select all versions that should remain deprecated.
+          - Reason: `Legacy`
+          - Alternate package: `DisCatSharp.Hosting.AspNetCore`
+          - Optional custom message: `Use DisCatSharp.Hosting.AspNetCore from the main DisCatSharp repository.`
+
+          This follow-up requires nuget.org package owner access in the website. There is no documented `dotnet` CLI or public NuGet API flow that this workflow can rely on for the deprecation step.
+          "@ | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8

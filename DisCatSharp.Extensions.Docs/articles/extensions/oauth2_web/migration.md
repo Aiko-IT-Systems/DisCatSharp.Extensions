@@ -48,4 +48,4 @@ The new package adds:
 
 ## NuGet deprecation
 
-The package is being deprecated in its package metadata and documentation, and it is intended to be marked deprecated on NuGet with `DisCatSharp.Hosting.AspNetCore` as the migration target.
+The package is deprecated in its package metadata and documentation, and package owners should also mark its published NuGet versions deprecated with `DisCatSharp.Hosting.AspNetCore` as the migration target.
