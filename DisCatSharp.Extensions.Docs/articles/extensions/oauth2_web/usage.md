@@ -7,7 +7,17 @@ author: DisCatSharp Team
 
 # OAuth2 Web Usage
 
-## Setup
+> [!IMPORTANT]
+> `DisCatSharp.Extensions.OAuth2Web` is deprecated.
+> Use `DisCatSharp.Hosting.AspNetCore` in the main DisCatSharp repository for new work.
+>
+> Migration summary:
+> - replace `UseOAuth2Web(...)` with `AddDisCatSharpAspNetCore(...)`
+> - replace manual `Start()` / `StopAsync()` with `app.MapDisCatSharpIngress()` or `AddDisCatSharpAspNetCoreSelfHost(...)`
+> - replace Apache-only proxy helpers with the new NGINX/Apache/Docker proxy helpers in `DisCatSharp.Hosting.AspNetCore`
+> - replace the old redirect/proxy checks with the new ingress validation helpers
+
+## Legacy setup
 
 # [Setup](#tab/single)
 

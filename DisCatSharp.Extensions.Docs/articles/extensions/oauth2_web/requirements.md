@@ -7,6 +7,16 @@ author: DisCatSharp Team
 
 # OAuth2 Web Requirements
 
+> [!IMPORTANT]
+> `DisCatSharp.Extensions.OAuth2Web` is deprecated.
+> The replacement package is `DisCatSharp.Hosting.AspNetCore` in the main DisCatSharp repository.
+>
+> The new first-party package keeps the OAuth callback flow but also adds:
+> - signed interaction ingress
+> - signed webhook event ingress
+> - proxy helpers for NGINX, Apache, and common Docker reverse proxies
+> - application/public URL validation helpers
+
 To use OAuth2 Web, you will need a few things:
 
 - A web server which can act as proxy for the OAuth2 flow. This can be a simple web server like nginx or apache, or a more complex one like ASP.NET Core.
@@ -16,9 +26,10 @@ To use OAuth2 Web, you will need a few things:
 - Your application's client ID and client secret
 - Free ports on your host (Especially if you are using OAuth2Web with shards)
 
-## Web Server
+## Legacy web server requirements
 
-To make things easier, we've added a method in the extension to generate proxy configurations for apache.
+To make things easier, the legacy extension included an Apache proxy generator.
+The replacement package expands that helper surface to NGINX, Apache, and common Docker-oriented proxies.
 
 To use them, follow the first steps of the [usage article](xref:extensions_oauth2_web_usage) and then call [GenerateApacheProxyConfigAsync](xref:DisCatSharp.Extensions.OAuth2Web.OAuth2WebExtensionUtilities.GenerateApache2ProxyFileAsync*) on your [DiscordClient](xref:DisCatSharp.DiscordClient) instance:
 

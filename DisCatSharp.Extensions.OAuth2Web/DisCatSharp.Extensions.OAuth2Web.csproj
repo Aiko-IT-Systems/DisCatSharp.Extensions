@@ -29,9 +29,10 @@
 		<Description>
 			DisCatSharp.Extensions.OAuth2Web
 
-			Extension providing a web server for the DiscordOAuth2Client.
+			Deprecated. Use DisCatSharp.Hosting.AspNetCore from the main DisCatSharp repository for OAuth callbacks, signed interaction ingress, webhook event ingress, proxy helpers, and validation helpers.
 		</Description>
-		<PackageTags>DisCatSharp,DisCatSharp Extension,OAuth2,OAuth,Discord OAuth2,Discord,Bots,Discord Bots,AITSYS,Net9,Net10,Net11,Webserver</PackageTags>
+		<PackageTags>DisCatSharp,DisCatSharp Extension,OAuth2,OAuth,Discord OAuth2,Discord,Bots,Discord Bots,AITSYS,Net9,Net10,Net11,Webserver,Deprecated</PackageTags>
+		<PackageReleaseNotes>Deprecated: migrate to DisCatSharp.Hosting.AspNetCore in the main DisCatSharp repository.</PackageReleaseNotes>
 		<TypeScriptJSXEmit>none</TypeScriptJSXEmit>
 		<TypeScriptModuleKind>none</TypeScriptModuleKind>
 	</PropertyGroup>

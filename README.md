@@ -7,6 +7,10 @@
 
 Official extensions for [DisCatSharp](https://github.com/Aiko-IT-Systems/DisCatSharp).
 
+> [!IMPORTANT]
+> `DisCatSharp.Extensions.OAuth2Web` is deprecated in favor of the first-party `DisCatSharp.Hosting.AspNetCore` package in the main DisCatSharp repository.
+> New OAuth callback, interaction ingress, webhook event ingress, proxy helper, and validation work now lives there.
+
 ## Installing
 
 You can install the extensions from the following sources:
@@ -24,5 +28,5 @@ The documentation is available at [ext-docs.dcs.aitsys.dev](https://ext-docs.dcs
 | Package                                    | LTS                                                                                                                         | Latest                                                                                                                                         |
 | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | DisCatSharp.Extensions.TwoFactorCommands   | ![NuGet](https://img.shields.io/nuget/v/DisCatSharp.Extensions.TwoFactorCommands.svg?label=&logo=nuget&style=flat-square)   | ![NuGet](https://img.shields.io/nuget/vpre/DisCatSharp.Extensions.TwoFactorCommands.svg?label=&logo=nuget&style=flat-square&color=%23ff1493)   |
-| DisCatSharp.Extensions.OAuth2Web           | ![NuGet](https://img.shields.io/nuget/v/DisCatSharp.Extensions.OAuth2Web.svg?label=&logo=nuget&style=flat-square)           | ![NuGet](https://img.shields.io/nuget/vpre/DisCatSharp.Extensions.OAuth2Web.svg?label=&logo=nuget&style=flat-square&color=%23ff1493)           |
+| DisCatSharp.Extensions.OAuth2Web *(deprecated)* | ![NuGet](https://img.shields.io/nuget/v/DisCatSharp.Extensions.OAuth2Web.svg?label=&logo=nuget&style=flat-square)           | ![NuGet](https://img.shields.io/nuget/vpre/DisCatSharp.Extensions.OAuth2Web.svg?label=&logo=nuget&style=flat-square&color=%23ff1493)           |
 | DisCatSharp.Extensions.SimpleMusicCommands | ![NuGet](https://img.shields.io/nuget/v/DisCatSharp.Extensions.SimpleMusicCommands.svg?label=&logo=nuget&style=flat-square) | ![NuGet](https://img.shields.io/nuget/vpre/DisCatSharp.Extensions.SimpleMusicCommands.svg?label=&logo=nuget&style=flat-square&color=%23ff1493) |
