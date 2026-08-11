@@ -1,6 +1,6 @@
 items:
     - name: Home
-      uid: index
+      uid: home
     - name: API
       uid: api_index
     - name: Articles

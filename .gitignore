@@ -326,4 +326,6 @@ Thumbs.db
 !**/obj/.cache/build/**
 !**/obj/.cache/build/**/*.*
 !**/obj/.cache/build/**/**
+DisCatSharp.Extensions.Docs/obj/search/
+search-tooling/
 .vscode/

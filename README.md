@@ -23,6 +23,14 @@ You can install the extensions from the following sources:
 
 The documentation is available at [ext-docs.dcs.aitsys.dev](https://ext-docs.dcs.aitsys.dev).
 
+Build it locally against an existing DisCatSharp checkout with:
+
+```powershell
+.\build-docs.ps1 -DisCatSharpRepository C:\path\to\DisCatSharp
+```
+
+The command links the canonical theme and shared search tooling into the ignored `search-tooling` directory. Without the parameter, it creates a shallow clone automatically.
+
 ----
 
 ## NuGet Packages

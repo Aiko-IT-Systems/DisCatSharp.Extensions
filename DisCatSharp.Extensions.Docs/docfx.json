@@ -106,7 +106,9 @@
 			"_appTitle": "DisCatSharp Extensions Docs",
 			"_appName": "DisCatSharp Extensions",
 			"_appFooter": "Made with ❤️ by AITSYS",
-			"_enableSearch": true,
+			"_enableSearch": false,
+			"_enableDcsSearch": true,
+			"_dcsSearchEndpoint": "https://docs.dcs.aitsys.dev/_search?corpus=extensions",
 			"_disableNextArticle": false,
 			"_disableSideFilter": false,
 			"_disableTocFilter": false,
@@ -149,8 +151,8 @@
 				"api/DisCatSharp.Extensions.TwoFactorCommands/toc.yml": "dcs-ext-docs-api-twofactorcommands.pdf"
 			}
 		},
-		"template": ["default", "modern", "dcs"],
-		"postProcessors": ["ExtractSearchIndex"],
+		"template": ["default", "modern", "../search-tooling/DisCatSharp.Docs/dcs"],
+		"postProcessors": [],
 		"noLangKeyword": false,
 		"keepFileLink": true,
 		"sitemap": {

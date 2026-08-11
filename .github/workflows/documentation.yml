@@ -8,76 +8,211 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: true
 
+concurrency:
+  group: documentation-production
+  cancel-in-progress: false
+
 jobs:
   build:
+    timeout-minutes: 45
     runs-on: ubuntu-latest
     name: Build documentation
     steps:
-    - name: Checkout current project
-      uses: actions/checkout@v7
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v6.0.0
-      with:
-        dotnet-version: |
-          11.x
-          10.x
-          9.x
-    - name: Git fetch unshallow
-      run: git fetch --unshallow
-    - name: Install DocFX
-      run: dotnet tool update -g docfx
-    - name: Restore packages
-      run: dotnet restore --no-cache -f -v minimal
-    - name: Build library
-      run: dotnet build -c Release --no-restore -v minimal
-      continue-on-error: true
-    - name: Build Docs
-      run: docfx DisCatSharp.Extensions.Docs/docfx.json
-    - name: Pack Docs
-      shell: pwsh
-      run: ./pack-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -OutputPath "./" -PackageName "dcs-ext-docs"
-    - name: Upload packed docs
-      uses: actions/upload-artifact@v7
-      with:
-        name: dcs-ext-docs.zip
-        path: dcs-ext-docs.zip
-        retention-days: 30
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.NYUW_TOKEN_GH }}
+      - name: Checkout shared documentation tooling
+        uses: actions/checkout@v7
+        with:
+          repository: Aiko-IT-Systems/DisCatSharp
+          ref: main
+          path: search-tooling
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6.0.0
+        with:
+          dotnet-version: |
+            11.x
+            10.x
+            9.x
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Git fetch unshallow
+        run: git fetch --unshallow
+      - name: Install DocFX
+        run: dotnet tool update -g docfx
+      - name: Restore packages
+        run: dotnet restore --no-cache -f -v minimal
+      - name: Build library
+        run: dotnet build -c Release --no-restore -v minimal
+      - name: Build Docs
+        run: docfx DisCatSharp.Extensions.Docs/docfx.json
+      - name: Remove stock browser search assets
+        shell: pwsh
+        run: |
+          Remove-Item DisCatSharp.Extensions.Docs/_site/index.json -ErrorAction SilentlyContinue
+          Remove-Item DisCatSharp.Extensions.Docs/_site/public/search-worker.min.js -ErrorAction SilentlyContinue
+      - name: Assert stock browser search assets are absent
+        shell: bash
+        run: |
+          test ! -e DisCatSharp.Extensions.Docs/_site/index.json
+          test ! -e DisCatSharp.Extensions.Docs/_site/public/search-worker.min.js
+      - name: Install search dependencies
+        run: npm ci
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Test shared search indexer
+        run: dotnet test search-tooling/DisCatSharp.Tools/DisCatSharp.Docs.SearchIndexer.Tests/DisCatSharp.Docs.SearchIndexer.Tests.csproj -c Release -v minimal
+      - name: Generate Extensions search index
+        run: >-
+          dotnet run --project search-tooling/DisCatSharp.Tools/DisCatSharp.Docs.SearchIndexer/DisCatSharp.Docs.SearchIndexer.csproj
+          -c Release --no-restore --
+          --repo .
+          --docs DisCatSharp.Extensions.Docs
+          --site DisCatSharp.Extensions.Docs/_site
+          --output DisCatSharp.Extensions.Docs/obj/search/search-index.json
+          --commit ${{ github.sha }}
+          --corpus extensions
+          --repository Aiko-IT-Systems/DisCatSharp.Extensions
+          --site-base-url https://ext-docs.dcs.aitsys.dev
+          --source-prefix DisCatSharp.Extensions
+      - name: Write documentation build marker
+        run: npm run marker -- ../../../DisCatSharp.Extensions.Docs/obj/search/search-index.json ../../../DisCatSharp.Extensions.Docs/_site/search-build.json
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Validate shared search Worker and Extensions corpus
+        env:
+          DCS_SEARCH_CORPUS: extensions
+          DCS_SEARCH_QUERY: TwoFactor
+          DCS_SEARCH_REPOSITORY: Aiko-IT-Systems/DisCatSharp.Extensions
+          DCS_SEARCH_SITE_BASE_URL: https://ext-docs.dcs.aitsys.dev
+        run: |
+          npm run types:check
+          npm run build
+          npm test
+          npm run migrate:local
+          npm run sync:local -- ../../../DisCatSharp.Extensions.Docs/obj/search/search-index.json
+          npm run smoke:corpus-local
+          npm run deploy:dry
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Prepare production search configuration
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run prepare:production
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Migrate and stage Extensions search corpus
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npm run migrate:remote
+          npm run sync -- ../../../DisCatSharp.Extensions.Docs/obj/search/search-index.json
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Pack Docs
+        shell: pwsh
+        run: ./pack-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -OutputPath "./" -PackageName "dcs-ext-docs"
+      - name: Upload packed docs
+        uses: actions/upload-artifact@v7
+        with:
+          name: dcs-ext-docs.zip
+          path: dcs-ext-docs.zip
+          retention-days: 5
+      - name: Upload staged search index
+        uses: actions/upload-artifact@v7
+        with:
+          name: dcs-ext-search-index
+          path: DisCatSharp.Extensions.Docs/obj/search/search-index.json
+          retention-days: 5
+
   documentation:
     runs-on: ubuntu-latest
     name: Upload documentation
     needs: build
     steps:
-    - name: Checkout docs repository
-      uses: actions/checkout@v7
-      with:
-        repository: Aiko-IT-Systems/DisCatSharp.Extensions.Docs
-        token: ${{ secrets.NYUW_TOKEN_GH }}
-    - name: Purge old docs
-      shell: pwsh
-      run: Get-ChildItem -Exclude .git* | Remove-Item -Recurse -Force
-    - name: Download packed docs
-      uses: actions/download-artifact@v8
-      with:
-        name: dcs-ext-docs.zip
-    - name: Extract new docs
-      run: unzip dcs-ext-docs.zip -d .
-    - name: Deleze zip
-      run: rm dcs-ext-docs.zip
-    - name: Delete packed docs
-      uses: geekyeggo/delete-artifact@v6
-      with:
-        name: dcs-ext-docs.zip
-    - name: Add .htaccess
-      run: rm -f .htaccess && wget https://gist.githubusercontent.com/Lulalaby/8a032d0ddebb9125691094edc67b6593/raw/0c4bf0423cfe334fdd5092b014d2481759dd052a/.htaccess
-    - name: Set access rights
-      run: sudo chmod 777 -R .
-    - name: Commit and push changes
-      uses: EndBug/add-and-commit@main
-      with:
-        default_author: user_info
-        author_name: NyuwBot
-        author_email: nyuw@aitsys.dev
-        committer_name: NyuwBot
-        committer_email: nyuw@aitsys.dev
-        commit: --signoff
-        message: 'Docs update for https://github.com/${{github.repository}}/commit/${{github.sha}}'
+      - name: Checkout docs repository
+        uses: actions/checkout@v7
+        with:
+          repository: Aiko-IT-Systems/DisCatSharp.Extensions.Docs
+          token: ${{ secrets.NYUW_TOKEN_GH }}
+      - name: Purge old docs
+        shell: pwsh
+        run: Get-ChildItem -Exclude .git* | Remove-Item -Recurse -Force
+      - name: Download packed docs
+        uses: actions/download-artifact@v8
+        with:
+          name: dcs-ext-docs.zip
+      - name: Extract new docs
+        run: unzip dcs-ext-docs.zip -d .
+      - name: Delete zip
+        run: rm dcs-ext-docs.zip
+      - name: Delete packed docs artifact
+        uses: geekyeggo/delete-artifact@v6
+        with:
+          name: dcs-ext-docs.zip
+      - name: Add .htaccess
+        run: rm -f .htaccess && wget https://gist.githubusercontent.com/Lulalaby/8a032d0ddebb9125691094edc67b6593/raw/0c4bf0423cfe334fdd5092b014d2481759dd052a/.htaccess
+      - name: Set access rights
+        run: sudo chmod 777 -R .
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@main
+        with:
+          default_author: user_info
+          author_name: NyuwBot
+          author_email: nyuw@aitsys.dev
+          committer_name: NyuwBot
+          committer_email: nyuw@aitsys.dev
+          commit: --signoff
+          message: "Docs update (https://github.com/${{ github.repository }}/commit/${{ github.sha }})"
+
+  activate-search:
+    runs-on: ubuntu-latest
+    name: Activate Extensions documentation search
+    needs: documentation
+    timeout-minutes: 10
+    steps:
+      - name: Checkout shared search tooling
+        uses: actions/checkout@v7
+        with:
+          repository: Aiko-IT-Systems/DisCatSharp
+          ref: main
+          path: search-tooling
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: search-tooling/DisCatSharp.Docs/search/package-lock.json
+      - name: Install search dependencies
+        run: npm ci
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Download staged search index
+        uses: actions/download-artifact@v8
+        with:
+          name: dcs-ext-search-index
+          path: DisCatSharp.Extensions.Docs/obj/search
+      - name: Prepare production search configuration
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run prepare:production
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Wait for matching Extensions documentation deployment
+        env:
+          DCS_DOCS_BASE_URL: https://discatsharp-extensions-docs.pages.dev
+        run: npm run wait:docs -- ../../../DisCatSharp.Extensions.Docs/obj/search/search-index.json
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Activate staged Extensions search corpus
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run sync:activate -- ../../../DisCatSharp.Extensions.Docs/obj/search/search-index.json
+        working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Smoke test active Extensions search and MCP
+        env:
+          DCS_SEARCH_BASE_URL: https://discatsharp-docs-search.aitsys.workers.dev
+          DCS_SEARCH_CORPUS: extensions
+          DCS_SEARCH_QUERY: TwoFactor
+          EXPECTED_BUILD_SHA: ${{ github.sha }}
+        run: npm run smoke:production
+        working-directory: search-tooling/DisCatSharp.Docs/search
