@@ -69,8 +69,8 @@ dotnet add package DisCatSharp.Extensions.TwoFactorCommands --prerelease</code><
 		<pre><code>https://docs.dcs.aitsys.dev/mcp</code></pre>
 	</div>
 	<div class="catpunk-actions">
-		<a class="catpunk-button" href="/articles/misc/agent_setup.html">Install the skill</a>
-		<a class="catpunk-button secondary" href="/articles/misc/agent_setup.html#connect-the-documentation-mcp">Connect MCP</a>
+		<a class="catpunk-button" href="https://docs.dcs.aitsys.dev/articles/misc/agent_setup">Install the skill</a>
+		<a class="catpunk-button secondary" href="https://docs.dcs.aitsys.dev/articles/misc/agent_setup#connect-the-documentation-mcp">Connect MCP</a>
 	</div>
 </section>
 

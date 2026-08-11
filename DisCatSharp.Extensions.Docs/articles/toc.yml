@@ -23,8 +23,8 @@ items:
                   uid: extensions_oauth2_web_migration
     - name: Miscellaneous
       items:
-          - name: AI Coding Assistants
-            uid: misc_agent_setup
+          - name: Agent Skills & MCP
+            href: https://docs.dcs.aitsys.dev/articles/misc/agent_setup
           - name: Nightly Builds
             uid: misc_nightly_builds
           - name: Reporting Issues
