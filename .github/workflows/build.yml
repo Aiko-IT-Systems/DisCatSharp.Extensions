@@ -1,40 +1,94 @@
 name: "Build Library"
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - "DisCatSharp.Docs/**"
+            - "DisCatSharp.Archive/**"
+            - "DisCatSharp.Tools/**"
+            - "DisCatSharp.Logos/**"
+            - "*.md"
+            - "*.json"
+    pull_request:
+    merge_group:
+    workflow_dispatch:
 
 env:
-  DOTNET_NOLOGO: true
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
-  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: true
+    DOTNET_NOLOGO: true
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    DOTNET_CLI_TELEMETRY_OPTOUT: true
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: true
 
 jobs:
-  build:
-    timeout-minutes: 30
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    name: Build library
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v7
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v6.0.0
-      with:
-        dotnet-version: |
-          11.x
-          10.x
-          9.x
-    - name: Restore dependencies
-      run: dotnet restore --no-cache -f -v minimal
-    - name: Build library
-      run: dotnet build -c Release -v normal --no-restore
-    - name: Test library
-      run: dotnet test -v normal -c Release --no-restore --no-build
+    build:
+        timeout-minutes: 15
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+        runs-on: ${{ matrix.os }}
+        name: Build library
+        env:
+          NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v6.0.0
+              with:
+                  dotnet-version: |
+                      11.x
+                      10.x
+                      9.x
+            - name: Restore dependencies
+              run: dotnet restore --no-cache -f -v minimal DisCatSharp.Extensions.slnx
+            - name: Build library
+              run: dotnet build -c Release -v minimal --no-restore DisCatSharp.Extensions.slnx
+            - name: Test library
+              run: dotnet test -v minimal -c Release --no-restore --no-build DisCatSharp.Extensions.slnx
+    pack:
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        name: "Pack and Artifact"
+        needs: build
+        env:
+          NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v6.0.0
+              with:
+                  dotnet-version: |
+                      11.x
+                      10.x
+                      9.x
+            - name: Restore Packages
+              run: dotnet restore --no-cache -f -v minimal DisCatSharp.Extensions.slnx
+            - name: Build library
+              run: dotnet build -c Release -v minimal --no-restore DisCatSharp.Extensions.slnx
+              env:
+                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+            - name: Publish library
+              run: dotnet pack -c Release -v minimal --no-build --no-restore --include-symbols --include-source -o ./artifacts DisCatSharp.Extensions.slnx
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v7
+              with:
+                  name: DisCatSharp.Extensions
+                  path: ./artifacts/
+            - name: Upload PDBs to Sentry
+              if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+              shell: bash
+              env:
+                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+              run: |
+                  mkdir -p ./pdb-upload
+                  for f in ./artifacts/*.snupkg; do
+                    unzip -o "$f" "*.pdb" -d ./pdb-upload/ || true
+                  done
+                  npx @sentry/cli debug-files upload --include-sources ./pdb-upload/
