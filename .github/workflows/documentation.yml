@@ -155,7 +155,7 @@ jobs:
       - name: Set access rights
         run: sudo chmod 777 -R .
       - name: Commit and push changes
-        uses: EndBug/add-and-commit@main
+        uses: EndBug/add-and-commit@v11
         with:
           default_author: user_info
           author_name: NyuwBot
@@ -163,8 +163,7 @@ jobs:
           committer_name: NyuwBot
           committer_email: nyuw@aitsys.dev
           commit: --signoff
-          message: "Docs update (https://github.com/${{ github.repository }}/commit/${{ github.sha }})"
-
+          message: "Docs update (https://github.com/${{github.repository}}/commit/${{github.sha}})"
   activate-search:
     runs-on: ubuntu-latest
     name: Activate Extensions documentation search
