@@ -1,0 +1,3 @@
+DisCatSharp.Extensions.SimpleMusicCommands Release Notes
+
+DisCatSharp.Extensions.TwoFactorCommands Release Notes

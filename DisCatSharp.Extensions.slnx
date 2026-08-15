@@ -10,6 +10,8 @@
     <File Path="logo.png" />
     <File Path="rebuild-lib.ps1" />
     <File Path="renovate.json" />
+	<File Path="RELEASENOTES.md" />
+	<File Path="README.md" />
   </Folder>
   <Folder Name="/github/">
     <File Path=".github/CODEOWNERS" />
@@ -26,13 +28,12 @@
     <File Path=".github/workflows/release.yml" />
   </Folder>
   <Folder Name="/Targets/">
-    <File Path="Targets/DisCatSharp.targets" />
-    <File Path="Targets/Library.targets" />
-    <File Path="Targets/NuGet.targets" />
-    <File Path="Targets/Package.targets" />
-    <File Path="Targets/Version.targets" />
+    <File Path="DisCatSharp.Targets/DisCatSharp.targets" />
+    <File Path="DisCatSharp.Targets/Library.targets" />
+    <File Path="DisCatSharp.Targets/NuGet.targets" />
+    <File Path="DisCatSharp.Targets/Package.targets" />
+    <File Path="DisCatSharp.Targets/Version.targets" />
   </Folder>
-  <Project Path="DisCatSharp.Extensions.OAuth2Web/DisCatSharp.Extensions.OAuth2Web.csproj" />
   <Project Path="DisCatSharp.Extensions.SimpleMusicCommands/DisCatSharp.Extensions.SimpleMusicCommands.csproj" />
   <Project Path="DisCatSharp.Extensions.TwoFactorCommands/DisCatSharp.Extensions.TwoFactorCommands.csproj" />
 </Solution>

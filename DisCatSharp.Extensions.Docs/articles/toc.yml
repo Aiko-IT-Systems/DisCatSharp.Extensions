@@ -11,16 +11,6 @@ items:
             items:
                 - name: Introduction
                   uid: extensions_twofactor_commands_intro
-          - name: OAuth2 Web
-            items:
-                - name: Introduction
-                  uid: extensions_oauth2_web_intro
-                - name: Requirements
-                  uid: extensions_oauth2_web_requirements
-                - name: Usage
-                  uid: extensions_oauth2_web_usage
-                - name: Migration
-                  uid: extensions_oauth2_web_migration
     - name: Miscellaneous
       items:
           - name: Agent Skills & MCP

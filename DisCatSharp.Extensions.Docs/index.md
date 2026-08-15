@@ -14,7 +14,7 @@ _disableNextArticle: true
 		<h1 class="catpunk-hero-title"><span class="catpunk-gradient-text">More tricks. Same sharp claws.</span></h1>
 		<p class="catpunk-hero-copy">
 			Focused packages for bots that need a little more than the core library: reusable music commands,
-			two-factor authentication flows, and migration guidance for the retired OAuth2Web extension.
+			two-factor authentication flows, and more.
 		</p>
 	</div>
 	<div class="catpunk-discord-preview">
@@ -40,10 +40,6 @@ _disableNextArticle: true
 	<a class="catpunk-link-card" href="/articles/extensions/twofactor_commands/intro.html">
 		<strong>Two-Factor Commands</strong>
 		<span>Add enrollment and verification flows to sensitive bot commands.</span>
-	</a>
-	<a class="catpunk-link-card" href="/articles/extensions/oauth2_web/migration.html">
-		<strong>OAuth2Web migration</strong>
-		<span>Move retired OAuth2Web integrations onto current DisCatSharp APIs.</span>
 	</a>
 </section>
 

@@ -2,11 +2,11 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="../Targets/Version.targets" />
-	<Import Project="../Targets/DisCatSharp.targets" />
-	<Import Project="../Targets/Package.targets" />
-	<Import Project="../Targets/NuGet.targets" />
-	<Import Project="../Targets/Library.targets" />
+	<Import Project="../DisCatSharp.Targets/Version.targets" />
+	<Import Project="../DisCatSharp.Targets/DisCatSharp.targets" />
+	<Import Project="../DisCatSharp.Targets/Package.targets" />
+	<Import Project="../DisCatSharp.Targets/NuGet.targets" />
+	<Import Project="../DisCatSharp.Targets/Library.targets" />
 
 	<PropertyGroup>
 		<AssemblyName>DisCatSharp.Extensions.TwoFactorCommands</AssemblyName>

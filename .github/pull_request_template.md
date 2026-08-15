@@ -2,7 +2,7 @@
 
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
 
-<!-- If this relates to an aitsys.dev issue: 
+<!-- If this relates to an aitsys.dev issue:
 Fixes {TXXX} (aitsys.dev issue)
 -->
 
@@ -37,4 +37,4 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] My changes generate no new warnings
 - [ ] Any dependent changes have been merged and published in downstream modules
 
-@Aiko-IT-Systems/discatsharp
+@Aiko-IT-Systems/discatsharp-reviewer

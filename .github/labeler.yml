@@ -1,23 +1,31 @@
-version: 1
+version: "1"
 labels:
-  - label: "ci/cd"
-    files:
-      - ".github/.*"
-      - ".github/workflows/.*"
-  - label: "branding"
-    files:
-      - ".*.jpg"
-      - ".*.png"
-      - ".*.svg"
-      - ".*.jpeg"
-      - ".*.guf"
-      - ".*.css"
-  - label: "documentation"
-    files:
-      - "DisCatSharp.Docs/.*"
-  - label: "experimental"
-    title: ^[Exp]:.*
-  - label: "dependencies"
-    files:
-      - ".*.csproj"
-      - ".*.sln"
+    - label: "ci/cd"
+      files:
+          - ".github/.*"
+          - ".github/workflows/.*"
+    - label: "branding"
+      files:
+          - ".*.jpg"
+          - ".*.png"
+          - ".*.svg"
+          - ".*.jpeg"
+          - ".*.gif"
+          - ".*.css"
+    - label: "documentation"
+      files:
+          - "DisCatSharp.Extensions.Docs/.*"
+    - label: "agent skills"
+      files:
+          - "skills/.*"
+          - "AGENTS.md"
+          - "CLAUDE.md"
+          - "GEMINI.md"
+    - label: "experimental"
+      title: ^[Exp]:.*
+    - label: "dependencies"
+      files:
+          - ".*.csproj"
+          - ".*.sln"
+          - "*.targets"
+          - "*.slnx"

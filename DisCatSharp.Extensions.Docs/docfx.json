@@ -19,22 +19,6 @@
 		{
 			"src": [
 				{
-					"src": "../DisCatSharp.Extensions.OAuth2Web/",
-					"files": ["**.csproj"],
-					"exclude": ["**/obj/**", "**/bin/**"]
-				}
-			],
-			"dest": "api/DisCatSharp.Extensions.OAuth2Web",
-			"filter": "filter_config.yml",
-			"disableDefaultFilter": false,
-			"memberLayout": "separatePages",
-			"namespaceLayout": "flattened",
-			"enumSortOrder": "declaringOrder",
-			"includeExplicitInterfaceImplementations": true
-		},
-		{
-			"src": [
-				{
 					"src": "../DisCatSharp.Extensions.SimpleMusicCommands/",
 					"files": ["**.csproj"],
 					"exclude": ["**/obj/**", "**/bin/**"]
