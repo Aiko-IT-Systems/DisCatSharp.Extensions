@@ -7,7 +7,6 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 export const PACKAGE_IDS = Object.freeze([
-  "DisCatSharp.Extensions.OAuth2Web",
   "DisCatSharp.Extensions.SimpleMusicCommands",
   "DisCatSharp.Extensions.TwoFactorCommands",
 ]);
