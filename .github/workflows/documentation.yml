@@ -215,3 +215,7 @@ jobs:
           EXPECTED_BUILD_SHA: ${{ github.sha }}
         run: npm run smoke:production
         working-directory: search-tooling/DisCatSharp.Docs/search
+      - name: Delete staged search index artifact
+        uses: geekyeggo/delete-artifact@v6
+        with:
+          name: dcs-ext-search-index
