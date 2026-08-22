@@ -117,13 +117,13 @@ jobs:
         with:
           name: dcs-ext-docs.zip
           path: dcs-ext-docs.zip
-          retention-days: 5
+          retention-days: 1
       - name: Upload staged search index
         uses: actions/upload-artifact@v7
         with:
           name: dcs-ext-search-index
           path: DisCatSharp.Extensions.Docs/obj/search/search-index.json
-          retention-days: 5
+          retention-days: 1
 
   documentation:
     runs-on: ubuntu-latest
