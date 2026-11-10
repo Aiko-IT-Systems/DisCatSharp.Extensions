@@ -19,11 +19,11 @@ jobs:
     name: Build documentation
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           token: ${{ secrets.NYUW_TOKEN_GH }}
       - name: Checkout shared documentation tooling
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           repository: Aiko-IT-Systems/DisCatSharp
           ref: main
@@ -36,7 +36,7 @@ jobs:
             10.x
             9.x
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: 26
       - name: Git fetch unshallow
@@ -113,13 +113,13 @@ jobs:
         shell: pwsh
         run: ./pack-docs.ps1 -DocsPath "./DisCatSharp.Extensions.Docs" -OutputPath "./" -PackageName "dcs-ext-docs"
       - name: Upload packed docs
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: dcs-ext-docs.zip
           path: dcs-ext-docs.zip
           retention-days: 1
       - name: Upload staged search index
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: dcs-ext-search-index
           path: DisCatSharp.Extensions.Docs/obj/search/search-index.json
@@ -131,7 +131,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout docs repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           repository: Aiko-IT-Systems/DisCatSharp.Extensions.Docs
           token: ${{ secrets.NYUW_TOKEN_GH }}
@@ -139,7 +139,7 @@ jobs:
         shell: pwsh
         run: Get-ChildItem -Exclude .git* | Remove-Item -Recurse -Force
       - name: Download packed docs
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v8.0.2
         with:
           name: dcs-ext-docs.zip
       - name: Extract new docs
@@ -147,7 +147,7 @@ jobs:
       - name: Delete zip
         run: rm dcs-ext-docs.zip
       - name: Delete packed docs artifact
-        uses: geekyeggo/delete-artifact@v6
+        uses: geekyeggo/delete-artifact@v6.0.0
         with:
           name: dcs-ext-docs.zip
       - name: Add .htaccess
@@ -155,7 +155,7 @@ jobs:
       - name: Set access rights
         run: sudo chmod 777 -R .
       - name: Commit and push changes
-        uses: EndBug/add-and-commit@v11
+        uses: EndBug/add-and-commit@v11.1.1
         with:
           default_author: user_info
           author_name: NyuwBot
@@ -171,13 +171,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout shared search tooling
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           repository: Aiko-IT-Systems/DisCatSharp
           ref: main
           path: search-tooling
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: 26
           cache: npm
@@ -186,7 +186,7 @@ jobs:
         run: npm ci
         working-directory: search-tooling/DisCatSharp.Docs/search
       - name: Download staged search index
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v8.0.2
         with:
           name: dcs-ext-search-index
           path: DisCatSharp.Extensions.Docs/obj/search
@@ -216,6 +216,6 @@ jobs:
         run: npm run smoke:production
         working-directory: search-tooling/DisCatSharp.Docs/search
       - name: Delete staged search index artifact
-        uses: geekyeggo/delete-artifact@v6
+        uses: geekyeggo/delete-artifact@v6.0.0
         with:
           name: dcs-ext-search-index
