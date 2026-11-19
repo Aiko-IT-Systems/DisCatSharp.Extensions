@@ -41,7 +41,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.15" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.15" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="QRCoder" Version="1.8.1" />
+		<PackageReference Include="QRCoder" Version="1.9.0" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
 		<PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
 	</ItemGroup>
